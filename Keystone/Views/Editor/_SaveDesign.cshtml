@@ -1,0 +1,98 @@
+﻿@using Newtonsoft.Json
+@using Keystone.Web.Utilities
+@{
+    List<Keystone.Web.Models.DraftPagesModel> draftImages = (List<Keystone.Web.Models.DraftPagesModel>)ViewBag.DraftImages;
+    int? userId = CommonUtility.GetSessionData<int?>(SessionVariable.UserId);
+}
+<div id="myModal" class="reveal-modal">
+    <h1 class="title">
+        <img src='@Url.Content("~/Styles/Images/save_icon.png")' alt="" />Save Design
+    </h1>
+
+    <div class="total_part_lightbox">
+        <div class="left_part_design">
+            @Html.Partial("_TemplatePageNavigatorOnClient", draftImages)
+        </div>
+        <div class="right_part_design">
+            <div class="stage1">
+                <h2>Name Your Desgin</h2>
+                <div class="design_name">
+                    <div class="dName">Design Name</div>
+                    <div class="field">
+                        <form id="frmDraftName">
+                            @Html.TextBox("draftName", "", new { placeholder = "Draft Name", @class = "gradient_effect" })
+                            @Html.Hidden("draftPages", JsonConvert.SerializeObject(draftImages, 
+                                new JsonSerializerSettings { ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore }))
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="stage2">
+                <div class="user-login" style='display:@(userId.HasValue ? "none" : "block");'>
+                    <div class="stage2_structure">
+                        <h2>
+                            <a href="#" onclick="$('#create-account').show();$('#signin-account').hide();">
+                                Create
+                                a Free Account
+                            </a>
+                        </h2>
+                        <div class="or"></div>
+                        <h3>
+                            <a href="#" onclick="$('#create-account').hide();$('#signin-account').show();">
+                                Sign
+                                In
+                            </a>
+                        </h3>
+                    </div>
+                    <h4 class="other_text">YOU NEED AN ACOUNT TO SAVE ITEMS</h4>
+                    <p>Create a free account by filling out the fields below... Easy!</p>
+                    <div class="form">
+                        <div id="create-account">
+                            @using (Ajax.BeginForm("CreateUser", "UserAccount", null, new AjaxOptions
+                            {
+                                HttpMethod = "Post",
+                                OnSuccess = "SaveDraftToContinue"
+                            }, new { id = "frmCreateUserAccount" }))
+                            {
+                                <div class="form1">
+                                    @Html.TextBox("FirstName", "", new { placeholder = "First Name", @class = "gradient_effect" })
+                                </div>
+                                <div class="form1">
+                                    @Html.TextBox("LastName", "", new { placeholder = "Last Name", @class = "gradient_effect" })
+                                </div>
+                                <div class="form1">
+                                    @Html.TextBox("EmailId", "", new { placeholder = "Email", @class = "gradient_effect" })
+                                </div>
+                            }
+                        </div>
+                        <div id="signin-account" style="display: none;">
+                            @using (Ajax.BeginForm("SignInUser", "UserAccount", null, new AjaxOptions
+                            {
+                                HttpMethod = "Post",
+                                OnSuccess = "SaveDraftToContinue"
+                            }, new { id = "frmSignInUser" }))
+                            {
+                                <div class="form1">
+                                    @Html.TextBox("UserId", "", new { placeholder = "User Id / Email Id", @class = "gradient_effect" })
+                                </div>
+                                <div class="form1">
+                                    @Html.TextBox("Password", "", new { type = "password", placeholder = "Password", @class = "gradient_effect" })
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form_btn">
+                    <input type="button" class="continue" onclick="javascript: modal.close();" value="Continue Editing" />
+                    <a href="javascript:SaveAsDraft();">
+                        <input type="button" class="continue2" value="Save as Draft" />
+                    </a>
+                    <a href="javascript:SaveAndProceedToShoppingCart('@Url.Action("GetOrderPrint", "Editor")')">
+                        <input type="button" class="save_btn" value="Save and Proceed to Shopping Cart" />
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

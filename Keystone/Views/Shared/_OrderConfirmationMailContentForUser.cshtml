@@ -1,0 +1,204 @@
+﻿@using Keystone.Web.Utilities
+@using Keystone.Web.Models
+@model ShoppingCartModel
+@{
+    Layout = null;
+    string baseUrl = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
+    AttachmentTypeEnum attachmentType = (AttachmentTypeEnum)TempData["AttachmentType"];
+}
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Order Receipt</title>
+</head>
+<body>
+    <table width="778" border="0" style="background-color: #323232; margin: 0 auto;">
+        <tr>
+            <td>
+                <div style="float: left; width: 282px; height: 55px; margin: 14px 0 12px 7px;">
+                    <a href="#" style="outline: none; border: none; text-decoration: none;">
+                        <img src="@System.Configuration.ConfigurationManager.AppSettings["DomainName"]/Styles/Images/logo.png" alt="" />
+                    </a>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td style="background-color: #fff; width: 759px; min-height: 20px; float: left; margin-left: 7px; margin-bottom: 7px;">
+                <table width="734" border="0" style="background-color: #dfdfdf; border-top: 3px solid #393939; margin: 12px;">
+                    <tr>
+                        <td>
+                            <table width="682" border="0" style="margin: 20px 20px 10px 20px;">
+                                <tr>
+                                    <td>
+                                        @if (attachmentType == AttachmentTypeEnum.Archive)
+                                        {
+                                            <div style="font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif; font-weight: 900; font-size: 28px; color: #515151; width: 682px; float: left; border-bottom: 1px solid #989898;">
+                                                Order confirmation
+                                            </div>
+                                            <div style="font-family: Arial, Helvetica, sans-serif; color: #515151; font-size: 14px; line-height: 25px; margin-top: 10px; float: left;">
+                                                <strong>Hello!</strong>
+                                                <br />
+                                                Your order is being processed!
+                                                <br />
+                                                <br />
+                                                Thank you
+                                            </div>
+                                        }
+                                        else if (attachmentType == AttachmentTypeEnum.PDF)
+                                        {
+                                            <div style="font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif; font-weight: 900; font-size: 28px; color: #515151; width: 682px; float: left; border-bottom: 1px solid #989898;">
+                                                Here's your order confirmation
+                                            </div>
+                                            <div style="font-family: Arial, Helvetica, sans-serif; color: #515151; font-size: 14px; line-height: 25px; margin-top: 10px; float: left;">
+                                                <strong>Hello @((TempData["UserName"] ?? "").ToString())!</strong>
+                                                <br />
+                                                Your order is being processed!
+                                                <br />
+                                                <br />
+                                                Thank you
+                                            </div>
+                                        }
+                                        <div style="width: 100%; clear: both;">
+                                            <a href='@Url.Action("SelectedIndex", "PriceSummary", new { templateid = 1 }, this.Request.Url.Scheme)'>
+                                                <input style="background:url(@System.Configuration.ConfigurationManager.AppSettings["DomainName"]/Styles/Images/payby_btn.png); border: none;width: 189px;height: 35px;font-size: 18px;font-weight: bold;color: #ffffff;font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;" type="button" class="rup_checkout" value="Continue Shopping" />
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: #d7d7d7; margin: 14px 0 14px 0; width: 682px; float: left;">
+                                        <div style="width: 669px; background-color: #e4e4e4; float: left; margin: 5px;">
+                                            <div style="width: 648px; min-height: 20px; float: left; margin: 5px 10px;">
+                                                <div style="font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif; font-weight: 900; font-size: 21px; color: #515151; width: 648px; float: left; border-bottom: 1px solid #989898;">
+                                                    Order details
+                                                </div>
+                                            </div>
+                                            <div style="width: 648px; min-height: 20px; float: left; margin: 10px;">
+                                                <div style="float: left; font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #010101; font-weight: bold;">
+                                                    <div style="width: 125px; min-height: 20px; float: left;">
+                                                        Ship to :
+                                                    </div>
+                                                    <div style="width: 125px; min-height: 20px; float: left; margin: 0 59px 0 96px;">
+                                                        Payment Details :
+                                                    </div>
+                                                    <div style="width: 125px; min-height: 20px; float: left;">
+                                                        Total :
+                                                    </div>
+                                                </div>
+                                                <div style="float: left; font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #0b748f; font-weight: normal;">
+                                                    <div style="width: 125px; min-height: 20px; float: left;">
+                                                        @Html.Partial("_DisplayAddress", Model.ShippingAddress, new ViewDataDictionary() {
+                                                            { "UserName", Model.UserAccount.ToString() },{ "AddressType", "Shipping" } })
+                                                    </div>
+                                                    <div style="width: 125px; min-height: 20px; float: left; margin: 0 59px 0 96px;">
+                                                        @(((PaymentTypeEnum)Model.PaymentTypeId).ToString())
+                                                    </div>
+                                                    <div style="width: 125px; min-height: 20px; float: left; font-weight: bold;">
+                                                        @Model.Order.TotalAmount.ToString("c")
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td style="background-color: #d7d7d7; margin: 0 0 14px 0; width: 682px; float: left;">
+                                        <div style="width: 669px; background-color: #e4e4e4; float: left; margin: 5px;">
+                                            <div style="width: 648px; min-height: 20px; float: left; margin: 5px 10px;">
+                                                <div style="font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif; font-weight: 900; font-size: 21px; color: #515151; width: 648px; float: left;">
+                                                    Merchant:  Keystone Industries
+                                                </div>
+
+                                                <div style="width: 648px; float: left; background-color: #d3d3d3; height: 32px; margin: 5px 0;">
+                                                    <div style="width: 55%; min-height: 20px; float: left; font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif; font-weight: 900; font-size: 15px; color: #606060; margin-left: 5px; margin-top: 6px;">Item Title </div>
+                                                    @*<div style="width:62px;min-height:20px;float:left;font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;font-weight:900;font-size:15px;color:#606060;margin:6px 20px 0 250px;"> Price </div>*@
+                                                    <div style="width: 24%; min-height: 20px; float: left; font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif; font-weight: 900; font-size: 15px; color: #606060; margin: 6px 0 0 0;">QTY</div>
+                                                    <div style="width: 20%; min-height: 20px; float: left; font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif; font-weight: 900; font-size: 15px; color: #606060; margin-top: 6px;">Item Total</div>
+                                                </div>
+
+                                                @foreach (OrderItemModel item in Model.Order.OrderItems)
+                                                {
+                                                    <div style="width: 648px; min-height: 20px; float: left; margin: 5px 0; font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: bold; color: #00a9d4;">
+                                                        @item.Template.ToString()
+                                                    </div>
+
+                                                    <div style="width: 648px; min-height: 20px; float: left; margin: 5px 0; border-bottom: 1px solid #989898; padding-bottom: 10px;">
+                                                        <div style="width: 334px; min-height: 20px; float: left; font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #010101;">
+                                                            <img src='@string.Format("{0}{1}", baseUrl, item.DisplayUrl)' alt="" width="100" height="89" style="border:none;" />
+                                                            <div style="width: 210px; min-height: 20px; float: right;">
+                                                                <ul style="margin: 0; padding: 0;">
+                                                                    @foreach (string itemDesc in item.Template.TemplateDesc.Split('#'))
+                                                                    {
+                                                                        <li>@itemDesc</li>
+                                                                    }
+                                                                </ul>
+
+                                                                <br />
+                                                                <br />
+                                                                Estimated Delivery : @CommonUtility.AddBusinessDays(Model.Order.OrderDate, item.DeliverySchedule.DeliveryTo).ToString("MM/dd/yyyy")
+                                                            </div>
+                                                        </div>
+                                                        <div style="min-width: 60px; min-height: 20px; float: left; font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #010101; margin-left: 37px;">
+                                                            @item.Quantity.ToString()
+                                                        </div>
+                                                        <div style="min-width: 60px; min-height: 20px; float: left; font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #010101; margin-left: 117px;">
+                                                            @item.Price.ToString("c")
+                                                        </div>
+                                                    </div>
+                                                }
+
+                                                @if (Model.Order.DiscountAmount > 0)
+                                                {
+                                                    <div style="width: 295px; min-height: 20px; float: right; border-bottom: 1px solid #989898; padding-bottom: 5px;">
+                                                        <div style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #010101; font-weight: bold; float: left;">
+                                                            Promo Discount :
+                                                        </div>
+                                                        <div style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #010101; font-weight: bold; min-width: 60px; float: left; margin-left: 140px;">
+                                                            @(Model.Order.DiscountAmount.ToString("c"))
+                                                        </div>
+                                                    </div>
+                                                }
+                                                <div style="width: 295px; min-height: 20px; float: right; border-bottom: 2px double #989898; padding-bottom: 5px; clear: both; margin-top: 5px;">
+                                                    <div style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #010101; font-weight: bold; float: left;">
+                                                        Total :
+                                                    </div>
+                                                    <div style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #010101; font-weight: bold; min-width: 60px; float: left; margin-left: 164px;">
+                                                        @Model.Order.TotalAmount.ToString("c")
+                                                    </div>
+                                                </div>
+
+                                                <div style="width: 100%; clear: both;">
+                                                    <a href='@Url.Action("SelectedIndex", "PriceSummary", new { templateid = 1 })'>
+                                                        <input style="background:url(@System.Configuration.ConfigurationManager.AppSettings["DomainName"]/Styles/Images/payby_btn.png); border: none;width: 189px;height: 35px;font-size: 18px;font-weight: bold;color: #ffffff;font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;" type="button" class="rup_checkout" value="Continue Shopping" />
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div style="width: 100%;height: 52px;float: left;background: url(@System.Configuration.ConfigurationManager.AppSettings["DomainName"]/Styles/Images/price_heading.png) no-repeat;margin: 12px 0px 0px -12px;">
+                                            <h2 style="font-family: 'oswaldbold'; font-size: 16px; color: #fff; width: 128px; min-height: 20px; margin-left: 28px; margin-top: 6px;">Other Services</h2>
+                                        </div>
+                                        <ul style="list-style: none; padding: 0; width: 100%; min-height: 20px; float: left; margin-left: 15px; margin-top: -20px; margin-bottom: 10px;">
+                                            <li style="display: block; margin: 0; padding: 0;">
+                                                <a style="font-family: 'oswaldbold'; font-size: 14px; color: #373737; text-decoration: none; line-height: 25px;" href="#">» Mailing Services</a>
+                                            </li>
+                                            <li style="display: block; margin: 0; padding: 0;">
+                                                <a style="font-family: 'oswaldbold'; font-size: 14px; color: #373737; text-decoration: none; line-height: 25px;" href="#">» Marketing Services</a>
+                                            </li>
+                                        </ul>
+
+                                        <a href="http://gtmarketingltd.com/contact.php">
+                                            <input type="button" style="background: url(@System.Configuration.ConfigurationManager.AppSettings["DomainName"]/Styles/Images/who_btn.png) no-repeat;width: 157px;height: 58px;border: none;margin-right: 31px;margin-bottom: 10px;" />
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

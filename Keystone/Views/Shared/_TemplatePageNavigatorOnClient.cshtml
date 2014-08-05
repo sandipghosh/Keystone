@@ -1,0 +1,36 @@
+﻿@using System.Collections.Generic
+@using Keystone.Web.Models
+@using Keystone.Web.Utilities
+@model List<DraftPagesModel>
+@{
+    string previewUrl = (Model.FirstOrDefault().DraftPreviewUrl).IsBase64() ?
+        Model.FirstOrDefault().DraftPreviewUrl.ToBase64Decode() : Model.FirstOrDefault().DraftPreviewUrl;
+
+    List<DraftPagesModel> activeDraftPages = Model
+        .Where(x => x.StatusId.Equals((int)StatusEnum.Active)).ToList();
+}
+<div class="image-navigation-wrapper">
+    <div class="page-image-container">
+        <div id="image-preloader" class="image-preloader"></div>
+        <img id="PreviewImageSaveDraft" width="300" src='@string.Format("{0}?{1}", previewUrl, CommonUtility.GenarateRandomString(20,20))' alt="" />
+    </div>
+    <div class="page-navigator-container">
+        <ul class="page-navigator">
+            @foreach (DraftPagesModel item in activeDraftPages)
+            {
+                string navName = string.Empty;
+                string selected = "";
+                if (activeDraftPages.IndexOf(item) == 0)
+                { navName = "Front Page"; selected = "selected"; }
+                else if (activeDraftPages.IndexOf(item) == activeDraftPages.Count() - 1)
+                { navName = "Back Page"; }
+                else
+                { navName = activeDraftPages.IndexOf(item).ToString(); }
+
+                <li class="page-navigator-index @selected">
+                    <a href='javascript:void(0);' onclick='NavigatePageOnClient("@item.DraftPreviewUrl.ToBase64Decode()", this);'>@navName</a>
+                </li>
+            }
+        </ul>
+    </div>
+</div>

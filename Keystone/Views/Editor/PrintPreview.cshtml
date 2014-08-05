@@ -1,0 +1,21 @@
+﻿@using Keystone.Web.Models
+@using Keystone.Web.Utilities
+@model PrintPreview
+@{
+    Layout = null;
+}
+<html>
+<head>
+    <title>Print Preview</title>
+    <script type="text/javascript">
+        window.onload = function () {
+            window.print();
+        }
+    </script>
+</head>
+<body>
+    <img id="imgPreview" src="@Server.UrlDecode(Model.ImageUrl).ToBase64Decode()" 
+         @*width="@Model.Width" height="@Model.Height"*@ 
+         style="background: url('@Url.Content("~/Styles/Images/image-preloader.GIF")') center no-repeat; max-width: 100%; max-height 100%; bottom 0; left 0; margin auto; overflow auto; position fixed; right 0; top 0;" />
+</body>
+</html>

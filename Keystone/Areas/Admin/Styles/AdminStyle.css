@@ -1,0 +1,126 @@
+﻿
+.admin-container, .admin-menu-container, .admin-body-container {
+    float: left;
+    width: 100%;
+    display: block;
+}
+
+    .admin-menu-container span {
+        width: 35%;
+        margin-left: 1%;
+        padding: 2% 0 2% 4%;
+        color: #202224;
+        font-family: 'oswaldbold';
+        font-size: 25px;
+        text-shadow: 1px 1px 5px #666666;
+        display: block;
+        float: left;
+    }
+
+    .admin-menu-container ul {
+        list-style-type: none;
+        float: right;
+        width: 60%;
+    }
+
+        .admin-menu-container ul li {
+            display: inline-block;
+            padding: 1% 2%;
+            background-color: #a3a1a1;
+            border-radius: 0 0 4px 4px;
+            margin-right: .5%;
+            border: 1px solid #a3a1a1;
+        }
+
+            .admin-menu-container ul li a {
+                text-decoration: none;
+                color: #fff;
+                font-family: "oswaldbold";
+                font-size: 15px;
+                display: block;
+                width: 100%;
+            }
+
+            .admin-menu-container ul li:hover {
+                background-color: #d8d6d6;
+                border: 1px solid #a3a1a1;
+            }
+
+.selected-menu {
+    background-color: #d8d6d6 !important;
+    border: 1px solid #a3a1a1 !important;
+}
+
+    .selected-menu a {
+        color: #00a9d4 !important;
+    }
+
+.admin-menu-container ul li:hover a {
+    color: #00a9d4;
+}
+
+.admin-body-container {
+    padding: 1% 1% 5% 1%;
+    width: 98%;
+}
+
+.grid-command {
+    display: block;
+    float: left;
+    cursor: pointer;
+    margin: 1px;
+}
+
+.grid-command-hover {
+    border: 1px solid #eeeeee;
+    margin: 0px;
+}
+
+.command_edit {
+    width: 16px;
+    height: 16px;
+    background: url('images/icon-set2.png') no-repeat 0 -72px;
+}
+
+.command_save {
+    width: 16px !important;
+    height: 16px;
+    background: url('images/icon-set2.png') no-repeat 0 -126px;
+}
+
+.command_cancel {
+    width: 16px;
+    height: 16px;
+    background: url('images/icon-set2.png') no-repeat 0 -378px;
+}
+
+.command_delete {
+    width: 16px;
+    height: 16px;
+    background: url('images/icon-set2.png') no-repeat 0 -198px;
+}
+
+.command_add {
+    width: 16px;
+    height: 16px;
+    background: url('images/icon-set2.png') no-repeat 0 -18px !important;
+}
+
+/*.command_excel_export {width:16px; height:16px; background: url('images/icon-set2.png') no-repeat 0 -897px;}*/
+.command_excel_export {
+    width: 16px;
+    height: 16px;
+    background: url('images/doc-excel.png') no-repeat !important;
+}
+
+.command_download_pdf {
+    width: 16px;
+    height: 16px;
+    background: url('images/doc_pdf.png') no-repeat;
+}
+
+.command_download_zip {
+    width: 16px;
+    height: 16px;
+    background: url('images/white_zip.png') no-repeat;
+}

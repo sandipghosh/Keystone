@@ -1,0 +1,30 @@
+﻿@using Keystone.Web.Utilities
+@using Keystone.Web.Models
+@model DraftModel
+@{
+    Layout = null;
+    DraftPagesModel firstDraftPage = Model.DraftPages.FirstOrDefault();
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+    <script type="text/javascript" src='@Url.Content("~/Scripts/jquery-2.1.0.min.js")'></script>
+    <script type="text/javascript">
+        for (var key in sessionStorage) {
+            if (key != 'IDENTITY') {
+                sessionStorage.removeItem(key);
+            }
+        }
+        sessionStorage.setItem('SELECTED_TEMPLATE_ID', parseInt('@firstDraftPage.TemplateId'));
+        window.location.href = '@Url.Action("SavedImageIndex", "Editor", new { draftId = Model.DraftId })';
+    </script>
+</head>
+<body>
+    <div>
+
+    </div>
+</body>
+</html>

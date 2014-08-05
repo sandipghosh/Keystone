@@ -1,0 +1,52 @@
+﻿@using Keystone.Web.Models
+@using Keystone.Web.Utilities
+@model TemplateModel
+
+<div id="myModal2" class="reveal-modal">
+    <h1 class="title">
+        <img src='@Url.Content(string.Format("~/Styles/Images/order_icon.png"))' alt="" />Order Prints
+    </h1>
+
+    @*@Html.Partial("_StatusNavigation", new ViewDataDictionary { { "Page", "OrderPrint" } })*@
+
+    <div class="total_part_lightbox">
+        <div class="left_part_design">
+            <img width="330" src='@Url.Content(string.Format("~{0}?{1}", ViewBag.DraftImage, CommonUtility.GenarateRandomString(20,20)))' alt="" />
+        </div>
+        <div class="right_part_design">
+            <div class="stage1">
+                <div class="left_text_print">
+                    <p style="line-height: 2;font-weight: bold;">@Model.TemplateTitle.ToString() </p>
+                    <p class="other">@string.Format("{0:0.0}\" - {1:0}\"", Model.TemplateWidth, Model.TemplateHeight)</p>
+                </div>
+            </div>
+            <div class="stage2">
+                <h4 class="other_text3">Printed On:</h4>
+                <p class="otherpp">
+                    100# Gloss Text Stock
+                </p>
+                @{Html.RenderPartial("_DeliverySchedule", (List<DeliveryScheduleModel>)ViewBag.AvailableDeliverySchedules,
+                      new ViewDataDictionary { { "DeliveryId", ViewBag.DeliveryId } });}
+                <h4 class="other_text3">Quantity</h4>
+                @Html.DropDownList("Quantity", (SelectList)ViewBag.AvailableQuantities, new { @class = "quantity_field" })
+                <div class="total_price">
+                    <div class="rate_cost">Estimated Cost</div>
+                    <div class="rate_oftotal">@string.Format("${0:0.00}", ViewBag.Price)</div>
+                </div>
+            </div>
+            @using (Html.BeginForm("SetOrderItems", "Editor", FormMethod.Post, new { id = "frmAddOrder" }))
+            {
+                @Html.Hidden("templateId", (object)ViewBag.TemplateId)
+                @Html.Hidden("deliveryId", (object)ViewBag.DeliveryId)
+                @Html.Hidden("quantity", (object)ViewBag.Quantity)
+                @Html.Hidden("price", (object)ViewBag.Price)
+                <a href="javascript:void(0);" onclick="GotoShoppingCart();">
+                    <input type="button" class="addtocart" value="Add to cart" />
+                </a>
+            }
+        </div>
+    </div>
+    @*<p id="disclaimer">
+        Disclaimer: Please review your order carefully. Once an order is submitted, it goes into production immediately and cannot be changed or canceled. Thank you.
+    </p>*@
+</div>

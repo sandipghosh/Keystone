@@ -1,0 +1,115 @@
+﻿@using Keystone.Web.Utilities
+@using Keystone.Web.Models
+@model OrderModel
+@{
+    UserAddressModel shippingAddress = Model.UserAccount.GetAddress(AddressTypeEnum.Shipping);
+    UserAddressModel billingAddress = Model.UserAccount.GetAddress(AddressTypeEnum.Billing);
+}
+@section PageScript{
+    <script type="text/javascript" src='@Url.Content("~/Scripts/Payment.js")'></script>
+    <script type="text/javascript" src='@Url.Content("~/Scripts/jquery.creditCardValidator.js")'></script>
+}
+@Html.Hidden("Error", (object)ViewBag.Error ?? "")
+<div class="body_part_inner">
+    @*@Html.ActionLink("Export to PDF", "DownloadOrderedPDFFile", "ShoppingCart", new { orderId = ViewBag.OrderId }, null)*@
+    @Html.Partial("_NavBar", new ViewDataDictionary { { "OrderId", ViewBag.OrderId } })
+
+    <div class="print_total">
+        <h1 class="title3">
+            <img src='@Url.Content("~/Styles/Images/payment_icon.png")' alt="" />Payment
+        </h1>
+        @Html.Partial("_StatusNavigation", new ViewDataDictionary { { "Page", "Payment" } })
+        <div class="total_cart">
+            <div class="left_contshop">
+                <div class="middle_portion">
+                    <div class="heading3">Paypal Information</div>
+                    @Html.Partial("_PaymentInfo", new ShoppingCartModel(), new ViewDataDictionary {
+                        { "ShippingAddress", shippingAddress },
+                        { "BillingAddress", billingAddress },
+                        { "Order", Model }})
+
+                    <img alt="" src='@Url.Content("~/Styles/Images/secure-connection.png")' style="width: 100%; margin-top:5%;" />
+                </div>
+                <div class="middle_portion2" style="border-right: 8px solid #cdcccc;">
+                    <h1>
+                        Shipping Address<span class="edit2">
+                            <a href="javascript:ShowChangeAddressDialog('Shipping');">Edit</a>
+                        </span>
+                    </h1>
+                    @Html.Partial("_DisplayAddress", shippingAddress, new ViewDataDictionary() {
+                        { "UserName", Model.UserAccount.ToString() } })
+                </div>
+                <div class="middle_portion2">
+                    <h1>
+                        Billing Address<span class="edit2">
+                            <a href="javascript:ShowChangeAddressDialog('Billing');">Edit</a>
+                        </span>
+                    </h1>
+                    @Html.Partial("_DisplayAddress", billingAddress, new ViewDataDictionary() {
+                        { "UserName", Model.UserAccount.ToString() } })
+                </div>
+                <div class="middle_portion">
+                    <h1>
+                        Estimated Delivery Date  <span class="edit3">
+                        </span>
+                    </h1>
+
+                    <ul class="delivery-dates">
+                        @foreach (var item in Model.OrderItems)
+                        {
+                            <li>
+                                <a href="javascript:void(0);">
+                                    <h1 style="font-weight:bold" title="@string.Format("{0} {1:0.0}\" - {2:0}\"", item.Template.TemplateTitle, item.Template.TemplateWidth, item.Template.TemplateHeight)">
+                                        @string.Format("{0} {1:0.0}\" - {2:0}\"", item.Template.TemplateTitle, item.Template.TemplateWidth, item.Template.TemplateHeight)
+                                    </h1>
+                                    <input type="button" class="shipping_btn" value="@CommonUtility.AddBusinessDays(Model.OrderDate, item.DeliverySchedule.DeliveryTo).ToString("MM/dd/yyyy")" />
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+            <div class="right_shop">
+                <div class="right_middle">
+                    <div class="heading">Order Summary</div>
+                    <div class="first_desc2">
+                        @foreach (var item in Model.OrderItems)
+                        {
+                            <div class="total_rupe">
+                                <div class="left_ruppe" style="width:75%;">@item.Template.TemplateTitle</div>
+                                <div class="right_rupe" style="width:25%;">@item.Price.ToString("c")</div>
+                            </div>
+                        }
+                    </div>
+
+                    <div class="ruppes">
+                        <div class="total_rupe">
+                            <div class="left_ruppe">Order subtotal</div>
+                            <div class="right_rupe">@Model.SubTotal.ToString("c")</div>
+                        </div>
+                        <div class="total_rupe">
+                            <div class="left_ruppe">Promo Discount</div>
+                            <div class="right_rupe">@Model.DiscountAmount.ToString("c")</div>
+                            <div class="separat"></div>
+                        </div>
+                        <div class="total_rupe">
+                            <div class="left_ruppe">Estimated Total</div>
+                            <div class="right_rupe">@Model.TotalAmount.ToString("c")</div>
+                        </div>
+                    </div>
+
+                    @*<div class="heading_price">
+                        <h2>Other Services</h2>
+                    </div>
+                    <ul class="other_service">
+                        <li><a href="#">» Mailing Services</a></li>
+                        <li><a href="#">» Marketing Services</a></li>
+                    </ul>*@
+                </div>
+                @*<a href="http://gtmarketingltd.com/contact.php">
+                    <input type="button" class="who_btn" />
+                </a>*@
+            </div>
+        </div>
+    </div>
+</div>

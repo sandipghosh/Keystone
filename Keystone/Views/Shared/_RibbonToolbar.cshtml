@@ -1,0 +1,365 @@
+﻿@using Keystone.Web.Utilities
+@{
+    bool isAdminUser = CommonUtility.GetSessionData<bool?>(SessionVariable.IsAdminUser) ?? false;
+    string displayStyle = (isAdminUser) ? "display:block" : "display:none";
+
+    string templateId = ViewData["TemplateId"].ToString();
+    string templatePageId = ViewData["TemplatePageId"].ToString();
+}
+<div class="toolbar">
+    <!--Insert Tools-->
+    <div class="toolbar-section">
+        <div class="toolbar-section-title">Insert</div>
+        <div class="toolbar-section-body">
+            <div class="toolbar-button type1 dt-base-gradient" id="btn_insert_text" title="Click to add a text box where you can type your own text ">
+                <div class="button-icon iconset iconset-insert-text"></div>
+                <div class="button-text">Text</div>
+                <div class="button-menu with-divider insert-text-menu" style="width:90px;">
+                    <div class="menu-label">Select a text type</div><br>
+                    @*<div class="toolbar-button type2 btn-insert-text" id="insert_company_name" data-body="Company Name" data-title="Company Name">
+                    <div class="insert-text-item-icon texticonset iconset-insert-text-company"></div>
+                    <div class="insert-text-item-title">Company Name</div>
+                </div>
+                <div class="toolbar-button type2 btn-insert-text" id="insert_slogan" data-body="Slogan/Message" data-title="Slogan/Message">
+                    <div class="insert-text-item-icon texticonset iconset-insert-text-slogan"></div>
+                    <div class="insert-text-item-title">Slogan</div>
+                </div>
+                <div class="toolbar-button type2 btn-insert-text" id="insert_your_name" data-body="Full Name" data-title="Full Name">
+                    <div class="insert-text-item-icon texticonset iconset-insert-text-fullname"></div>
+                    <div class="insert-text-item-title">Full Name</div>
+                </div>
+                <div class="toolbar-button type2 btn-insert-text" id="insert_job_title" data-body="Job Title" data-title="Job Title">
+                    <div class="insert-text-item-icon  texticonset iconset-insert-text-jobtitle"></div>
+                    <div class="insert-text-item-title">Job Title</div>
+                </div>
+                <div class="toolbar-button type2 btn-insert-text" id="insert_phone" data-body="P: 800.555.1234" data-title="Phone No.">
+                    <div class="insert-text-item-icon texticonset iconset-insert-text-phone"></div>
+                    <div class="insert-text-item-title">Phone</div>
+                </div><br>
+                <div class="toolbar-button type2 btn-insert-text" id="insert_fax" data-body="F: 800.555.2345" data-title="Fax No.">
+                    <div class="insert-text-item-icon texticonset iconset-insert-text-fax"></div>
+                    <div class="insert-text-item-title">Fax</div>
+                </div>
+                <div class="toolbar-button type2 btn-insert-text" id="insert_email_address" data-body="name@email.com" data-title="Email Address">
+                    <div class="insert-text-item-icon texticonset iconset-insert-text-email"></div>
+                    <div class="insert-text-item-title">Email</div>
+                </div>
+                <div class="toolbar-button type2 btn-insert-text" id="insert_web_address" data-body="www.companyname.com" data-title="Web Address">
+                    <div class="insert-text-item-icon texticonset iconset-insert-text-website"></div>
+                    <div class="insert-text-item-title">Website</div>
+                </div>
+                <div class="toolbar-button type2 btn-insert-text" id="insert_address_line_1" data-body="12345 Main Street" data-title="Address Line 1">
+                    <div class="insert-text-item-icon texticonset iconset-insert-text-address"></div>
+                    <div class="insert-text-item-title">Address</div>
+                </div>*@
+                    <div class="toolbar-button type2 btn-insert-text" id="insert_user_text" data-body="New Text Box..." data-title="Enter text here">
+                        <div class="insert-text-item-icon texticonset iconset-insert-text-generaltext"></div>
+                        <div class="insert-text-item-title">General Text</div>
+                    </div>
+                </div>
+            </div>
+            <div id="btn_insert_upload" class="toolbar-button type1 dt-base-gradient" title="Click to add an image and resize">
+                <div class="button-icon iconset iconset-insert-image"></div>
+                <div class="button-text">Image</div>
+            </div>
+            @*<div id="btn_insert_shape" class="toolbar-button type1 dt-base-gradient">
+                <div class="button-icon iconset iconset-insert-shape"></div>
+                <div class="button-text">Shape</div>
+                <div class="button-menu with-divider insert-shape-menu">
+                    <div id="btn_shape_rect" class="toolbar-button type4" data-shape-type="rect">
+                        <div class="button-menu-icon iconset iconset-insert-shape-rectangle"></div>
+                        <div class="button-menu-text">Rectangle</div>
+                    </div>
+                    <div id="btn_shape_circle" class="toolbar-button type4" data-shape-type="circle">
+                        <div class="button-menu-icon iconset iconset-insert-shape-circle"></div>
+                        <div class="button-menu-text">Circle</div>
+                    </div>
+                    <div id="btn_shape_hline" class="toolbar-button type4" data-shape-type="H-Line">
+                        <div class="button-menu-icon iconset iconset-insert-shape-horizontal-line"></div>
+                        <div class="button-menu-text">Horizontal Line</div>
+                    </div>
+                    <div id="btn_shape_vline" class="toolbar-button type4" data-shape-type="V-Line">
+                        <div class="button-menu-icon iconset iconset-insert-shape-vertical-line"></div>
+                        <div class="button-menu-text">Vertical Line</div>
+                    </div>
+                </div>
+            </div>*@
+        </div>
+    </div>
+
+    <div class="toolbar-section-divider"></div>
+
+    <!--Text Tools-->
+    <div class="toolbar-section">
+        <div class="toolbar-section-title">Text</div>
+        <div class="toolbar-section-body">
+            <div class="toolbar-section-row">
+                <div id="btn_text_font_face" class="toolbar-button type3" title="Change the font of the selected text">
+                    <div class="button-text">Font</div>
+                    <div class="button-content">
+                        <div id="fontSelector" class="fontSelect" data-type="fontFamily">
+                            <div class="arrow-down"></div>
+                        </div>
+                        <div class="fontList"></div>
+                    </div>
+                </div>
+                <div id="btn_text_font_size" class="toolbar-button type3" title="Change the font size of the selected text">
+                    <div class="button-text">Size</div>
+                    <div class="button-content">
+                        <div id="fontSizeSelector" class="fontSelect" data-type="fontSize" style="width:35px;">
+                            <div class="arrow-down"></div>
+                        </div>
+                        <div class="fontList"></div>
+                    </div>
+                </div>
+                <div id="btn_text_font_color" class="toolbar-button type3" title="Change the color of the selected text">
+                    <div class="button-text">Color</div>
+                    <div class="button-content">
+                        <div class="colorSelector" id="fcolor" style="background-color: #fff;">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="toolbar-section-row">
+                <div id="btn_text_bold" class="toolbar-button type2" data-formatter-type="bold" title="Set font style bold">
+                    <div class="button-icon iconset iconset-formatter-bold"></div>
+                </div>
+                <div id="btn_text_italic" class="toolbar-button type2" data-formatter-type="italic" title="Set font style italic">
+                    <div class="button-icon iconset iconset-formatter-italic"></div>
+                </div>
+                <div id="btn_text_gravity_west" class="toolbar-button type2" data-formatter-type="left" title="Set text align left">
+                    <div class="button-icon iconset iconset-formatter-left-indent"></div>
+                </div>
+                <div id="btn_text_gravity_center" class="toolbar-button type2" data-formatter-type="center" title="Set text align center">
+                    <div class="button-icon iconset iconset-formatter-center-indent"></div>
+                </div>
+                <div id="btn_text_gravity_east" class="toolbar-button type2" data-formatter-type="right" title="Set text align right">
+                    <div class="button-icon iconset iconset-formatter-right-indent"></div>
+                </div>
+                <div id="btn_symbol_bullet" class="toolbar-button type2">
+                    <div class="button-icon iconset iconset-formatter-bulletlist"></div>
+                    <div class="button-menu">
+                        <div id="btn_symbol_bullet_none" class="toolbar-button type2 on" data-symbol-bullet-format-type="none" title="Remove symbol bullet list">
+                            <div class="bullet-text-item" style="background-position: 0 0"></div>
+                        </div>
+                        <div id="btn_symbol_bullet_black_circle" class="toolbar-button type2" data-symbol-bullet-format-type="type1" title="Set bullet list with black circle symbols">
+                            <div class="bullet-text-item" style="background-position: 0 -60px"></div>
+                        </div>
+                        <div id="btn_symbol_bullet_white_circle" class="toolbar-button type2" data-symbol-bullet-format-type="type2" title="Set bullet list with white circle symbols">
+                            <div class="bullet-text-item" style="background-position: -60px -60px"></div>
+                        </div>
+                        <div id="btn_symbol_bullet_black_square" class="toolbar-button type2" data-symbol-bullet-format-type="type3" title="Set bullet list with black square symbols">
+                            <div class="bullet-text-item" style="background-position: -120px -60px"></div>
+                        </div>
+                        <div id="btn_symbol_bullet_white_square" class="toolbar-button type2" data-symbol-bullet-format-type="type4" title="Set bullet list with white square symbols">
+                            <div class="bullet-text-item" style="background-position: -180px -60px"></div>
+                        </div>
+                        @*<div id="btn_symbol_bullet_dash" class="toolbar-button type2" data-symbol-bullet-format-type="type5">
+                                <div class="bullet-text-item" style="background-position: -240px -60px"></div>
+                            </div>*@
+                    </div>
+                </div>
+                <div id="btn_text_number" class="toolbar-button type2">
+                    <div class="button-icon iconset iconset-formatter-numberlist"></div>
+                    <div class="button-menu">
+                        <div id="btn_text_number_none" class="toolbar-button type2 on" data-text-bullet-format-type="none" title="Remove text bullet list">
+                            <div class="bullet-text-item" style="background-position: 0 0"></div>
+                        </div>
+                        <div id="btn_text_bullet_number_dot" class="toolbar-button type2" data-text-bullet-format-type="type1" title="Set bullet list with number and dots">
+                            <div class="bullet-text-item" style="background-position: -60px 0"></div>
+                        </div>
+                        <div id="btn_text_bullet_number_dash" class="toolbar-button type2" data-text-bullet-format-type="type2" title="Set bullet list with number and dashes">
+                            <div class="bullet-text-item" style="background-position: -120px 0"></div>
+                        </div>
+                        <div id="btn_text_bullet_number_parenth" class="toolbar-button type2" data-text-bullet-format-type="type3" title="Set bullet list with number and brakets">
+                            <div class="bullet-text-item" style="background-position: -180px 0"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toolbar-section-divider"></div>
+
+    <!--Background Tools-->
+    <div class="toolbar-section">
+        <div class="toolbar-section-title">Background</div>
+        <div class="toolbar-section-body">
+            <div id="btn_bacground_color" class="toolbar-button type3" title="Change the background color of the selected text area">
+                <div class="button-text">Color</div>
+                <div class="button-content">
+                    <div class="colorSelector" id="bgcolor" style="background-color: #fff;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toolbar-section-divider"></div>
+
+    <!--Edit Tools-->
+    <div class="toolbar-section">
+        <div class="toolbar-section-title">Edit</div>
+        <div class="toolbar-section-body">
+            <div class="toolbar-section-row">
+                <div id="btn_edit_undo" class="toolbar-button type2" title="Undo changes">
+                    <div class="button-icon iconset iconset-edit-undo"></div>
+                    <div class="button-text">Undo</div>
+                </div>
+                <div id="btn_edit_redo" class="toolbar-button type2 disabled" title="Redo changes">
+                    <div class="button-icon iconset iconset-edit-redo"></div>
+                    <div class="button-text">Redo</div>
+                </div>
+                <div id="btn_edit_lock" class="toolbar-button type2" title="Lock">
+                    <div class="button-icon iconset iconset-edit-lock"></div>
+                    <div class="button-text">lock</div>
+                </div>
+            </div>
+            <hr />
+            <div class="toolbar-section-row">
+                <div id="btn_edit_copy" class="toolbar-button type2" title="Copy the selected area to clipboard">
+                    <div class="button-icon iconset iconset-edit-copy"></div>
+                    <div class="button-text">Copy</div>
+                </div>
+                <div id="btn_edit_paste" class="toolbar-button type2 disabled" title="Insert copied content onto document">
+                    <div class="button-icon iconset iconset-edit-paste"></div>
+                    <div class="button-text">Paste</div>
+                </div>
+                <div id="btn_edit_delete" class="toolbar-button type2" title="Removes selected content">
+                    <div class="button-icon iconset iconset-edit-delete"></div>
+                    <div class="button-text">Delete</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="toolbar-section-divider"></div>
+
+    <!--Advanced Tools-->
+    <div class="toolbar-section">
+        <div class="toolbar-section-title">Advanced</div>
+        <div class="toolbar-section-body">
+            <div class="toolbar-section-row">
+                <div id="btn_advance_align" class="toolbar-button type2" title="Keep content to the left, right, or center of the content box">
+                    <div class="button-icon iconset iconset-advanced-align"></div>
+                    <div class="button-text">Align</div>
+                    <div class="button-menu with-divider">
+                        <div id="btn_align_left" class="toolbar-button type4" data-position-type="alignleft" title="Set content alignment left">
+                            <div class="button-menu-icon iconset iconset-advanced-align-Left"></div>
+                            <div class="button-menu-text">Align Left</div>
+                        </div>
+                        <div id="btn_align_center" class="toolbar-button type4" data-position-type="aligncenter" title="Set content alignment center">
+                            <div class="button-menu-icon iconset iconset-advanced-align-Center"></div>
+                            <div class="button-menu-text">Align Center</div>
+                        </div>
+                        <div id="btn_align_right" class="toolbar-button type4" data-position-type="alignright" title="Set content alignment right">
+                            <div class="button-menu-icon iconset iconset-advanced-align-Right"></div>
+                            <div class="button-menu-text">Align Right</div>
+                        </div>
+                        <hr>
+                        <div id="btn_align_top" class="toolbar-button type4" data-position-type="aligntop" title="Set content alignment top">
+                            <div class="button-menu-icon iconset iconset-advanced-align-Top"></div>
+                            <div class="button-menu-text">Align Top</div>
+                        </div>
+                        <div id="btn_align_middle" class="toolbar-button type4" data-position-type="alignmiddle" title="Set content alignment middle">
+                            <div class="button-menu-icon iconset iconset-advanced-align-Middle"></div>
+                            <div class="button-menu-text">Align Middle</div>
+                        </div>
+                        <div id="btn_align_bottom" class="toolbar-button type4" data-position-type="alignbottom" title="Set content alignment bottom">
+                            <div class="button-menu-icon iconset iconset-advanced-align-Bottom"></div>
+                            <div class="button-menu-text">Align Bottom</div>
+                        </div>
+                        <hr>
+                        <div id="btn_dist_ver" class="toolbar-button type4" data-position-type="distributevertically" title="Set content alignment vertically">
+                            <div class="button-menu-icon iconset iconset-advanced-align-Vertically"></div>
+                            <div class="button-menu-text">Distribute Vertically</div>
+                        </div>
+                        <div id="btn_dist_hor" class="toolbar-button type4" data-position-type="distributehorizontally" title="Set content alignment horizontally">
+                            <div class="button-menu-icon iconset iconset-advanced-align-Horizontally"></div>
+                            <div class="button-menu-text">Distribute Horizontally</div>
+                        </div>
+                    </div>
+                </div>
+                <div id="btn_advance_layers" class="toolbar-button type2" title="Move some content in front of or behind other content">
+                    <div class="button-icon iconset iconset-advanced-layers"></div>
+                    <div class="button-text">Layers</div>
+                    <div class="button-menu with-divider">
+                        <div id="btn_arrange_bring_front" class="toolbar-button type4" data-position-type="front" title="Bring selected element to front">
+                            <div class="button-menu-icon iconset iconset-advanced-layers-BringtoFront"></div>
+                            <div class="button-menu-text">Bring to Front</div>
+                        </div>
+                        <div id="btn_arrange_send_back" class="toolbar-button type4" data-position-type="back" title="Bring selected element to front">
+                            <div class="button-menu-icon iconset iconset-advanced-layers-SendtoBack"></div>
+                            <div class="button-menu-text">Send to Back</div>
+                        </div>
+                        <div id="btn_arrange_bring_forward" class="toolbar-button type4" data-position-type="forword" title="Bring selected element to forward">
+                            <div class="button-menu-icon iconset iconset-advanced-layers-BringForward"></div>
+                            <div class="button-menu-text">Bring Forward</div>
+                        </div>
+                        <div id="btn_arrange_send_backward" class="toolbar-button type4" data-position-type="backward" title="Bring selected element to backward">
+                            <div class="button-menu-icon iconset iconset-advanced-layers-SendBackward"></div>
+                            <div class="button-menu-text">Send Backward</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @*<hr />
+            <div class="toolbar-section-row">
+                <div id="btn_advance_rotate" class="toolbar-button type2">
+                    <div class="button-icon iconset iconset-advanced-rotate"></div>
+                    <div class="button-text">Rotate</div>
+                </div>
+                <div id="btn_advance_crop" class="toolbar-button type2">
+                    <div class="button-icon iconset iconset-advanced-crop"></div>
+                    <div class="button-text">Crop</div>
+                </div>
+            </div>*@
+        </div>
+    </div>
+
+    <div class="toolbar-section-divider"></div>
+
+    <!--View Tools-->
+    <div class="toolbar-section">
+        <div class="toolbar-section-title">View</div>
+        <div class="toolbar-section-body">
+            <div class="toolbar-section-row">
+                <div id="btn_zoom_out" class="toolbar-button type2" title="View more of the image on screen">
+                    <div class="button-icon iconset iconset-view-ZoomOut"></div>
+                    <div class="button-text">Zoom Out</div>
+                </div>
+                <div id="btn_zoom_reset" class="toolbar-button type2" title="Reset to original size on screen">
+                    <div class="button-icon iconset iconset-view-ZoomOut"></div>
+                    <div class="button-text">Zoom Reset</div>
+                </div>
+                <div id="btn_zoom_in" class="toolbar-button type2" title="View close-up of image">
+                    <div class="button-icon iconset iconset-view-ZoomIn"></div>
+                    <div class="button-text">Zoom In</div>
+                </div>
+            </div>
+            <hr />
+            <div class="toolbar-section-row">
+                <div id="btn_view_preview" class="toolbar-button type2" title="Print Preview" 
+                     onclick="CreatedPreviewOfAllPageForATemplate('@Url.Action("GetProceedToCart", "Editor")', @templateId, @templatePageId, ModalCallbackForPreview);">
+                    <div class="button-icon iconset iconset-view_preview"></div>
+                    <div class="button-text">Preview</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="btn_top_toolbar_toggle" class="toolbar-button iconset open"></div>
+<p class="note" id="worning" style="width: 45%;margin-left: 4%;vertical-align: middle;line-height: 0.5;">
+    Click the highlighted areas (text and image) to edit without breaking a sweat!<br /><br />
+    <i>Warning - All critical elements (text, images, graphics, logos, etc.) must be kept inside the red dotted lines.</i>
+</p>
+@{Html.RenderPartial("_EditTextPopup");}
+@{Html.RenderPartial("_EditShapePopup");}
+@{Html.RenderPartial("_EditImagePopup");}
+
+
+

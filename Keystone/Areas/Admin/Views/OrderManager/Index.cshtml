@@ -1,0 +1,15 @@
+﻿@{
+    //ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayoutPage.cshtml";
+}
+
+@section AdimnPageScript{
+    <script type="text/javascript" src='@Url.Content("~/Areas/Admin/Scripts/order-manager.js")'></script>
+}
+@section AdimnPageStyle{
+    <link rel="stylesheet" type="text/css" media="screen" href="themes/jqModal.css" />
+}
+
+@Html.Hidden("SchemaData", (object)ViewBag.SchemaData)
+@Html.Hidden("SchemaSubData", (object)ViewBag.SchemaSubData)
+@Html.Partial("_GridGlobalMaster")

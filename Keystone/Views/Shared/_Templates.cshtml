@@ -1,0 +1,15 @@
+﻿@using Keystone.Web.Models
+@using System.Collections.Generic
+@model IEnumerable<TemplateModel>
+
+<div class="gallery_scroll">
+    <ul id="mycarousel" class="jcarousel-skin-tango">
+        @foreach (TemplateModel item in Model)
+        {
+            <li>
+                <a href='@Url.Action("SelectedIndex", "PriceSummary", new { templateid = item.TemplateId })'>
+                <img src="@Url.Content(string.Format("~/Templates/{0}/Thumbnail.png", item.TemplateId))" width="204" height="260" alt="" /></a>
+            </li>
+        }
+    </ul>
+</div>
