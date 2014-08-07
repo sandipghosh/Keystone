@@ -724,6 +724,59 @@
     <Content Include="Templates\9\Thumbnail.png" />
     <Content Include="Temp\TextFile.txt" />
     <Content Include="Uploads\Uploads.txt" />
+    <Content Include="Views\Editor\Index.cshtml" />
+    <Content Include="Views\Editor\NullifySessionStorage.cshtml" />
+    <Content Include="Views\Editor\PrintPreview.cshtml" />
+    <Content Include="Views\Editor\_EditImagePopup.cshtml" />
+    <Content Include="Views\Editor\_EditShapePopup.cshtml" />
+    <Content Include="Views\Editor\_EditTextPopup.cshtml" />
+    <Content Include="Views\Editor\_ImageUploadWindow.cshtml" />
+    <Content Include="Views\Editor\_OrderPrint.cshtml" />
+    <Content Include="Views\Editor\_ProceedToCart.cshtml" />
+    <Content Include="Views\Editor\_SaveDesign.cshtml" />
+    <Content Include="Views\Error\Index.cshtml" />
+    <Content Include="Views\Home\Index.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Payment\Index.cshtml" />
+    <Content Include="Views\PriceSummary\Index.cshtml" />
+    <Content Include="Views\PriceSummary\SelectedIndex.cshtml" />
+    <Content Include="Views\Receipt\Index.cshtml" />
+    <Content Include="Views\Shared\_Address.cshtml" />
+    <Content Include="Views\Shared\_ChangePassword.cshtml" />
+    <Content Include="Views\Shared\_ChangeProfile.cshtml" />
+    <Content Include="Views\Shared\_DeliverySchedule.cshtml" />
+    <Content Include="Views\Shared\_DisplayAddress.cshtml" />
+    <Content Include="Views\Shared\_DraftList.cshtml" />
+    <Content Include="Views\Shared\_EditUserProfile.cshtml" />
+    <Content Include="Views\Shared\_ForgetPassword.cshtml" />
+    <Content Include="Views\Shared\_ForgetPasswordMailConfirmation.cshtml" />
+    <Content Include="Views\Shared\_ForgotPassword.cshtml" />
+    <Content Include="Views\Shared\_LayoutPage.cshtml" />
+    <Content Include="Views\Shared\_MailContent.cshtml" />
+    <Content Include="Views\Shared\_MailShareTemplate.cshtml" />
+    <Content Include="Views\Shared\_NavBar.cshtml" />
+    <Content Include="Views\Shared\_NavigateToDraft.cshtml" />
+    <Content Include="Views\Shared\_OrderConfirmationMailContentForUser.cshtml" />
+    <Content Include="Views\Shared\_OrderList.cshtml" />
+    <Content Include="Views\Shared\_PaymentInfo.cshtml" />
+    <Content Include="Views\Shared\_ResponseAlert.cshtml" />
+    <Content Include="Views\Shared\_RibbonToolbar.cshtml" />
+    <Content Include="Views\Shared\_SignIn.cshtml" />
+    <Content Include="Views\Shared\_SignInPartial.cshtml" />
+    <Content Include="Views\Shared\_StatusNavigation.cshtml" />
+    <Content Include="Views\Shared\_TemplatePageNavigator.cshtml" />
+    <Content Include="Views\Shared\_TemplatePageNavigatorOnClient.cshtml" />
+    <Content Include="Views\Shared\_Templates.cshtml" />
+    <Content Include="Views\Shared\_TestimonialList.cshtml" />
+    <Content Include="Views\Shared\_UserRegistrationMailConfirmation.cshtml" />
+    <Content Include="Views\Shipping\Index.cshtml" />
+    <Content Include="Views\ShoppingCart\Index.cshtml" />
+    <Content Include="Views\ShoppingCart\_OrderItems.cshtml" />
+    <Content Include="Views\ShoppingCart\_PreviewOrderItems.cshtml" />
+    <Content Include="Views\UserAccount\Index.cshtml" />
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -733,7 +786,6 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
-    <Content Include="Views\Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -793,56 +845,6 @@
     <Content Include="Styles\Fonts\oswald-bold-webfont.woff" />
     <Content Include="Styles\Images\Keystone_Sign up.pdf" />
     <Content Include="Uploads\WriteTest.csv" />
-    <Content Include="Views\Editor\Index.cshtml" />
-    <Content Include="Views\Editor\NullifySessionStorage.cshtml" />
-    <Content Include="Views\Editor\PrintPreview.cshtml" />
-    <Content Include="Views\Editor\_EditImagePopup.cshtml" />
-    <Content Include="Views\Editor\_EditShapePopup.cshtml" />
-    <Content Include="Views\Editor\_EditTextPopup.cshtml" />
-    <Content Include="Views\Editor\_ImageUploadWindow.cshtml" />
-    <Content Include="Views\Editor\_OrderPrint.cshtml" />
-    <Content Include="Views\Editor\_ProceedToCart.cshtml" />
-    <Content Include="Views\Editor\_SaveDesign.cshtml" />
-    <Content Include="Views\Error\Index.cshtml" />
-    <Content Include="Views\Home\Index.cshtml" />
-    <Content Include="Views\Payment\Index.cshtml" />
-    <Content Include="Views\PriceSummary\Index.cshtml" />
-    <Content Include="Views\PriceSummary\SelectedIndex.cshtml" />
-    <Content Include="Views\Receipt\Index.cshtml" />
-    <Content Include="Views\Shared\_Address.cshtml" />
-    <Content Include="Views\Shared\_ChangePassword.cshtml" />
-    <Content Include="Views\Shared\_ChangeProfile.cshtml" />
-    <Content Include="Views\Shared\_DeliverySchedule.cshtml" />
-    <Content Include="Views\Shared\_DisplayAddress.cshtml" />
-    <Content Include="Views\Shared\_DraftList.cshtml" />
-    <Content Include="Views\Shared\_EditUserProfile.cshtml" />
-    <Content Include="Views\Shared\_ForgetPassword.cshtml" />
-    <Content Include="Views\Shared\_ForgetPasswordMailConfirmation.cshtml" />
-    <Content Include="Views\Shared\_ForgotPassword.cshtml" />
-    <Content Include="Views\Shared\_LayoutPage.cshtml" />
-    <Content Include="Views\Shared\_MailContent.cshtml" />
-    <Content Include="Views\Shared\_MailShareTemplate.cshtml" />
-    <Content Include="Views\Shared\_NavBar.cshtml" />
-    <Content Include="Views\Shared\_NavigateToDraft.cshtml" />
-    <Content Include="Views\Shared\_OrderConfirmationMailContentForUser.cshtml" />
-    <Content Include="Views\Shared\_OrderList.cshtml" />
-    <Content Include="Views\Shared\_PaymentInfo.cshtml" />
-    <Content Include="Views\Shared\_ResponseAlert.cshtml" />
-    <Content Include="Views\Shared\_RibbonToolbar.cshtml" />
-    <Content Include="Views\Shared\_SignIn.cshtml" />
-    <Content Include="Views\Shared\_SignInPartial.cshtml" />
-    <Content Include="Views\Shared\_StatusNavigation.cshtml" />
-    <Content Include="Views\Shared\_TemplatePageNavigator.cshtml" />
-    <Content Include="Views\Shared\_TemplatePageNavigatorOnClient.cshtml" />
-    <Content Include="Views\Shared\_Templates.cshtml" />
-    <Content Include="Views\Shared\_TestimonialList.cshtml" />
-    <Content Include="Views\Shared\_UserRegistrationMailConfirmation.cshtml" />
-    <Content Include="Views\Shipping\Index.cshtml" />
-    <Content Include="Views\ShoppingCart\Index.cshtml" />
-    <Content Include="Views\ShoppingCart\_OrderItems.cshtml" />
-    <Content Include="Views\ShoppingCart\_PreviewOrderItems.cshtml" />
-    <Content Include="Views\UserAccount\Index.cshtml" />
-    <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="Data\Context\KeystoneDBContext.edmx">

@@ -1,0 +1,17 @@
+﻿@using Keystone.Web.Models
+@using System.Collections.Generic
+@model List<TestimonialModel>
+
+<div class="testimonial-scroll-container">
+    <ul id="testimonialcarousel" class="testimonial-scroll">
+        @foreach (TestimonialModel item in Model)
+        {
+            <li>
+                <blockquote class="bq" cite="http://www.hongkiat.com/blog/top-css-editors-reviewed/">
+                    <p><strong>&ldquo;</strong>@(item.TestimonialContent)<strong>&rdquo;</strong></p>
+                    <p class="after">@string.Format("{0} - {1:MM/dd/yyyy}", item.WriterName, item.PostedOn)</p>
+                </blockquote>
+            </li>
+        }
+    </ul>
+</div>

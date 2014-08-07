@@ -1,0 +1,30 @@
+﻿<div class="popup-cotainer" id="signin-popup">
+    <div class="popup-arrow-up top-right"></div>
+    <div class="popup-title">Sign In</div>
+    <div class="popup-content">
+        @using (Ajax.BeginForm("SignInUser", "UserAccount", null, new AjaxOptions
+        {
+            HttpMethod = "Post",
+            OnSuccess = "SignInCompleteCallback"
+        }, new { id = "frmSignIn" }))
+        {
+            <div class="item-template-detail-row">
+                @Html.TextBox("UserId", "", new { @class = "gradient_effect", placeholder = "User Id / Email Id", data_type = "popup" })
+            </div>
+            <div class="item-template-detail-row">
+                @Html.TextBox("Password", "", new { type = "password", @class = "gradient_effect", placeholder = "Password", data_type = "popup" })
+            </div>
+            <div class="item-template-detail-row">
+                <input type="checkbox" id="chkRememberCredential" data-type="popup" />
+                <span>Remember credentials</span>
+            </div>
+            <div class="item-template-detail-row">
+                @Html.ActionLink("Forgot Password", "ShowForgotPasswordScreen", "UserAccount", new { area = "" }, new { @class = "lnk-forget-password" })
+            </div>
+        }
+    </div>
+    <div class="popup-navigation">
+        <div class="button" onclick="SignInUser('#frmSignIn')">Sign In</div>
+        <div class="button" onclick="$('#signin-popup').hide()">Close</div>
+    </div>
+</div>

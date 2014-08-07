@@ -1,0 +1,89 @@
+﻿@using Keystone.Web.Utilities
+@using Keystone.Web.Models
+@{
+    string userName = CommonUtility.GetSessionData<string>(SessionVariable.UserName);
+    int? userId = CommonUtility.GetSessionData<int?>(SessionVariable.UserId);
+    int? orderId = CommonUtility.GetSessionData<int?>(SessionVariable.CurrentOrderId);
+    bool? isAdmin = CommonUtility.GetSessionData<bool?>(SessionVariable.IsAdminUser);
+    List<OrderItemModel> currentSavedOrders = CommonUtility.GetSessionData<List<OrderItemModel>>(SessionVariable.OrderItems);
+    int currentSavedOrdersCount = currentSavedOrders != null ? currentSavedOrders.Count() : 0;
+}
+
+<div class="top_other_nav">
+    @if (!string.IsNullOrEmpty(userName) && userId.HasValue)
+    {
+        <ul>
+            @if (isAdmin.HasValue && isAdmin.Value)
+            {
+                <li>@Html.ActionLink("Go To Admin", "Index", "Dashboard", new { area = "Admin" }, null)</li>
+                <li><a href="#">|</a></li>
+            }
+            <li>
+                <a href="javascript:void(0);" onclick="showNavPopup(event)">
+                    Saved Designs
+                    <img src='@Url.Content("~/Styles/Images/down_frop.png")' alt="" />
+                </a>
+
+                <div class="popup-cotainer" id="saved-draft-list" style="width:400px;">
+                    <div class="popup-arrow-up top-right"></div>
+                    <div class="popup-title">List of Drafts</div>
+                    <div class="popup-content" style="max-height:200px;overflow-y:auto;overflow-x:hidden;">
+                        @Html.Action("GetDraftItems", "Draft", new { userAccountId = userId.Value })
+                    </div>
+                    <div class="popup-navigation">
+                        <div class="button" onclick="$('#saved-draft-list').hide()">Close</div>
+                    </div>
+                </div>
+
+            </li>
+            <li><a href="#">|</a></li>
+            <li>
+                <a href="javascript:void(0);" onclick="showNavPopup(event)">
+                    @userName
+                    <img src='@Url.Content("~/Styles/Images/down_frop.png")' alt="" />
+                </a>
+
+                <div class="popup-cotainer" id="user-profile" style="width:210px;">
+                    <div class="popup-arrow-up top-right"></div>
+                    <div class="popup-content" style="max-height:200px;overflow-y:auto;overflow-x:hidden;">
+                        <ul class="user-links">
+                            <li class="change-profile">
+                                @Html.ActionLink("Change Profile", "ShowChangeProfileScreen", "UserAccount",
+                                    new { referalUrl = Request.Url.AbsoluteUri.ToBase64Encode() }, null)
+                            </li>
+                            <li class="change-password">
+                                @Html.ActionLink("Change Password", "ChangePassword", "UserAccount",
+                                    new { userid = userId.Value, referalUrl = Request.Url.AbsoluteUri.ToBase64Encode() }, null)
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="popup-navigation">
+                        <div class="button" onclick="javascript:$('#user-profile').hide();">Close</div>
+                    </div>
+                </div>
+            </li>
+            <li><a href="#">|</a></li>
+            <li>
+                <a href="javascript:void(0);" onclick="showNavPopup(event)">
+                    <img src='@Url.Content("~/Styles/Images/cart_img.png")' alt="" />Cart
+                    <span class="one_color" data-bind="text: OrderItems().length">@currentSavedOrdersCount</span>
+                    <img src='@Url.Content("~/Styles/Images/down_frop.png")' alt="" />
+                </a>
+                @if (currentSavedOrdersCount > 0)
+                {
+                    <div class="popup-cotainer" id="saved-order-list" style="width:400px;">
+                        <div class="popup-arrow-up top-right"></div>
+                        <div class="popup-title">Current Order Detail</div>
+                        <div class="popup-content" style="max-height:200px;overflow-y:auto;overflow-x:hidden;">
+                            @Html.Partial("_OrderList", currentSavedOrders)
+                        </div>
+                        <div class="popup-navigation">
+                            <div class="button" onclick='javascript:$("#saved-order-list").hide();'>Close</div>
+                            <div class="button" onclick="javascript:window.location.href='@Url.Action("Index", "ShoppingCart", new { orderId = orderId })'">Return to Shopping Cart</div>
+                        </div>
+                    </div>
+                }
+            </li>
+        </ul>
+    }
+</div>

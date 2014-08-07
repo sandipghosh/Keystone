@@ -1,0 +1,122 @@
+﻿@using Keystone.Web.Models
+@using Keystone.Web.Utilities
+@{
+    string pageType = ViewData["Page"].ToString();
+    //int? orderId = (int?)ViewData["OrderId"];
+    IList<OrderItemModel> orderItems = CommonUtility.GetSessionData<IList<OrderItemModel>>(SessionVariable.OrderItems);
+    int? orderId = CommonUtility.GetSessionData<int?>(SessionVariable.CurrentOrderId);
+}
+<div class="three_part">
+    <ul>
+        <li>
+            @if (pageType == "PriceSummary")
+            {
+                <a href="javascript:PickTemplate()" class="color_1">
+                    <img src='@Url.Content("~/Styles/Images/downarrow.png")' alt="" />
+                    PICK A DESIGN ---- >
+                </a>
+            }
+            else if (pageType == "Editor")
+            {
+                <a href="javascript:PickTemplate()" class="color_1">
+                    <img src='@Url.Content("~/Styles/Images/ticker.png")' alt="" />
+                    PICK A DESIGN ---- >
+                </a>
+            }
+            else if (pageType == "ShoppingCart")
+            {
+                <a href="javascript:void(0);" onclick="showNavPopup(event)" class="color_1">
+                    <img src='@Url.Content("~/Styles/Images/ticker.png")' alt="" />
+                    CUSTOMIZE ---- >
+                </a>
+                if (orderItems != null && orderItems.Count() > 0)
+                {
+                    @Html.Partial("_NavigateToDraft", orderItems)
+                }
+            }
+            else if (pageType == "Payment")
+            {
+                <a href='@(orderId.HasValue? Url.Action("Index", "ShoppingCart", new { orderId = orderId.Value }):"javascript:void(0);")' class="color_1">
+                    <img src='@Url.Content("~/Styles/Images/ticker.png")' alt="" />
+                    ORDER PLACED ---- >
+                </a>
+            }
+            else
+            {
+                <a href="javascript:void(0);" class="color_1">
+                    <img src='@Url.Content("~/Styles/Images/ticker.png")' alt="" />
+                    PICK A DESIGN ---- >
+                </a>
+            }
+        </li>
+        <li>
+            @if (pageType == "PriceSummary")
+            {
+                <a href="javascript:PickTemplate()" class="color_3">
+                    CUSTOMIZE ---- >
+                </a>
+            }
+            else if (pageType == "Editor")
+            {
+                <a href="#" class="color_2">
+                    <img src='@Url.Content("~/Styles/Images/downarrow.png")' alt="" />
+                    CUSTOMIZE ---- >
+                </a>
+            }
+            else if (pageType == "ShoppingCart")
+            {
+                <a href="javascript:void(0);" class="color_2">
+                    <img src='@Url.Content("~/Styles/Images/downarrow.png")' alt="" />
+                    ORDER PLACED ---- >
+                </a>
+            }
+            else if (pageType == "Payment")
+            {
+                <a href="javascript:void(0);" class="color_2">
+                    <img src='@Url.Content("~/Styles/Images/downarrow.png")' alt="" />
+                    PAYMENT ---- >
+                </a>
+            }
+            else
+            {
+                <a href="#" class="color_2">
+                    CUSTOMIZE ---- >
+                </a>
+            }
+        </li>
+        <li>
+            @if (pageType == "PriceSummary")
+            {
+                <a href="javascript:void(0);" class="color_3">
+                    ORDER PRINTS
+                </a>
+            }
+            else if (pageType == "Editor")
+            {
+                <a href="javascript:void(0);" onclick="PrceedDirectOrderPrint('@Url.Action("GetSaveDesign", "Editor")', @ViewData["TemplateId"].ToString(), @ViewData["TemplatePageId"].ToString(), SaveDraftDialogOpenCallback);" class="color_3 big-link">
+                    ORDER PRINTS
+                </a>
+            }
+            else if (pageType == "ShoppingCart")
+            {
+                <a href="javascript:void(0);" class="color_3">
+                    PAYMENT
+                </a>
+            }
+            else if (pageType == "Payment")
+            {
+                <a href="javascript:void(0);" onclick="javascript:InsertOrder('@Url.Action("index", "Payment" )');" class="color_3">
+                    RECEIPT
+                </a>
+            }
+            else
+            {
+                <a href="javascript:void(0);" class="color_3">
+                    <img src='@Url.Content("~/Styles/Images/downarrow.png")' alt="" />
+                    ORDER PRINTS
+                </a>
+            }
+        </li>
+    </ul>
+
+</div>

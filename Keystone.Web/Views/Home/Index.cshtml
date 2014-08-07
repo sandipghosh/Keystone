@@ -1,0 +1,65 @@
+﻿@using Keystone.Web.Models
+@using System.Collections.Generic
+@model IEnumerable<TemplateModel>
+
+@section PageScript{
+    <script src='@Url.Content("~/Scripts/HomeScript.js")'></script>
+}
+@section PageStyle{
+    <link rel="stylesheet" href='@Url.Content("~/Styles/TestimonialStyle.css")' />
+}
+@Html.Partial("_NavBar")
+<div class="banner_part">
+    <div class="left_content">
+        <h2>Customized</h2>
+        <h3>Marketing Material</h3>
+        <h4>
+            Create Sales and Marketing Collaterial Customized To Your Distributorship Using
+            Advanced Printing Technology:
+        </h4>
+        <ul class="banner_list">
+            <li>Increase Brand Awareness</li>
+            <li>Sell More</li>
+            <li>Enhance Customer Value</li>
+        </ul>
+    </div>
+    <div class="right_vedio">
+        <a title="Click to goto the gallery" href="#gallery-container">
+            <img src='@Url.Content("~/Styles/Images/video.jpg")' alt="" class="video_img" />
+        </a>
+    </div>
+</div>
+
+<div id="gallery-container" class="gallery">
+    <h2><span class="color">OUR</span> GALLERY</h2>
+    <h3>Please Select One Of The Images Below To Get Started Customizing Or View The Brief Tutorial Below.</h3>
+    @{Html.RenderPartial("_Templates", Model);}
+</div>
+
+<div class="banner_lower_part">
+    <div class="step_video">
+        <iframe width="463" height="296" class="video_step" src="//player.vimeo.com/video/92962824" frameborder="0"></iframe>
+    </div>
+    <div class="testimonials">
+        <input type="button" class="letsgo" value="Let's Get Started"
+               onclick="javascript: window.location.href = '@Url.Action("SelectedIndex", "PriceSummary", new { templateid = 1})';" />
+        <div class="testimonial-static">
+            <p>Looking to boost sales? Customized marketing materials can help!</p>
+            <p>With advanced printing technology you can take advantage of product and company marketing opportunities you may have only dreamed of in the past! </p>
+            <p>Now, improving marketing and increasing sales is only a couple of clicks away.</p>
+        </div>
+
+        <div class="testimonial_otherpart">
+            <div class="testi_text">
+                <marquee behavior="scroll" direction="up" scrollamount="2" onmouseover="this.stop();"
+                         onmouseout="this.start();">
+                    @Html.Action("GetTestimonials", "Testimonial")
+                </marquee>
+            </div>
+        </div>
+        <div class="tes_icon1"></div>
+        <div class="tes_icon2"></div>
+    </div>
+</div>
+
+

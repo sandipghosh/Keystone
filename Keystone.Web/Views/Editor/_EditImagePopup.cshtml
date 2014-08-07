@@ -1,0 +1,51 @@
+﻿<div class="float-toolbar ztoolbar" id="crop_toolbar">
+    @*<div>
+            <div class="crop-toolbar-item" style="background-position: 100px 100px;"></div>
+            <div class="crop-toolbar-item" id="crop-top" style="background-position: -1120px 0px;"></div>
+            <div class="crop-toolbar-item" style="background-position: 100px 100px;"></div>
+        </div>
+        <div>
+            <div class="crop-toolbar-item" id="crop-left" style="background-position: -1104px 0px;"></div>
+            <div class="crop-toolbar-item" style="background-position: 100px 100px;"></div>
+            <div class="crop-toolbar-item" id="crop-right" style="background-position: -1136px 0px;"></div>
+            <div class="crop-toolbar-item" style="width:auto; background-position: 100px 100px; cursor:default">
+                <div id="imageZoomer" style="width: 105px; margin-top: 6px;"></div>
+            </div>
+            <div class="crop-toolbar-item" style="background-position: 100px 100px; width: 1px;"></div>
+            <div class="crop-toolbar-item" style="background-position: -688px 0px;"><span>Rotate 90°</span></div>
+            <div class="crop-toolbar-item" style="background-position: -704px 0px;"><span>Rotate -90°</span></div>
+        </div>
+        <div>
+            <div class="crop-toolbar-item" style="background-position: 100px 100px;"></div>
+            <div class="crop-toolbar-item" id="crop-bottom" style="background-position: -1152px 0px ;"></div>
+            <div class="crop-toolbar-item" style="background-position: 100px 100px;"></div>
+        </div>*@
+
+    <div id="extra_crop_option" style="min-height: 38px; margin-top: 10px; min-width: 167px;">
+        <div id="btn_text_remove" class="toolbar-button type6 dt-base-gradient">
+            <div class="button-icon iconset" style="background-position: -400px 0;"></div>
+        </div>
+
+        @using (Html.BeginForm("ReplaceImage", "Editor", FormMethod.Post,
+            new
+            {
+                enctype = "multipart/form-data",
+                id = "frmReplaceImage",
+                name = "frmReplaceImage",
+                target = "UploadTarget"
+            }))
+        {
+            <input type="file" id="replaceImage" name="replaceImage" accept="image/x-png, image/gif, image/jpeg"
+                   style="position: absolute; width: 93px; opacity: 0; z-index:1;" />
+        }
+        <iframe id="UploadTarget" name="UploadTarget" onload="ReplaceImage_OnSuccess();" style="display:none">
+        </iframe>
+        <div id="btn_image_remove" class="toolbar-button type6 dt-base-gradient">
+            <div class="button-text">Replace Image</div>
+        </div>
+
+        <div id="btn_crop_done" class="toolbar-button type6 dt-proceed-button">
+            <div class="button-text">Done</div>
+        </div>
+    </div>
+</div>

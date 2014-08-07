@@ -1,0 +1,15 @@
+﻿@using Keystone.Web.Models
+@model List<DeliveryScheduleModel>
+@{
+    int DeliveryId = Convert.ToInt32(ViewData["DeliveryId"]);
+}
+<ul class="delivery-option">
+    @foreach (var item in Model)
+    {
+        <li>
+            @Html.RadioButton("DeliveryScheduleId", item.DeliveryScheduleId,
+            item.DeliveryScheduleId.Equals((DeliveryId == 0) ? (int)DeliveryScheduleEnum.StandardTurnaround : DeliveryId))
+            <span>@item.ToString()</span>
+        </li>
+    }
+</ul>

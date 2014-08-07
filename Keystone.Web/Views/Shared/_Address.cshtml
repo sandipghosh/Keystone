@@ -1,0 +1,96 @@
+﻿@using Keystone.Web.Models
+@model UserAddressModel
+@{
+    int addressTypeId = int.Parse(ViewBag.AddressTypeId.ToString());
+    int opptAddressTypeId = (addressTypeId == (int)AddressTypeEnum.Billing ?
+        (int)AddressTypeEnum.Shipping : (int)AddressTypeEnum.Billing);
+    string opptAddressType = ((AddressTypeEnum)opptAddressTypeId).ToString();
+}
+<div class="left_contshop" style="width:97%">
+    <div class="middle_portion" style="width: 98%; height: auto; max-height: none; margin: 0;">
+        <div class="heading3">@ViewBag.DialogTitle</div>
+        @using (Ajax.BeginForm("SaveUserAddress", "UserAddress", null,
+            new AjaxOptions { OnSuccess = "SaveUserAddress_OnSuccess" }, new { id = "frmSaveUserAddress" }))
+        {
+            <div class="popup-content row-container">
+                <div class="row-item">
+                    <div class="row-col-left address-col-left">
+                        Address 1 :
+                    </div>
+                    <div class="row-col-right address-col-right ">
+                        @Html.TextAreaFor(x => x.Address1, new { @class = "gradient_effect", placeholder = "Address 1" })
+                    </div>
+                </div>
+                @*<div class="row-item">
+                    <div class="row-col-left address-col-left">
+                        Address 2 :
+                    </div>
+                    <div class="row-col-right address-col-right ">
+                        @Html.TextAreaFor(x => x.Address2, new { @class = "gradient_effect", placeholder = "Address 2" })
+                    </div>
+                </div>*@
+                <div class="row-item">
+                    <div class="row-col-left address-col-left">
+                        City :
+                    </div>
+                    <div class="row-col-right address-col-right ">
+                        @Html.TextBoxFor(x => x.City, new { @class = "gradient_effect", placeholder = "City" })
+                        <i class="note">**Use proper city</i>
+                    </div>
+                </div>
+                <div class="row-item">
+                    <div class="row-col-left address-col-left">
+                        State :
+                    </div>
+                    <div class="row-col-right address-col-right ">
+                        @Html.TextBoxFor(x => x.State, new { @class = "gradient_effect", placeholder = "State" })
+                        <i class="note">**Use 2 character state code.</i>
+                    </div>
+                </div>
+                <div class="row-item">
+                    <div class="row-col-left address-col-left">
+                        Zip :
+                    </div>
+                    <div class="row-col-right address-col-right ">
+                        @Html.TextBoxFor(x => x.Pin, new { @class = "gradient_effect", placeholder = "Zip Co." })
+                        <i class="note">**Use proper zip code.</i>
+                    </div>
+                </div>
+                <div class="row-item">
+                    <div class="row-col-left address-col-left">
+                        Country :
+                    </div>
+                    <div class="row-col-right address-col-right ">
+                        @Html.TextBoxFor(x => x.Country, new { @class = "gradient_effect", placeholder = "Country" })
+                    </div>
+                </div>
+                <div class="row-item">
+                    <div class="row-col-left address-col-left">
+                        Phone :
+                    </div>
+                    <div class="row-col-right address-col-right ">
+                        @Html.TextBoxFor(x => x.SeconderyContact, new { @class = "gradient_effect", placeholder = "Phone Number" })
+                    </div>
+                </div>
+                <div class="form_part_cre">
+                    @Html.CheckBox("IsSameAddressForBoth", false)
+                    Apply same address for @opptAddressType
+                </div>
+                <div class="form_part_cre">
+                    <input type="button" class="sub" value="SUBMIT" style="margin-left: 40%;"
+                           onclick="$('#frmSaveUserAddress').submit()">
+                </div>
+            </div>
+
+            @Html.HiddenFor(x => x.UserAddressId)
+            @Html.Hidden("AddressTypeId", (object)ViewBag.AddressTypeId)
+            @Html.Hidden("AlternateAddressTypeId", opptAddressTypeId)
+            @Html.HiddenFor(x => x.UaserAccountId)
+            @Html.HiddenFor(x => x.StatusId)
+            @Html.HiddenFor(x => x.CreatedBy)
+            @Html.HiddenFor(x => x.CreatedOn)
+            @Html.HiddenFor(x => x.UpdatedBy)
+            @Html.HiddenFor(x => x.UpdatedOn)
+        }
+    </div>
+</div>

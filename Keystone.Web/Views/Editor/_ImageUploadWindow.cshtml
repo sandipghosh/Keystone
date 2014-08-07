@@ -1,0 +1,9 @@
+﻿<div class="image-upload-container">
+    <h1>Select image to add on editor after upload</h1>
+    @using (Html.BeginForm("UploadImage", "Editor", FormMethod.Post, new { @class = "dropzone", id = "frmImageUpload" }))
+    {
+        <div class="fallback">
+            <input name="file" type="file" multiple />
+        </div>
+    }
+</div>

@@ -1,0 +1,71 @@
+﻿@using Keystone.Web.Models
+@model ShoppingCartModel
+@{
+    UserAddressModel shippingAddress = (UserAddressModel)ViewData["ShippingAddress"];
+    UserAddressModel billingAddress = (UserAddressModel)ViewData["BillingAddress"];
+    OrderModel order = (OrderModel)ViewData["Order"];
+}
+
+@using (Html.BeginForm("PaymentSbumission", "ShoppingCart", null,
+    FormMethod.Post, new { id = "frmShoppingCart" }))
+{
+    <div class="form_credit">
+        <div class="form_part_cre">
+            <ul>
+                <li class="payment-type-paypal">
+                    @Html.RadioButtonFor(x => x.PaymentTypeId, (int)PaymentTypeEnum.Paypal,
+                        new { id = "rdoPaypal", @checked = "checked" })
+                </li>
+                <li class="payment-type-creditcard">
+                    @Html.RadioButtonFor(x => x.PaymentTypeId, (int)PaymentTypeEnum.CreditCard,
+                        new { id = "rdoCreditCard" })
+                </li>
+            </ul>
+        </div>
+        <div id="creditCardInfo" class="creditCardInfo" style="display:none;">
+            @*<iframe src="" name="CreditCardInfo" id="CreditCardInfo" onload="javascript:managePaypalIfame(this)"
+                    border="0" frameborder="0" height="0" scrolling="no" allowtransparency="true"></iframe>*@
+            @*<div class="form_part_cre">
+                    <div class="name_form">Card Number</div>
+                    @Html.TextBoxFor(x => x.CreditCard.CardAccountNumber, new { @class = "field_cre_for" })
+                    @Html.HiddenFor(x => x.CreditCard.CardType)
+                    @Html.HiddenFor(x => x.CreditCard.IPAddress)
+                </div>
+                <div class="form_part_cre">
+                    <div class="name_form">Expiration Date</div>
+                    <ul>
+                        <li>
+                            @Html.TextBoxFor(x => x.CreditCard.ExpiryMonth,
+                                new { @class = "quantity-spinner", @readonly = "readonly", style = "width:65px;" })
+                        </li>
+                        <li>
+                            @Html.TextBoxFor(x => x.CreditCard.ExpiryYear,
+                                new { @class = "quantity-spinner", @readonly = "readonly", style = "width:65px;" })
+                        </li>
+                    </ul>
+
+
+                </div>
+                <div class="form_part_cre">
+                    <div class="name_form">CVC (?)</div>
+                    @Html.TextBoxFor(x => x.CreditCard.CvcNumber, new { @class = "field_cre_for" })
+                </div>*@
+        </div>
+        <div class="form_part_cre" id="submit-panel">
+            <input type="button" class="sub" onclick="return ShoppingCart_OnBegin()" value="SUBMIT">
+        </div>
+    </div>
+
+    @Html.Hidden("ShippingAddressId", shippingAddress != null ? shippingAddress.UserAddressId : 0)
+    @Html.Hidden("BillingAddressId", billingAddress != null ? billingAddress.UserAddressId : 0)
+    @Html.HiddenFor(x => x.ShoppingCartId)
+    @Html.HiddenFor(x => x.UserAccountId)
+    @Html.Hidden("PromoCodeId", order.PromoCodeId)
+    @Html.Hidden("OrderId", order.OrderId)
+    @Html.Hidden("ExpireOn", order.OrderDate.AddMonths(1))
+    @Html.HiddenFor(x => x.StatusId)
+    @Html.HiddenFor(x => x.CreatedBy)
+    @Html.HiddenFor(x => x.CreatedOn)
+    @Html.HiddenFor(x => x.UpdatedBy)
+    @Html.HiddenFor(x => x.UpdatedOn)
+}
