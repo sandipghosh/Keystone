@@ -244,7 +244,9 @@ namespace Keystone.Web.Areas.Admin.Controllers
                                 {
                                     OrderedItemCode = x.OrderItemId,
                                     OrderedImages = x.Draft.DraftPages
-                                        .OrderBy(z => z.TemplatePage.OrderIndex)
+                                        .OrderBy(z => z.TemplateId)
+                                        .ThenBy(z => z.TemplatePageId)
+                                        .ThenBy(z => z.TemplatePage.OrderIndex)
                                         .Select(y => y.FinalImageUrl.ToBase64Encode()).ToList()
                                 }).ToList<OrderedImageModel>();
 
@@ -259,7 +261,10 @@ namespace Keystone.Web.Areas.Admin.Controllers
 
                         case "PDF":
                             var imagePreviewPaths = selectedOrder.OrderItems.SelectMany(x =>
-                                    x.Draft.DraftPages).OrderBy(x => x.TemplatePage.OrderIndex)
+                                    x.Draft.DraftPages)
+                                    .OrderBy(x => x.TemplateId)
+                                    .ThenBy(x => x.TemplatePageId)
+                                    .ThenBy(x => x.TemplatePage.OrderIndex)
                                     .Select(x => x.FinalImageUrl.ToBase64Encode()).ToList();
 
                             if (imagePreviewPaths != null)

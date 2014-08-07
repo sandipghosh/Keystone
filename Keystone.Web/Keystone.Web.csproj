@@ -724,7 +724,6 @@
     <Content Include="Templates\9\Thumbnail.png" />
     <Content Include="Temp\TextFile.txt" />
     <Content Include="Uploads\Uploads.txt" />
-    <Content Include="Views\Home\Global.asax" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>

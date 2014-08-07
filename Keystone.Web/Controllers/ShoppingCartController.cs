@@ -603,7 +603,9 @@ namespace Keystone.Web.Controllers
                 {
                     var imagePreviewPaths = selectedOrder.OrderItems
                         .SelectMany(x => x.Draft.DraftPages)
-                        .OrderBy(x => x.TemplatePage.OrderIndex)
+                        .OrderBy(x => x.TemplateId)
+                        .ThenBy(x => x.TemplatePageId)
+                        .ThenBy(x => x.TemplatePage.OrderIndex)
                         .Select(x => x.FinalImageUrl.ToBase64Encode()).ToList();
 
                     if (imagePreviewPaths != null)
@@ -731,7 +733,9 @@ namespace Keystone.Web.Controllers
                             {
                                 OrderedItemCode = x.OrderItemId,
                                 OrderedImages = x.Draft.DraftPages
-                                    .OrderBy(y => new { y.DraftId, y.TemplateId, y.TemplatePageId })
+                                    .OrderBy(z => z.TemplateId)
+                                    .ThenBy(z => z.TemplatePageId)
+                                    .ThenBy(z => z.TemplatePage.OrderIndex)
                                     .Select(y => y.FinalImageUrl.ToBase64Encode()).ToList()
                             }).ToList<OrderedImageModel>();
 
@@ -746,7 +750,9 @@ namespace Keystone.Web.Controllers
                         foreach (OrderItemModel item in orderItems)
                         {
                             outputMemoryStream.Add(CommonUtility.CreatePdfStream(item.Draft.DraftPages
-                                .OrderBy(x => x.TemplatePage.OrderIndex)
+                                .OrderBy(x => x.TemplateId)
+                                .ThenBy(x => x.TemplatePageId)
+                                .ThenBy(x => x.TemplatePage.OrderIndex)
                                 .Select(x => x.DraftPreviewUrl.ToBase64Encode()).ToList()));
 
                             attachments.Add(new System.Net.Mail.Attachment(outputMemoryStream.LastOrDefault(),
