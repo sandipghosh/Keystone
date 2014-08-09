@@ -734,7 +734,6 @@ namespace Keystone.Web.Controllers
                                 OrderedItemCode = x.OrderItemId,
                                 OrderedImages = x.Draft.DraftPages
                                     .OrderBy(z => z.TemplateId)
-                                    .ThenBy(z => z.TemplatePageId)
                                     .ThenBy(z => z.TemplatePage.OrderIndex)
                                     .Select(y => y.FinalImageUrl.ToBase64Encode()).ToList()
                             }).ToList<OrderedImageModel>();
@@ -751,7 +750,6 @@ namespace Keystone.Web.Controllers
                         {
                             outputMemoryStream.Add(CommonUtility.CreatePdfStream(item.Draft.DraftPages
                                 .OrderBy(x => x.TemplateId)
-                                .ThenBy(x => x.TemplatePageId)
                                 .ThenBy(x => x.TemplatePage.OrderIndex)
                                 .Select(x => x.DraftPreviewUrl.ToBase64Encode()).ToList()));
 

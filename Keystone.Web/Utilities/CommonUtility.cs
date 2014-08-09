@@ -1,6 +1,7 @@
 ﻿
 namespace Keystone.Web.Utilities
 {
+    using ICSharpCode.SharpZipLib.Core;
     using ICSharpCode.SharpZipLib.Zip;
     using iTextSharp.text.pdf;
     using Keystone.Web.Data.Interface;
@@ -1092,6 +1093,84 @@ namespace Keystone.Web.Utilities
                 }
 
                 return FileToStream(archiveFileLocation);
+            }
+            catch (Exception ex)
+            {
+                ex.ExceptionValueTracker(orderedImages);
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Creates the archive PDF stream.
+        /// </summary>
+        /// <param name="orderedImages">The ordered images.</param>
+        /// <returns></returns>
+        public static MemoryStream CreateArchivePdfStream(List<PrintableOrderViewModel> orderedImages)
+        {
+            try
+            {
+                MemoryStream outputMemStream = new MemoryStream();
+                ZipOutputStream zipStream = new ZipOutputStream(outputMemStream);
+
+                byte[] byteArray = outputMemStream.ToArray();
+
+                var orderGroup = orderedImages.OrderBy(x => x.TemplateId).ThenBy(x => x.OrderIndex)
+                    .GroupBy(x => new { x.DraftId, x.TemplateTitle });
+
+                foreach (var group in orderGroup)
+                {
+                    List<string> images = group.Select(x => x.FinalImageUrl).ToList();
+                    MemoryStream pdfStream = CreatePdfStream(images);
+
+                    ZipEntry newEntry = new ZipEntry(string.Format("{0}-{1}-{2}.pdf",
+                        group.Key.DraftId, group.Key.TemplateTitle, DateTime.Now.Ticks));
+                    newEntry.DateTime = DateTime.Now;
+                    zipStream.PutNextEntry(newEntry);
+
+                    StreamUtils.Copy(pdfStream, zipStream, new byte[4096]);
+                    zipStream.CloseEntry();
+                }
+
+                zipStream.IsStreamOwner = false;
+                zipStream.Close();
+
+                outputMemStream.Position = 0;
+                return outputMemStream;
+
+
+
+
+                //string archiveFileRelativeLocation = string.Format("/{0}/{1}.zip",
+                //    ConfigurationManager.AppSettings["OrderAttachmentsFolder"].ToString(),
+                //    ConvertToTimestamp(DateTime.Now).ToString());
+
+                //string archiveFileLocation = HttpContext.Current.Server.MapPath(archiveFileRelativeLocation);
+
+                //using (ZipFile z = ZipFile.Create(archiveFileLocation))
+                //{
+                //    z.BeginUpdate();
+                //    foreach (var orderitem in orderedImages)
+                //    {
+                //        foreach (var path in orderitem.OrderedImages)
+                //        {
+                //            string currentUri = string.Empty;
+                //            try
+                //            {
+                //                currentUri = new Uri(path.ToBase64Decode()).AbsolutePath;
+                //            }
+                //            catch (Exception ex)
+                //            {
+                //                currentUri = path.ToBase64Decode();
+                //            }
+                //            string actualImageFilePath = HttpContext.Current.Server.MapPath(currentUri);
+                //            z.Add(actualImageFilePath, string.Format("{0}\\{1}", orderitem.OrderedItemCode, Path.GetFileName(actualImageFilePath)));
+                //        }
+                //    }
+                //    z.CommitUpdate();
+                //}
+
+                //return FileToStream(archiveFileLocation);
             }
             catch (Exception ex)
             {

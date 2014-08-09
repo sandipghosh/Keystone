@@ -260,18 +260,22 @@ namespace Keystone.Web.Areas.Admin.Controllers
                             break;
 
                         case "PDF":
-                            var imagePreviewPaths = selectedOrder.OrderItems.SelectMany(x =>
-                                    x.Draft.DraftPages)
-                                    .OrderBy(x => x.TemplateId)
-                                    .ThenBy(x => x.TemplatePageId)
-                                    .ThenBy(x => x.TemplatePage.OrderIndex)
-                                    .Select(x => x.FinalImageUrl.ToBase64Encode()).ToList();
+                            var imagePreviewPaths = selectedOrder.OrderItems.SelectMany(x => x.Draft.DraftPages)
+                                    .Select(x => new PrintableOrderViewModel
+                                    {
+                                        DraftId = x.DraftId,
+                                        TemplateId = x.TemplateId,
+                                        TemplatePageId = x.TemplatePageId,
+                                        TemplateTitle = x.Template.TemplateTitle,
+                                        OrderIndex = x.TemplatePage.OrderIndex,
+                                        FinalImageUrl = x.FinalImageUrl.ToBase64Encode()
+                                    }).ToList();
 
                             if (imagePreviewPaths != null)
                             {
-                                stream = CommonUtility.CreatePdfStream(imagePreviewPaths);
+                                stream = CommonUtility.CreateArchivePdfStream(imagePreviewPaths);
 
-                                return File(stream, "application/pdf", string.Format("{0}.pdf",
+                                return File(stream, "application/zip", string.Format("{0}.zip",
                                     CommonUtility.GenarateRandomString(10, 10).ToUpper()));
                             }
                             break;
@@ -587,14 +591,6 @@ namespace Keystone.Web.Areas.Admin.Controllers
                     hidden = true,
                     edittype = Edittype.custom.ToString(),
                 });
-
-                //columnModel.Add(new colModel()
-                //{
-                //    name = "Actions",
-                //    index = "act",
-                //    width = 30,
-                //    sortable = false
-                //});
 
                 gridModelSchema = new GridModelSchema(columnModel);
                 return JsonConvert.SerializeObject(gridModelSchema, new JsonSerializerSettings
