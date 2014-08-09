@@ -245,7 +245,6 @@ namespace Keystone.Web.Areas.Admin.Controllers
                                     OrderedItemCode = x.OrderItemId,
                                     OrderedImages = x.Draft.DraftPages
                                         .OrderBy(z => z.TemplateId)
-                                        .ThenBy(z => z.TemplatePageId)
                                         .ThenBy(z => z.TemplatePage.OrderIndex)
                                         .Select(y => y.FinalImageUrl.ToBase64Encode()).ToList()
                                 }).ToList<OrderedImageModel>();

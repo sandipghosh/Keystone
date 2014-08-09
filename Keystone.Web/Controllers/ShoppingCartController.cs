@@ -604,7 +604,6 @@ namespace Keystone.Web.Controllers
                     var imagePreviewPaths = selectedOrder.OrderItems
                         .SelectMany(x => x.Draft.DraftPages)
                         .OrderBy(x => x.TemplateId)
-                        .ThenBy(x => x.TemplatePageId)
                         .ThenBy(x => x.TemplatePage.OrderIndex)
                         .Select(x => x.FinalImageUrl.ToBase64Encode()).ToList();
 
