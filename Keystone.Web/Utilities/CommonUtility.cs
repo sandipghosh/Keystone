@@ -1114,6 +1114,8 @@ namespace Keystone.Web.Utilities
                 ZipOutputStream zipStream = new ZipOutputStream(outputMemStream);
 
                 byte[] byteArray = outputMemStream.ToArray();
+                zipStream.SetLevel(9);
+                zipStream.UseZip64 = UseZip64.Off;
 
                 var orderGroup = orderedImages.OrderBy(x => x.TemplateId).ThenBy(x => x.OrderIndex)
                     .GroupBy(x => new { x.DraftId, x.TemplateTitle });
