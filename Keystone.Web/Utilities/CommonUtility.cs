@@ -1139,40 +1139,6 @@ namespace Keystone.Web.Utilities
 
                 outputMemStream.Position = 0;
                 return outputMemStream;
-
-
-
-
-                //string archiveFileRelativeLocation = string.Format("/{0}/{1}.zip",
-                //    ConfigurationManager.AppSettings["OrderAttachmentsFolder"].ToString(),
-                //    ConvertToTimestamp(DateTime.Now).ToString());
-
-                //string archiveFileLocation = HttpContext.Current.Server.MapPath(archiveFileRelativeLocation);
-
-                //using (ZipFile z = ZipFile.Create(archiveFileLocation))
-                //{
-                //    z.BeginUpdate();
-                //    foreach (var orderitem in orderedImages)
-                //    {
-                //        foreach (var path in orderitem.OrderedImages)
-                //        {
-                //            string currentUri = string.Empty;
-                //            try
-                //            {
-                //                currentUri = new Uri(path.ToBase64Decode()).AbsolutePath;
-                //            }
-                //            catch (Exception ex)
-                //            {
-                //                currentUri = path.ToBase64Decode();
-                //            }
-                //            string actualImageFilePath = HttpContext.Current.Server.MapPath(currentUri);
-                //            z.Add(actualImageFilePath, string.Format("{0}\\{1}", orderitem.OrderedItemCode, Path.GetFileName(actualImageFilePath)));
-                //        }
-                //    }
-                //    z.CommitUpdate();
-                //}
-
-                //return FileToStream(archiveFileLocation);
             }
             catch (Exception ex)
             {
@@ -1570,6 +1536,8 @@ namespace Keystone.Web.Utilities
         {
             int[] landscapeTemplateIds = { 10, 11 };
             string currentUri = imageFilePath;
+            iTextSharp.text.Rectangle rect = null;
+
             try
             {
                 currentUri = new Uri(currentUri.ToBase64Decode()).AbsolutePath;
@@ -1578,18 +1546,28 @@ namespace Keystone.Web.Utilities
             {
                 currentUri = currentUri.ToBase64Decode();
             }
-            iTextSharp.text.Rectangle rect = null;
 
             int currentTemplateId = GetTemplateIdFromFile(currentUri);
+
             if (landscapeTemplateIds.Contains(currentTemplateId))
+            {
                 rect = new iTextSharp.text.Rectangle((11.25f * 72f), (8.75f * 72f));
+            }
             else
+            {
                 if (currentTemplateId == 7)
-                { rect = new iTextSharp.text.Rectangle((8.25f * 72f), (11.12f * 72f)); }
+                {
+                    rect = new iTextSharp.text.Rectangle((7.75f * 72f), (10.625f * 72f));
+                }
+                else if (currentTemplateId == 12)
+                {
+                    rect = new iTextSharp.text.Rectangle((7.50f * 72f), (9.50f * 72f));
+                }
                 else
                 {
                     rect = new iTextSharp.text.Rectangle((8.75f * 72f), (11.25f * 72f));
                 }
+            }
 
             //float pageWidth = ((image.PlainWidth / (image.DpiX == 0 ? ACTUAL_IMAGE_DPI : image.DpiX)) * 72);
             //float pageHeight = ((image.PlainHeight / (image.DpiY == 0 ? ACTUAL_IMAGE_DPI : image.DpiY)) * 72);
