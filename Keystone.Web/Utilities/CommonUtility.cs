@@ -1557,11 +1557,11 @@ namespace Keystone.Web.Utilities
             {
                 if (currentTemplateId == 7)
                 {
-                    rect = new iTextSharp.text.Rectangle((7.75f * 72f), (10.625f * 72f));
+                    rect = new iTextSharp.text.Rectangle((8.00f * 72f), (10.65f * 72f));
                 }
                 else if (currentTemplateId == 12)
                 {
-                    rect = new iTextSharp.text.Rectangle((7.50f * 72f), (9.50f * 72f));
+                    rect = new iTextSharp.text.Rectangle((7.75f * 72f), (9.75f * 72f));
                 }
                 else
                 {
