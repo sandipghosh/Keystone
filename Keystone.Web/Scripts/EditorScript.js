@@ -261,7 +261,8 @@
             try { $.blockUI({ message: $("#dataloading") }); } catch (ex) { }
             var dataUrl = Base64Encode(editorCanvas.convertCanvasToSVG({
                 originalWidth: parseInt($('#PageWidth').val()),
-                originalHeight: parseInt($('#PageHeight').val())
+                originalHeight: parseInt($('#PageHeight').val()),
+                templateId: parseInt($('#TemplateId').val())
             }));
 
             //var dataUrl = editorCanvas.convertCanvasToImage({ multiplier: 2.607361963190184 });

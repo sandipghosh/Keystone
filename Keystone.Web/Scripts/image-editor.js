@@ -1045,7 +1045,7 @@ var editorCanvas = {
                     $('#btn_text_bold').removeClass('disabled');
                     $('#btn_text_italic').removeClass('disabled');
 
-                    if ((activeObject.type == editorCanvas.objectType.IText && !activeObject.isEditing)||
+                    if ((activeObject.type == editorCanvas.objectType.IText && !activeObject.isEditing) ||
                         activeObject.type == editorCanvas.objectType.Text) {
                         $('#btn_text_gravity_west').removeClass('disabled');
                         $('#btn_text_gravity_center').removeClass('disabled');
@@ -1601,7 +1601,7 @@ var editorCanvas = {
                     }
                     editorCanvas.currentScaleX = activeObject.get('scaleX');
                     editorCanvas.currentScaleY = activeObject.get('scaleY');
-                    
+
 
                 } catch (ex) {
                     console.log(ex);
@@ -1775,9 +1775,23 @@ var editorCanvas = {
             var xmlDoc = $.parseXML(svgData);
             var $xml = $(xmlDoc);
             var $svg = $xml.find('svg');
+
+            var xPoint = 0;
+            var yPoint = 0;
+
+            if (options.templateId == 12) {
+                xPoint = 2;
+                yPoint = 2;
+            }
+            else if (options.templateId == 7) {
+                xPoint = 0;
+                yPoint = 0;
+            }
+
             if ($svg.length > 0) {
                 $svg.attr({
-                    'viewBox': '0 0 {0} {1}'.format(parseFloat(options.originalWidth * 0.38), parseFloat(options.originalHeight * 0.38))
+                    'viewBox': '{0} {1} {2} {3}'.format(xPoint, yPoint,
+                        parseFloat(options.originalWidth * 0.38), parseFloat(options.originalHeight * 0.38))
                 });
             }
 

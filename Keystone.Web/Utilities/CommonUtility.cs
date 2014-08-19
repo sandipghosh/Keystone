@@ -1015,7 +1015,7 @@ namespace Keystone.Web.Utilities
                 MemoryStream memoryStream = new MemoryStream();
                 //var document = new iTextSharp.text.Document(GetPDFDocSize(imageFilePaths));
                 var document = new iTextSharp.text.Document();
-                //document.SetMargins(0, 0, 0, 0);
+                document.SetMargins(0f, 0f, 0f, 0f);
 
                 PdfWriter writer = PdfWriter.GetInstance(document, memoryStream);
                 //writer.SetFullCompression();
@@ -1031,11 +1031,11 @@ namespace Keystone.Web.Utilities
                     var image = iTextSharp.text.Image.GetInstance(actualImageFilePath);
 
                     document.SetPageSize(GetPDFDocSize(path));
-                    document.SetMargins(0, 0, 0, 0);
+                    document.SetMargins(0f, 0f, 0f, 0f);
 
                     image.Alignment = iTextSharp.text.Element.ALIGN_CENTER;
                     image.ScaleToFit(document.PageSize.Width, document.PageSize.Height);
-                    image.SetAbsolutePosition(0, 0);
+                    image.SetAbsolutePosition(0f, 0f);
 
                     document.NewPage();
                     writer.DirectContent.AddImage(image);
@@ -1516,15 +1516,26 @@ namespace Keystone.Web.Utilities
             iTextSharp.text.Rectangle rect = null;
 
             int currentTemplateId = GetTemplateIdFromFile(currentUri);
+
             if (landscapeTemplateIds.Contains(currentTemplateId))
+            {
                 rect = new iTextSharp.text.Rectangle((11.25f * 72f), (8.75f * 72f));
+            }
             else
+            {
                 if (currentTemplateId == 7)
-                { rect = new iTextSharp.text.Rectangle((8.25f * 72f), (11.12f * 72f)); }
+                {
+                    rect = new iTextSharp.text.Rectangle((8.00f * 72f), (10.65f * 72f));
+                }
+                else if (currentTemplateId == 12)
+                {
+                    rect = new iTextSharp.text.Rectangle((7.75f * 72f), (9.75f * 72f));
+                }
                 else
                 {
                     rect = new iTextSharp.text.Rectangle((8.75f * 72f), (11.25f * 72f));
                 }
+            }
 
             //float pageWidth = ((image.PlainWidth / (image.DpiX == 0 ? ACTUAL_IMAGE_DPI : image.DpiX)) * 72);
             //float pageHeight = ((image.PlainHeight / (image.DpiY == 0 ? ACTUAL_IMAGE_DPI : image.DpiY)) * 72);

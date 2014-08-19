@@ -547,7 +547,7 @@ namespace Keystone.Web.Controllers
                         {
                             orderItems.Remove(orderItems.FirstOrDefault(x => x.DraftId.Equals(draft.DraftId)));
                         }
-                        catch (Exception ex) {  }
+                        catch (Exception ex) { }
                     }
 
                     orderItems.Add(new OrderItemModel
@@ -735,7 +735,11 @@ namespace Keystone.Web.Controllers
                     CommonUtility.GetAppSetting<string>("TempFolder"),
                     Session.SessionID, CommonUtility.GenarateRandomString(10, 10)));
 
-                string inkscapeArgs = string.Format(@"-f ""{0}"" -e ""{1}"" -d 72", svgFileName, tempSVGFile);
+                ImageDimention dimention = GetFileDimentionFromSVG(svgFileName);
+
+                string inkscapeArgs = string.Format(@"-f ""{0}"" -e ""{1}"" -d {2} -w {3} -h {4}",
+                    svgFileName, tempSVGFile, CommonUtility.GetAppSetting<string>("SVGtoImageConversionDPI"),
+                    dimention.Width, dimention.Height);
                 string inkscapeExecutionPath = CommonUtility.GetAppSetting<string>("InkscapeExecutionPath");
                 Process inkscape = Process.Start(new ProcessStartInfo(inkscapeExecutionPath, inkscapeArgs));
                 //inkscape.WaitForExit(3000);
@@ -759,6 +763,37 @@ namespace Keystone.Web.Controllers
             }
             return string.Empty;
         }
+
+        private ImageDimention GetFileDimentionFromSVG(string svgFilePath)
+        {
+            ImageDimention dimention = new ImageDimention();
+            try
+            {
+                if (System.IO.File.Exists(svgFilePath))
+                {
+                    XDocument xDoc = XDocument.Load(svgFilePath);
+                    if (xDoc != null)
+                    {
+                        var width = xDoc.Root.Attribute("width").Value;
+                        var height = xDoc.Root.Attribute("height").Value;
+
+                        dimention.Width = Convert.ToDecimal(width);
+                        dimention.Height = Convert.ToDecimal(height);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.ExceptionValueTracker(svgFilePath);
+            }
+            return dimention;
+        }
         #endregion
+    }
+
+    public class ImageDimention
+    {
+        public decimal Width { get; set; }
+        public decimal Height { get; set; }
     }
 }
