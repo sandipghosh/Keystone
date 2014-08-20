@@ -253,21 +253,12 @@
 
     var setWatermark = function (templateid, pageid, callback) {
         try {
-            /*var dataUrl = editorCanvas.canvas.toDataURL({
-                format: 'jpeg',
-                quality: 0.8
-            });*/
-
             try { $.blockUI({ message: $("#dataloading") }); } catch (ex) { }
             var dataUrl = Base64Encode(editorCanvas.convertCanvasToSVG({
                 originalWidth: parseInt($('#PageWidth').val()),
                 originalHeight: parseInt($('#PageHeight').val()),
                 templateId: parseInt($('#TemplateId').val())
             }));
-
-            //var dataUrl = editorCanvas.convertCanvasToImage({ multiplier: 2.607361963190184 });
-            //var dataUrl = editorCanvas.convertCanvasToImage();
-            //var rawData = dataUrl.replace('data:image/jpeg;base64,', '');
             var rawData = dataUrl;
 
             var watermarkImageUrl = {
@@ -307,37 +298,6 @@
                 }
             };
             $('#frmCanvasData').ajaxSubmit(options);
-
-            /*Alternative option of JSON post*/
-
-            //$.ajax({
-            //    type: 'POST',
-            //    url: '{0}/Editor/SetWatermark'.format(virtualDirectory),
-            //    data: JSON.stringify({
-            //        'imageRawData': rawData,
-            //        'templateId': templateid,
-            //        'pageId': pageid
-            //    }),
-            //    contentType: 'application/json; charset=utf-8',
-            //    dataType: 'json',
-            //    success: function (ImageUrl, textStatus, jqXHR) {
-            //        if (ImageUrl) {
-            //            if (ImageUrl.Status === 'success') {
-            //                watermarkImageUrl.draftImageUrl = ImageUrl.draftUrl;
-            //                watermarkImageUrl.finalImageUrl = ImageUrl.finalUrl;
-
-            //                if (callback)
-            //                    callback(watermarkImageUrl);
-            //            }
-            //        }
-            //    },
-            //    error: function (jqXHR, textStatus, errorThrown) {
-            //        alert(textStatus);
-            //    }
-            //});
-
-            //return watermarkImageUrl;
-
         } catch (ex) {
             console.log(ex);
         }
@@ -415,8 +375,6 @@
 
     this.CreatedPreviewOfAllPageForATemplate = function (url, templateid, pageid, modalCallback) {
         try {
-            //$.blockUI({ message: $("#dataloading") });
-
             SetDraftData(templateid, pageid, function () {
                 var draftUrl = Enumerable.From(GetDraftPageInfoFromSessionStorage(templateid))
                     .Select(function (x) { return x.DraftPreviewUrl; }).ToArray();

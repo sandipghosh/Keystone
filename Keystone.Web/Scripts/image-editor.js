@@ -1763,37 +1763,50 @@ var editorCanvas = {
         try {
             editorCanvas.destroyBoundryLimit();
 
+            var canvasScaleFactor = 0
+            if (editorCanvas.CANVAS_SCALE > .200000000000000) {
+                editorCanvas.CANVAS_SCALE = canvasScaleValue / editorCanvas.SCALE_FACTOR;
+            }
+            canvasScaleFactor = (editorCanvas.CANVAS_SCALE / editorCanvas.SCALE_FACTOR);
+
             var svgData = editorCanvas.canvas.toSVG({
                 viewBox: {
                     x: 0,
                     y: 0,
-                    width: options.originalWidth,
-                    height: options.originalHeight
+                    width: (options.originalWidth * canvasScaleFactor),
+                    height: (options.originalHeight * canvasScaleFactor)
                 }
+            }, function (svg) {
+                return svg;
             });
 
             var xmlDoc = $.parseXML(svgData);
             var $xml = $(xmlDoc);
-            var $svg = $xml.find('svg');
+            var prevValue = $xml.find('g[transform]').attr('transform');
+            $xml.find('g[transform]').attr('transform', prevValue
+                .replace(/scale\([0-9]*(\.[0-9]+)?\)$/g, 'scale({0})'.format(canvasScaleFactor)))
 
-            var xPoint = 0;
-            var yPoint = 0;
+            //var $svg = $xml.find('svg');
 
-            if (options.templateId == 12) {
-                xPoint = 2;
-                yPoint = 2;
-            }
-            else if (options.templateId == 7) {
-                xPoint = 0;
-                yPoint = 0;
-            }
+            //var xPoint = 0;
+            //var yPoint = 0;
 
-            if ($svg.length > 0) {
-                $svg.attr({
-                    'viewBox': '{0} {1} {2} {3}'.format(xPoint, yPoint,
-                        parseFloat(options.originalWidth * 0.38), parseFloat(options.originalHeight * 0.38))
-                });
-            }
+            ////if (options.templateId == 12) {
+            ////    xPoint = 2;
+            ////    yPoint = 2;
+            ////}
+            ////else if (options.templateId == 7) {
+            ////    xPoint = 1;
+            ////    yPoint = 1;
+            ////}
+
+            //if ($svg.length > 0) {
+            //    $svg.attr({
+            //        'viewBox': '{0} {1} {2} {3}'.format(xPoint, yPoint,
+            //            parseFloat(options.originalWidth * canvasScaleFactor),
+            //            parseFloat(options.originalHeight * canvasScaleFactor))
+            //    });
+            //}
 
             editorCanvas.createBoundryLimit();
             return xmlDocToString($xml);

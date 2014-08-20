@@ -742,6 +742,7 @@ namespace Keystone.Web.Controllers
                     dimention.Width, dimention.Height);
                 string inkscapeExecutionPath = CommonUtility.GetAppSetting<string>("InkscapeExecutionPath");
                 Process inkscape = Process.Start(new ProcessStartInfo(inkscapeExecutionPath, inkscapeArgs));
+
                 //inkscape.WaitForExit(3000);
                 inkscape.WaitForExit();
 
@@ -750,9 +751,6 @@ namespace Keystone.Web.Controllers
                     Console.WriteLine("Waiting...");
                     Thread.Sleep(1000);
                 }
-
-                //try { if (!inkscape.HasExited) inkscape.Kill(); }
-                //catch (Exception) { }
 
                 inkscape.Dispose();
                 return tempSVGFile;
