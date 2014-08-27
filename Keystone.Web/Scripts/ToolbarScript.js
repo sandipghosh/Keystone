@@ -684,50 +684,14 @@
     });
 
     $(document).ready(function () {
-        //$('.button-text:not(".disabled"), .button-icon:not(".disabled")').parent('div')
-        //    .click(function (e) {
-        //        if (!$(this).is('.disabled')) {
-        //            $('.button-menu').hide();
-        //            $(this).find('.button-menu').css({
-        //                'left': $(this).position().left + 2,
-        //                'top': $(this).position().top + $(this).height() + 8,
-        //                'min-width': ($(this).attr('id') == 'btn_text_number' ||
-        //                    $(this).attr('id') == 'btn_symbol_bullet') ? '100%' : $(this).css('width')
-        //            }).show();
-        //        }
-        //        e.stopPropagation();
-        //    });
-
-        //$('.toolbar-button').click(function (e) {
-        //    var clickedButton = $(this).attr('id');
-        //    e.stopPropagation();
-        //});
-
         SetupFontPicker();
         SetupColorPicker();
-
-        //$('#btn_top_toolbar_toggle').click(function (ex) {
-        //    try {
-        //        $('.toolbar').slideToggle('fast', function () {
-        //            if ($('.toolbar').is(':visible')) {
-        //                $('#btn_top_toolbar_toggle').addClass('open')
-        //                    .css({ 'bottom': '-171px' });
-        //            }
-        //            else {
-        //                $('#btn_top_toolbar_toggle').removeClass('open')
-        //                    .css({ 'bottom': '-64px' });
-        //            }
-        //        })
-        //    } catch (ex) {
-        //        console.log(ex);
-        //    }
-        //});
 
         InitializeCanvas({
             width: parseInt($('#PageWidth').val()),
             height: parseInt($('#PageHeight').val()),
             bgImage: $('#TemplatePageUrl').val(),
-            scaleValue: 0.5494588235294117,
+            scaleValue: canvasScaleValue,
             renderData: function () {
                 var returnValue = '';
                 var templateId = sessionStorage.getItem('SELECTED_TEMPLATE_ID');
@@ -772,6 +736,18 @@
                 prevZoomValue = ui.value;
             }
         });
+
+        var storageGridLineValue = sessionStorage.getItem('SHOWGRIDLINE');
+        if (storageGridLineValue != null) {
+            if (storageGridLineValue == 'true') {
+                editorCanvas.showGrid = true;
+                $('#btn_view_gridline').addClass('on');
+            }
+            else {
+                editorCanvas.showGrid = false;
+                $('#btn_view_gridline').removeClass('on');
+            }
+        }
     });
 
     $(document).on('click', '.dz-details', function () {
@@ -1081,8 +1057,21 @@
                             editorCanvas.canvasZoomIn();
                             break;
 
-                            //case 'btn_view_preview':
-                            //    break;
+                        case 'btn_view_gridline':
+                            if (sessionStorage.getItem('SHOWGRIDLINE') == null
+                                || sessionStorage.getItem('SHOWGRIDLINE') == 'false') {
+                                editorCanvas.showGrid = true;
+                                editorCanvas.createGridLines();
+                                $(this).addClass('on');
+                                sessionStorage.setItem('SHOWGRIDLINE', true);
+                            }
+                            else {
+                                editorCanvas.destroyGridLine();
+                                editorCanvas.showGrid = false;
+                                $(this).removeClass('on');
+                                sessionStorage.setItem('SHOWGRIDLINE', false);
+                            }
+                            break;
 
                         case 'btn_edit_undo':
                             editorCanvas.undo();
@@ -1251,16 +1240,41 @@
     var MakeToolbarSticky = function () {
         var toolbarHeight = $('.toolbar').outerHeight();
         var toolbarTop = $('.toolbar').offset().top + 5;
+        $('html,body').scrollTop(0);
 
         $(win).scroll(function (e) {
             editorCanvas.canvas.calcOffset();
+            //$('#crop_toolbar, #shape_toolbar, #textbox_tools').hide();
 
             if ($('.toolbar').is(':visible')) {
                 if ($(this).scrollTop() > (toolbarTop)) {
-                    $('.toolbar').css({ 'position': 'fixed', 'top': 0 });
+
+                    var paddingWidth = (($('.canvas-container').width() - $('.toolbar').width()) / 2);
+
+                    $('.toolbar').css({
+                        'position': 'fixed',
+                        'top': 0
+                    });
+                    if ($('.canvas-container').offset().left < $('.toolbar').offset().left) {
+                        $('.toolbar').css({ 'left': $('.canvas-container').offset().left + 'px' });
+                    }
+                    if (paddingWidth > 0) {
+                        $('.toolbar').css({
+                            'padding-left': paddingWidth + 'px',
+                            'padding-right': paddingWidth + 'px'
+                        });
+                    }
+
+                    $('.hRule').css({
+                        'position': 'fixed',
+                        'top': ($('.toolbar').height() + 2.5) + 'px',
+                        'left': $('.canvas-container').offset().left + 'px',
+                        'width': $('.canvas-container').width() + 'px'
+                    });
                 }
                 else if ($(this).scrollTop() <= (toolbarTop)) {
                     $('.toolbar').removeAttr('style');
+                    $('.hRule').css({ 'position': 'absolute', 'top': '0px', 'left': '0px', 'width': '100%' });
                 }
             }
         });
@@ -1406,4 +1420,6 @@
             console.log(ex);
         }
     };
+
+
 }(jQuery, window));

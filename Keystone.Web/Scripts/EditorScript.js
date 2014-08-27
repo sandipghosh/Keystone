@@ -375,6 +375,7 @@
 
     this.CreatedPreviewOfAllPageForATemplate = function (url, templateid, pageid, modalCallback) {
         try {
+            $('#crop_toolbar, #shape_toolbar, #textbox_tools').hide();
             SetDraftData(templateid, pageid, function () {
                 var draftUrl = Enumerable.From(GetDraftPageInfoFromSessionStorage(templateid))
                     .Select(function (x) { return x.DraftPreviewUrl; }).ToArray();

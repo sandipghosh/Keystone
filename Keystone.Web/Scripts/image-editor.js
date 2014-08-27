@@ -32,6 +32,9 @@ var editorCanvas = {
     commonBorderColor: '#ffc13d',
     commonCornerColor: '#fa7a08',
     commonEditBorderColor: '#83b61a',
+    showGrid: false,
+    gridScaleSpacing: 10,
+    gridLinePrefix: 'gridLine',
 
     windowScrollTop: 0,
     objectType: {
@@ -500,45 +503,42 @@ var editorCanvas = {
     addControlEvents: function (activeObject) {
         try {
             if (activeObject) {
-                activeObject.on('selected', function (options) {
-                    $('.hove-highlighter').hide();
-                    editorCanvas.hideAllPopupCommand();
-                    editorCanvas.setToolbarCommand(editorCanvas.canvas.getActiveObject());
-                    editorCanvas.positionBtn(editorCanvas.canvas.getActiveObject());
-                    editorCanvas.showHidePopupCommand(editorCanvas.canvas.getActiveObject(), 'show');
-                });
+                if (activeObject.name && !activeObject.name.startsWith(editorCanvas.gridLinePrefix)) {
+                    activeObject.on('selected', function (options) {
+                        $('.hove-highlighter').hide();
+                        editorCanvas.hideAllPopupCommand();
+                        editorCanvas.setToolbarCommand(editorCanvas.canvas.getActiveObject());
+                        editorCanvas.positionBtn(editorCanvas.canvas.getActiveObject());
+                        editorCanvas.showHidePopupCommand(editorCanvas.canvas.getActiveObject(), 'show');
+                    });
 
-                activeObject.on('moving', function (e) {
-                    editorCanvas.positionBtn(editorCanvas.canvas.getActiveObject());
-                    $('.hove-highlighter').hide();
-                });
+                    activeObject.on('moving', function (e) {
+                        editorCanvas.positionBtn(editorCanvas.canvas.getActiveObject());
+                        $('.hove-highlighter').hide();
+                    });
 
-                activeObject.on('scaling', function (e) {
-                    editorCanvas.positionBtn(editorCanvas.canvas.getActiveObject());
-                    $('.hove-highlighter').hide();
-                });
+                    activeObject.on('scaling', function (e) {
+                        editorCanvas.positionBtn(editorCanvas.canvas.getActiveObject());
+                        $('.hove-highlighter').hide();
+                    });
 
-                activeObject.on('rotating', function (e) {
-                    editorCanvas.positionBtn(editorCanvas.canvas.getActiveObject());
-                });
+                    activeObject.on('rotating', function (e) {
+                        editorCanvas.positionBtn(editorCanvas.canvas.getActiveObject());
+                    });
 
-                if (activeObject.type == editorCanvas.objectType.IText) {
-                    activeObject.on('editing:entered', function (e) {
-                        //$(window).scrollTop(editorCanvas.windowScrollTop);
+                    if (activeObject.type == editorCanvas.objectType.IText) {
+                        activeObject.on('editing:entered', function (e) {
+                            $('#textbox_tools').hide();
+                            setAllToobarCommandDisabled();
+                            editorCanvas.setToolbarCommand(activeObject);
+                        });
+                    }
 
-                        $('#textbox_tools').hide();
-                        //var textLength = activeObject.getText().length;
-                        //activeObject.setSelectionStart(0);
-                        //activeObject.setSelectionEnd(textLength);
-                        setAllToobarCommandDisabled();
-                        editorCanvas.setToolbarCommand(activeObject);
+                    editorCanvas.canvas.observe('object:scaling', function (e) {
+                        var activeObject = editorCanvas.canvas.getActiveObject();
+                        editorCanvas.positionBtn(activeObject);
                     });
                 }
-
-                editorCanvas.canvas.observe('object:scaling', function (e) {
-                    var activeObject = editorCanvas.canvas.getActiveObject();
-                    editorCanvas.positionBtn(activeObject);
-                });
             }
         } catch (ex) {
             console.log(ex);
@@ -548,6 +548,9 @@ var editorCanvas = {
     positionHoverIndicator: function (hoverObject) {
         try {
             if (hoverObject) {
+                if (hoverObject.name && hoverObject.name.startsWith(editorCanvas.gridLinePrefix))
+                    return;
+
                 var $indicatorPopup = $('.hove-highlighter');
                 var indicatorPopupWidth = $indicatorPopup.width();
                 var indicatorPopupHeight = $indicatorPopup.height();
@@ -1374,7 +1377,6 @@ var editorCanvas = {
 
             if (editorCanvas.index < 1) {
                 editorCanvas.index = 1;
-                //editorCanvas.loadCanvasFromTempStack(editorCanvas.index);
                 return;
             }
 
@@ -1458,6 +1460,8 @@ var editorCanvas = {
 
                 editorCanvas.canvas.add(boundingBox);
             }
+
+            editorCanvas.createGridLines();
             editorCanvas.canvas.renderAll();
 
         } catch (ex) {
@@ -1470,6 +1474,8 @@ var editorCanvas = {
             var boundingBox = editorCanvas.canvas.getItemByName('bounding-box');
             if (boundingBox != null && boundingBox != undefined) {
                 editorCanvas.canvas.remove(boundingBox);
+
+                editorCanvas.destroyGridLine();
                 editorCanvas.canvas.renderAll();
             }
         } catch (ex) {
@@ -1493,14 +1499,13 @@ var editorCanvas = {
                         IsCanvasOnly: option.IsCanvasOnly
                     });
                     editorCanvas.scaleDownExecution += 1;
+                    editorCanvas.createRuler();
                 }
                 editorCanvas.createBoundryLimit();
 
                 editorCanvas.canvasEventHandlerSetup();
                 editorCanvas.state[0] = editorCanvas.getJsonDataFromCanvas(true);
             });
-            //editorCanvas.canvasEventHandlerSetup();
-            //editorCanvas.state[0] = editorCanvas.getJsonDataFromCanvas(true);
 
         } catch (ex) {
             console.log(ex);
@@ -1517,21 +1522,42 @@ var editorCanvas = {
                 editorCanvas.canvas.calcOffset();
             });
 
+            editorCanvas.canvas.on('mouse:down', function (e) {
+                try {
+                    //editorCanvas.showCrosshair(e);
+                } catch (ex) {
+                    console.log(ex);
+                }
+            });
+
+            editorCanvas.canvas.on('mouse:up', function (e) {
+                try {
+                    if (editorCanvas.showGrid) {
+                        //editorCanvas.hideCrosshair(e);
+                    }
+                } catch (ex) {
+                    console.log(ex);
+                }
+            });
+
             editorCanvas.canvas.on('mouse:over', function (e) {
                 try {
                     var hoverObject = e.target;
                     var activeObject = editorCanvas.canvas.getActiveObject();
 
                     if (activeObject == null || hoverObject.name !== activeObject.name) {
-                        editorCanvas.positionHoverIndicator(hoverObject);
-                        $('.hove-highlighter').show();
-                        if (hoverObject.type == editorCanvas.objectType.Image ||
-                            hoverObject.type == editorCanvas.objectType.IText ||
-                            hoverObject.type == editorCanvas.objectType.Text) {
-                            $('.hover-descriptor').css({ 'top': ($('.hove-highlighter').height() + 5) + 'px' })
-                            $('.hover-descriptor').slideDown(200);
+
+                        if (hoverObject.name && !hoverObject.name.startsWith(editorCanvas.gridLinePrefix)) {
+                            editorCanvas.positionHoverIndicator(hoverObject);
+                            $('.hove-highlighter').show();
+                            if (hoverObject.type == editorCanvas.objectType.Image ||
+                                hoverObject.type == editorCanvas.objectType.IText ||
+                                hoverObject.type == editorCanvas.objectType.Text) {
+                                $('.hover-descriptor').css({ 'top': ($('.hove-highlighter').height() + 5) + 'px' })
+                                $('.hover-descriptor').slideDown(200);
+                            }
+                            else { $('.hover-descriptor').hide(); }
                         }
-                        else { $('.hover-descriptor').hide(); }
                     }
 
                     editorCanvas.windowScrollTop = $(window).scrollTop();
@@ -1571,6 +1597,7 @@ var editorCanvas = {
                     //editorCanvas.limitBoundry(activeObject);
                     activeObject.setCoords();
                     editorCanvas.canvas.renderAll();
+                    editorCanvas.hideCrosshair(e);
                 } catch (ex) {
                     console.log(ex);
                 }
@@ -1602,7 +1629,7 @@ var editorCanvas = {
                     editorCanvas.currentScaleX = activeObject.get('scaleX');
                     editorCanvas.currentScaleY = activeObject.get('scaleY');
 
-
+                    editorCanvas.snapObjectOnScaling(e);
                 } catch (ex) {
                     console.log(ex);
                 }
@@ -1614,7 +1641,10 @@ var editorCanvas = {
                     if (activeObject.type != editorCanvas.objectType.IText ||
                         activeObject.type != editorCanvas.objectType.Text ||
                         activeObject.type != editorCanvas.objectType.Line) {
+
+                        editorCanvas.snapObjectOnMoving(e);
                         editorCanvas.limitBoundry(activeObject);
+                        editorCanvas.showCrosshair(e);
                     }
                 } catch (ex) {
                     console.log(ex);
@@ -1696,11 +1726,14 @@ var editorCanvas = {
                         editingBorderColor: editorCanvas.commonEditBorderColor
                     });
 
-                    //editorCanvas.makeTextNonMoveable(fabricObj);
                     editorCanvas.addControlEvents(fabricObj);
 
-                    if (setActive)
-                        fabricObj.set('active', true);
+                    if (setActive) {
+                        if (fabricObj.name && !fabricObj.name.startsWith(editorCanvas.gridLinePrefix)) {
+                            fabricObj.set('active', true);
+                            //fabricObj.bringToFront();
+                        }
+                    }
                 });
 
         } catch (ex) {
@@ -1719,7 +1752,8 @@ var editorCanvas = {
             if (canvasData != null && canvasData != undefined) {
                 for (var i = 0; i < canvasData.objects.length; ++i) {
                     if (canvasData.objects[i].name != null && canvasData.objects[i].name != undefined) {
-                        if (canvasData.objects[i].name === 'bounding-box') {
+                        if (canvasData.objects[i].name === 'bounding-box' ||
+                            canvasData.objects[i].name.startsWith(editorCanvas.gridLinePrefix)) {
                             canvasData.objects.splice(i--, 1);
                         }
                     }
@@ -1763,7 +1797,7 @@ var editorCanvas = {
         try {
             editorCanvas.destroyBoundryLimit();
 
-            var canvasScaleFactor = 0
+            var canvasScaleFactor = 0, xPoint = 0, yPoint = 0; imageScaleFactor = 0;
             if (editorCanvas.CANVAS_SCALE > .200000000000000) {
                 editorCanvas.CANVAS_SCALE = canvasScaleValue / editorCanvas.SCALE_FACTOR;
             }
@@ -1773,40 +1807,35 @@ var editorCanvas = {
                 viewBox: {
                     x: 0,
                     y: 0,
-                    width: (options.originalWidth * canvasScaleFactor),
-                    height: (options.originalHeight * canvasScaleFactor)
+                    width: (options.originalWidth),
+                    height: (options.originalHeight)
                 }
-            }, function (svg) {
-                return svg;
             });
 
             var xmlDoc = $.parseXML(svgData);
             var $xml = $(xmlDoc);
-            var prevValue = $xml.find('g[transform]').attr('transform');
-            $xml.find('g[transform]').attr('transform', prevValue
-                .replace(/scale\([0-9]*(\.[0-9]+)?\)$/g, 'scale({0})'.format(canvasScaleFactor)))
+            var $svg = $xml.find('svg');
 
-            //var $svg = $xml.find('svg');
+            if (options.templateId == 7)
+                imageScaleFactor = 0.385;
+            else
+                imageScaleFactor = canvasScaleFactor.toFixed(4)
 
-            //var xPoint = 0;
-            //var yPoint = 0;
+            $xml.find('g[transform$="scale(0.38)"],g[transform$="scale(0.38 0.38)"]')
+                .each(function () {
+                    var prevValue = $(this).attr('transform');
+                    $(this).attr('transform',
+                        prevValue.replace('scale(0.38 0.38)', 'scale({0} {0})'.format(imageScaleFactor))
+                            .replace('scale(0.38)', 'scale({0})'.format(imageScaleFactor)));
+                });
 
-            ////if (options.templateId == 12) {
-            ////    xPoint = 2;
-            ////    yPoint = 2;
-            ////}
-            ////else if (options.templateId == 7) {
-            ////    xPoint = 1;
-            ////    yPoint = 1;
-            ////}
-
-            //if ($svg.length > 0) {
-            //    $svg.attr({
-            //        'viewBox': '{0} {1} {2} {3}'.format(xPoint, yPoint,
-            //            parseFloat(options.originalWidth * canvasScaleFactor),
-            //            parseFloat(options.originalHeight * canvasScaleFactor))
-            //    });
-            //}
+            if ($svg.length > 0) {
+                $svg.attr({
+                    'viewBox': '{0} {1} {2} {3}'.format(xPoint, yPoint,
+                        parseFloat(options.originalWidth * canvasScaleFactor),
+                        parseFloat(options.originalHeight * canvasScaleFactor))
+                });
+            }
 
             editorCanvas.createBoundryLimit();
             return xmlDocToString($xml);
@@ -1908,6 +1937,251 @@ var editorCanvas = {
                     activeObject.top = (boundingBox.height - activeObject.height);
                 }
             }
+        } catch (ex) {
+            console.log(ex);
+        }
+    },
+
+    createGridLines: function () {
+        try {
+            if (editorCanvas.showGrid) {
+                if (editorCanvas.hasGridLine())
+                    return;
+
+                var canvasWidth = editorCanvas.canvas.width;
+                var canvasHeight = editorCanvas.canvas.height;
+
+                for (var i = 0; i < (canvasWidth / editorCanvas.gridScaleSpacing) ; i++) {
+                    var horizontalLine = new fabric.Line([i * editorCanvas.gridScaleSpacing, 0, i * editorCanvas.gridScaleSpacing, canvasHeight], {
+                        stroke: i % editorCanvas.gridScaleSpacing > 0 ? '#E6E6E6' : '#CDCDCD',
+                        selectable: false,
+                        opacity: i % editorCanvas.gridScaleSpacing > 0 ? 0.1 : 0.3,
+                        name: editorCanvas.gridLinePrefix + 'H_' + i,
+                        hasBorders: false,
+                        hasControls: false,
+                        lockMovementX: true,
+                        lockMovementY: true
+                    });
+
+                    editorCanvas.canvas.add(horizontalLine);
+                    horizontalLine.sendToBack();
+                }
+
+                for (var i = 0; i < (canvasHeight / editorCanvas.gridScaleSpacing) ; i++) {
+                    var verticalLine = new fabric.Line([0, i * editorCanvas.gridScaleSpacing, canvasWidth, i * editorCanvas.gridScaleSpacing], {
+                        stroke: i % editorCanvas.gridScaleSpacing > 0 ? '#E6E6E6' : '#CDCDCD',
+                        selectable: false,
+                        opacity: i % editorCanvas.gridScaleSpacing > 0 ? 0.1 : 0.3,
+                        name: editorCanvas.gridLinePrefix + 'V_' + i,
+                        hasBorders: false,
+                        hasControls: false,
+                        lockMovementX: true,
+                        lockMovementY: true
+                    });
+
+                    editorCanvas.canvas.add(verticalLine);
+                    verticalLine.sendToBack();
+                }
+            }
+        } catch (ex) {
+            console.log(ex);
+        }
+    },
+
+    destroyGridLine: function () {
+        try {
+            if (editorCanvas.showGrid) {
+                var objects = editorCanvas.canvas.getObjects();
+
+                for (var i = 0; i < editorCanvas.canvas.size() ; i++) {
+                    if (objects[i].name && objects[i].type == editorCanvas.objectType.Line &&
+                        (objects[i].name.startsWith(editorCanvas.gridLinePrefix))) {
+                        editorCanvas.canvas.remove(objects[i]);
+                        i--;
+                    }
+                }
+            }
+        } catch (ex) {
+            console.log(ex);
+        }
+    },
+
+    hasGridLine: function () {
+        try {
+            var objects = editorCanvas.canvas.getObjects();
+
+            for (var i = 0, len = editorCanvas.canvas.size() ; i < len; i++) {
+                if (objects[i].name && objects[i].type == editorCanvas.objectType.Line &&
+                    (objects[i].name.startsWith(editorCanvas.gridLinePrefix))) {
+                    return true;
+                }
+            }
+            return false;
+        } catch (ex) {
+            console.log(ex);
+        }
+    },
+
+    snapObjectOnMoving: function (options) {
+        try {
+            if (editorCanvas.showGrid) {
+                options.target.set({
+                    left: Math.round(options.target.left / editorCanvas.gridScaleSpacing) * editorCanvas.gridScaleSpacing,
+                    top: Math.round(options.target.top / editorCanvas.gridScaleSpacing) * editorCanvas.gridScaleSpacing
+                });
+            }
+        } catch (ex) {
+            console.log(ex);
+        }
+    },
+
+    snapObjectOnScaling: function (options) {
+        try {
+            if (editorCanvas.showGrid) {
+                var target = options.target,
+                w = target.getWidth(),
+                h = target.getHeight(),
+                snap = {   // Closest snapping points
+                    top: Math.round(target.top / editorCanvas.gridScaleSpacing) * editorCanvas.gridScaleSpacing,
+                    left: Math.round(target.left / editorCanvas.gridScaleSpacing) * editorCanvas.gridScaleSpacing,
+                    bottom: Math.round((target.top + h) / editorCanvas.gridScaleSpacing) * editorCanvas.gridScaleSpacing,
+                    right: Math.round((target.left + w) / editorCanvas.gridScaleSpacing) * editorCanvas.gridScaleSpacing
+                },
+                threshold = editorCanvas.gridScaleSpacing * 0.2,
+                dist = {   // Distance from snapping points
+                    top: Math.abs(snap.top - target.top),
+                    left: Math.abs(snap.left - target.left),
+                    bottom: Math.abs(snap.bottom - target.top - h),
+                    right: Math.abs(snap.right - target.left - w)
+                },
+                attrs = {
+                    scaleX: target.scaleX,
+                    scaleY: target.scaleY,
+                    top: target.top,
+                    left: target.left
+                };
+
+                switch (target.__corner) {
+                    case 'tl':
+                        if (dist.left < dist.top && dist.left < threshold) {
+                            attrs.scaleX = (w - (snap.left - target.left)) / target.width;
+                            attrs.scaleY = (attrs.scaleX / target.scaleX) * target.scaleY;
+                            attrs.top = target.top + (h - target.height * attrs.scaleY);
+                            attrs.left = snap.left;
+                        }
+                        else if (dist.top < threshold) {
+                            attrs.scaleY = (h - (snap.top - target.top)) / target.height;
+                            attrs.scaleX = (attrs.scaleY / target.scaleY) * target.scaleX;
+                            attrs.left = attrs.left + (w - target.width * attrs.scaleX);
+                            attrs.top = snap.top;
+                        }
+                        break;
+                    case 'mt':
+                        if (dist.top < threshold) {
+                            attrs.scaleY = (h - (snap.top - target.top)) / target.height;
+                            attrs.top = snap.top;
+                        }
+                        break;
+                    case 'tr':
+                        if (dist.right < dist.top && dist.right < threshold) {
+                            attrs.scaleX = (snap.right - target.left) / target.width;
+                            attrs.scaleY = (attrs.scaleX / target.scaleX) * target.scaleY;
+                            attrs.top = target.top + (h - target.height * attrs.scaleY);
+                        }
+                        else if (dist.top < threshold) {
+                            attrs.scaleY = (h - (snap.top - target.top)) / target.height;
+                            attrs.scaleX = (attrs.scaleY / target.scaleY) * target.scaleX;
+                            attrs.top = snap.top;
+                        }
+                        break;
+                    case 'ml':
+                        if (dist.left < threshold) {
+                            attrs.scaleX = (w - (snap.left - target.left)) / target.width;
+                            attrs.left = snap.left;
+                        }
+                        break;
+                    case 'mr':
+                        if (dist.right < threshold)
+                            attrs.scaleX = (snap.right - target.left) / target.width;
+                        break;
+                    case 'bl':
+                        if (dist.left < dist.bottom && dist.left < threshold) {
+                            attrs.scaleX = (w - (snap.left - target.left)) / target.width;
+                            attrs.scaleY = (attrs.scaleX / target.scaleX) * target.scaleY;
+                            attrs.left = snap.left;
+                        }
+                        else if (dist.bottom < threshold) {
+                            attrs.scaleY = (snap.bottom - target.top) / target.height;
+                            attrs.scaleX = (attrs.scaleY / target.scaleY) * target.scaleX;
+                            attrs.left = attrs.left + (w - target.width * attrs.scaleX);
+                        }
+                        break;
+                    case 'mb':
+                        if (dist.bottom < threshold)
+                            attrs.scaleY = (snap.bottom - target.top) / target.height;
+                        break;
+                    case 'br':
+                        if (dist.right < dist.bottom && dist.right < threshold) {
+                            attrs.scaleX = (snap.right - target.left) / target.width;
+                            attrs.scaleY = (attrs.scaleX / target.scaleX) * target.scaleY;
+                        }
+                        else if (dist.bottom < threshold) {
+                            attrs.scaleY = (snap.bottom - target.top) / target.height;
+                            attrs.scaleX = (attrs.scaleY / target.scaleY) * target.scaleX;
+                        }
+                        break;
+                }
+
+                target.set(attrs);
+            }
+        } catch (ex) {
+            console.log(ex);
+        }
+    },
+
+    showCrosshair: function (options) {
+        try {
+            if (editorCanvas.showGrid && options.target) {
+                if (options.target.name && !options.target.name.startsWith(editorCanvas.gridLinePrefix)) {
+                    var absCoords = editorCanvas.canvas.getAbsoluteCoords(options.target);
+                    $('.vMouse, .hMouse').show();
+                    $('.hMouse').css({
+                        left: (absCoords.left + 25) + 'px',
+                        top: editorCanvas.canvas._offset.top + 'px',
+                        height: options.target.canvas.height + 'px'
+                    });
+                    $('.vMouse').css({
+                        top: (absCoords.top - 5) + 'px',
+                        left: options.target.canvas._offset.left + 'px',
+                        width: options.target.canvas.width + 'px'
+                    });
+                    $('.ruler').fadeIn('slow');
+                }
+            }
+        } catch (ex) {
+            console.log(ex);
+        }
+    },
+
+    hideCrosshair: function (options) {
+        try {
+            if (editorCanvas.showGrid) {
+                $('.vMouse, .hMouse').hide();
+                $('.ruler').fadeOut('slow');
+            }
+        } catch (ex) {
+            console.log(ex);
+        }
+    },
+
+    createRuler: function () {
+        try {
+            $('.canvas-container').ruler({
+                vRuleSize: 18,
+                hRuleSize: 18,
+                showCrosshair: false,
+                showMousePos: false
+            });
         } catch (ex) {
             console.log(ex);
         }

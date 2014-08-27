@@ -23,7 +23,8 @@ namespace Keystone.Web
         private static void RegisterScriptBundles(BundleCollection bundles)
         {
             bundles.Add(new ScriptBundle("~/Scripts/Common")
-                .Include("~/Scripts/consolelog.min.js",
+                .Include("~/Scripts/modernizr.js",
+                "~/Scripts/consolelog.min.js",
                 "~/Scripts/jquery-2.1.0.min.js",
                 "~/Scripts/jquery-migrate-1.2.1.min.js",
                 "~/Scripts/jquery.idletimer.js",
@@ -45,6 +46,7 @@ namespace Keystone.Web
                 //.Include("~/Scripts/fabric.min.js",
                 .Include("~/Scripts/fabric.js",
                 "~/Scripts/fabric-extension.js",
+                "~/Scripts/jquery.ruler.js",
                 "~/Scripts/simple-slider.min.js",
                 "~/Scripts/dropzone.min.js",
                 "~/Scripts/image-editor.js",
@@ -75,6 +77,7 @@ namespace Keystone.Web
 
             bundles.Add(new ScriptBundle("~/Styles/Editor")
                 .Include("~/Styles/dropzone.css",
+                "~/Styles/ruler.css",
                 "~/Styles/ToolbarStyle.css"));
 
             bundles.Add(new ScriptBundle("~/Styles/Admin")

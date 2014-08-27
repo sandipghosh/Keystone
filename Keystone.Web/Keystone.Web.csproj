@@ -484,6 +484,7 @@
     <Content Include="Scripts\jquery.idletimer.js" />
     <Content Include="Scripts\jquery.jcarousel.min.js" />
     <Content Include="Scripts\jquery.printElement.min.js" />
+    <Content Include="Scripts\jquery.ruler.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\json3.js" />
@@ -491,6 +492,7 @@
     <Content Include="Scripts\knockout.mapping-2.4.1.js" />
     <None Include="Scripts\linq-vsdoc.js" />
     <Content Include="Scripts\linq.min.js" />
+    <Content Include="Scripts\modernizr.js" />
     <Content Include="Scripts\oridomi.min.js" />
     <Content Include="Scripts\Payment.js" />
     <Content Include="Scripts\ShoppingCart.js" />
@@ -624,6 +626,7 @@
     <Content Include="Styles\Images\shipping_btn.png" />
     <Content Include="Styles\Images\shopping_icon.png" />
     <Content Include="Styles\Images\shopp_img.png" />
+    <Content Include="Styles\Images\show-grid.png" />
     <Content Include="Styles\Images\slider.png" />
     <Content Include="Styles\Images\split.png" />
     <Content Include="Styles\Images\spritemap%402x.png" />
@@ -662,6 +665,7 @@
     <Content Include="Styles\jquery-ui-1.10.4.custom.min.css" />
     <Content Include="Styles\jquery.fs.boxer.css" />
     <Content Include="Styles\MainStyle.css" />
+    <Content Include="Styles\ruler.css" />
     <Content Include="Styles\TestimonialStyle.css" />
     <Content Include="Styles\ToolbarStyle.css" />
     <Content Include="Templates\10\BG1-CMYK.jpg" />
