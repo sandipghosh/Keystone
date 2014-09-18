@@ -34,9 +34,26 @@
                         <div class="button" onclick="$('#saved-draft-list').hide()">Close</div>
                     </div>
                 </div>
-
             </li>
             <li><a href="#">|</a></li>
+            @*<li>
+                <a href="javascript:void(0);" onclick="showNavPopup(event)">
+                    Saved Order
+                    <img src='@Url.Content("~/Styles/Images/down_frop.png")' alt="" />
+                </a>
+
+                <div class="popup-cotainer" id="saved-draft-list" style="width:400px;">
+                    <div class="popup-arrow-up top-right"></div>
+                    <div class="popup-title">List of Orders</div>
+                    <div class="popup-content" style="max-height:200px;overflow-y:auto;overflow-x:hidden;">
+                        @Html.Action("GetOrderItems", "Draft", new { userAccountId = userId.Value })
+                    </div>
+                    <div class="popup-navigation">
+                        <div class="button" onclick="$('#saved-draft-list').hide()">Close</div>
+                    </div>
+                </div>
+            </li>
+            <li><a href="#">|</a></li>*@
             <li>
                 <a href="javascript:void(0);" onclick="showNavPopup(event)">
                     @userName

@@ -26,11 +26,11 @@ namespace Keystone.Web.Utilities
         {
             try
             {
-                IPaymentInfoDataRepository _paymentInfoDataRepositor
+                IPaymentInfoDataRepository _paymentInfoDataRepository
                     = DependencyResolver.Current.GetService<PaymentInfoDataRepository>();
                 CommonFuntionality commonFunc = new CommonFuntionality();
                 PaymentInfoModel paymentInfo = PreparePaimentInfo(paymentResponse, shoppingCart);
-                _paymentInfoDataRepositor.Insert(paymentInfo);
+                _paymentInfoDataRepository.Insert(paymentInfo);
                 return paymentInfo.ToString();
             }
             catch (Exception ex)
@@ -45,11 +45,11 @@ namespace Keystone.Web.Utilities
         {
             try
             {
-                IPaymentInfoDataRepository _paymentInfoDataRepositor
+                IPaymentInfoDataRepository _paymentInfoDataRepository
                     = DependencyResolver.Current.GetService<PaymentInfoDataRepository>();
                 CommonFuntionality commonFunc = new CommonFuntionality();
                 PaymentInfoModel paymentInfo = PreparePaimentInfo(paymentResponse, shoppingCart);
-                _paymentInfoDataRepositor.Insert(paymentInfo);
+                _paymentInfoDataRepository.Insert(paymentInfo);
                 return paymentInfo.ToString();
             }
             catch (Exception ex)
@@ -115,6 +115,56 @@ namespace Keystone.Web.Utilities
             };
 
             return paymentInfo;
+        }
+
+        /// <summary>
+        /// Determines whether [is order purchased] [the specified order identifier].
+        /// </summary>
+        /// <param name="orderId">The order identifier.</param>
+        /// <returns></returns>
+        public static bool IsOrderPurchased(int orderId)
+        {
+            try
+            {
+                IPaymentInfoDataRepository _paymentInfoDataRepository
+                    = DependencyResolver.Current.GetService<PaymentInfoDataRepository>();
+
+                int paymentCount = _paymentInfoDataRepository.GetCount(x => x.OrderId == orderId
+                    && x.StatusId == (int)StatusEnum.Active);
+
+                if (paymentCount > 0)
+                    return true;
+            }
+            catch (Exception ex)
+            {
+                ex.ExceptionValueTracker(orderId);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Determines whether [is draft ordered] [the specified draft identifier].
+        /// </summary>
+        /// <param name="draftId">The draft identifier.</param>
+        /// <returns></returns>
+        public static bool IsDraftOrdered(int draftId)
+        {
+            try
+            {
+                IOrderItemDataRepository _orderItemDataRepository
+                    = DependencyResolver.Current.GetService<OrderItemDataRepository>();
+
+                int orderCount = _orderItemDataRepository.GetCount(x => x.DraftId == draftId
+                    && x.StatusId == (int)StatusEnum.Active);
+
+                if (orderCount > 0)
+                    return true;
+            }
+            catch (Exception ex)
+            {
+                ex.ExceptionValueTracker(draftId);
+            }
+            return false;
         }
 
         /// <summary>

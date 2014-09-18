@@ -68,15 +68,16 @@ namespace Keystone.Web.Areas.Admin.Controllers
                         totalRecords = this._orderDataRepository.GetCount(searchCriteria);
 
                         orders = this._orderDataRepository
-                            .GetList(requestSearchData.page, requestSearchData.rows, searchCriteria,
-                            x => x.CreatedOn, false).ToList();
+                            .GetList(requestSearchData.page, requestSearchData.rows, searchCriteria, x => x.CreatedOn, false)
+                            .Where(x => Utilities.CommonFuntionality.IsOrderPurchased(x.OrderId)).ToList();
                     }
                     else
                     {
                         totalRecords = this._orderDataRepository.GetCount(x => x.StatusId.Equals((int)StatusEnum.Active));
                         orders = this._orderDataRepository
-                            .GetList(requestSearchData.page, requestSearchData.rows, x => x.StatusId.Equals((int)StatusEnum.Active),
-                            x => x.CreatedOn, false).ToList();
+                            .GetList(requestSearchData.page, requestSearchData.rows,
+                            (x => x.StatusId.Equals((int)StatusEnum.Active) &&
+                                Utilities.CommonFuntionality.IsOrderPurchased(x.OrderId)), x => x.CreatedOn, false).ToList();
                     }
 
                     return new JSONActionResult(new GridDataModel()
@@ -227,6 +228,7 @@ namespace Keystone.Web.Areas.Admin.Controllers
         /// <param name="orderId">The order identifier.</param>
         /// <param name="drownloadType">Type of the drownload.</param>
         /// <returns></returns>
+        [AllowAnonymousAccess]
         public FileResult DownloadOrderedFile(int orderId, string drownloadType)
         {
             try

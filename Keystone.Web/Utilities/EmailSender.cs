@@ -48,7 +48,7 @@ namespace Keystone.Web.Utilities
                 message.Subject = this.Subject;
                 message.From = new MailAddress((this.From), (this.FromSenderName));
                 message.Body = Message;
-                message.Priority = this.Priority;
+                //message.Priority = this.Priority;
                 message.SubjectEncoding = Encoding.GetEncoding("ISO-8859-1");
                 message.BodyEncoding = Encoding.GetEncoding("ISO-8859-1");
                 message.IsBodyHtml = true;
@@ -69,9 +69,9 @@ namespace Keystone.Web.Utilities
 
                 if (!string.IsNullOrEmpty(this.UserName) && !string.IsNullOrEmpty(this.Password))
                 {
-                    smtp.UseDefaultCredentials = true;
+                    //smtp.UseDefaultCredentials = true;
                     smtp.Credentials = new NetworkCredential(this.UserName, this.Password);
-                    smtp.EnableSsl = this.SSL;
+                    //smtp.EnableSsl = this.SSL;
                 }
 
                 smtp.Send(message);

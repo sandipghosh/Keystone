@@ -248,7 +248,6 @@
     </Compile>
     <Compile Include="Data\Context\OrderAppliedPromo.cs">
       <DependentUpon>KeystoneDBContext.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Data\Context\OrderItem.cs">
       <DependentUpon>KeystoneDBContext.tt</DependentUpon>
@@ -260,7 +259,6 @@
     </Compile>
     <Compile Include="Data\Context\PaymentInfo.cs">
       <DependentUpon>KeystoneDBContext.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Data\Context\PaymentType.cs">
       <DependentUpon>KeystoneDBContext.tt</DependentUpon>
@@ -268,7 +266,6 @@
     </Compile>
     <Compile Include="Data\Context\PromoCode.cs">
       <DependentUpon>KeystoneDBContext.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Data\Context\ShoppingCart.cs">
       <DependentUpon>KeystoneDBContext.tt</DependentUpon>
@@ -300,7 +297,6 @@
     </Compile>
     <Compile Include="Data\Context\Testimonial.cs">
       <DependentUpon>KeystoneDBContext.tt</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Data\Context\UserAccount.cs">
       <DependentUpon>KeystoneDBContext.tt</DependentUpon>
@@ -786,6 +782,7 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
+    <Content Include="Views\Shared\_SavedOrderList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

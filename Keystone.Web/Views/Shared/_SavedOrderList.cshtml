@@ -1,0 +1,42 @@
+﻿@using Keystone.Web.Models
+@using Keystone.Web.Utilities
+@model List<OrderModel>
+
+@foreach (OrderModel order in Model)
+{
+    string purchaseOrderUrl = Url.Action("Index", "Payment", new { orderId = order.OrderId });
+    string viewOrderUrl = Url.Action("PaidOrderReceipt", "Receipt", new { orderId = order.OrderId });
+
+    <div class="popup-item-row-container" id="SavedOrderItem_@(Model.IndexOf(order) + 1)">
+        <div class="item-template-detail-row">
+            <strong>Order Referance: <i>@order.OrderReferance</i></strong>
+        </div>
+        <div class="item-template-detail-row">
+            <span>Order Date: <i>@order.OrderDate.ToString()</i></span>
+        </div>
+        <div class="item-template-detail-row">
+            <ul style="list-style-type:none; float:left; margin:0;">
+                @foreach (OrderItemModel orderItem in order.OrderItems)
+                {
+                    <li style="display:inline-block;">
+                        <img width="40" src='@Url.Content(orderItem.Draft.DraftPages.FirstOrDefault().DraftPreviewUrl)' alt="" />
+                    </li>
+                }
+            </ul>
+        </div>
+        <div class="item-template-detail-row" style="margin-top:5px;">
+            @if (CommonFuntionality.IsOrderPurchased(order.OrderId))
+            {
+                <div class="button" onclick="javascript: window.location.href = '@viewOrderUrl';">
+                    Display
+                </div>
+            }
+            else
+            {
+                <div class="button" onclick="javascript: window.location.href = '@purchaseOrderUrl';">
+                    Purchase
+                </div>
+            }
+        </div>
+    </div>
+}

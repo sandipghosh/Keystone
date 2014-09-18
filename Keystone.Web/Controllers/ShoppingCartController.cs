@@ -387,16 +387,16 @@ namespace Keystone.Web.Controllers
                         Timeout = new TimeSpan(0, 1, 0)
                     };
 
-                    using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew, options))
-                    {
+                    //using (TransactionScope scope = new TransactionScope(TransactionScopeOption.RequiresNew, options))
+                    //{
                         //InsertDamyPaimentInfo(shoppingCart);
                         this._shoppingCartDataRepository.Insert(shoppingCart);
                         this.SendOrderConfirmationMail(shoppingCart.ShoppingCartId, AttachmentTypeEnum.PDF);
                         this.SendOrderConfirmationMail(shoppingCart.ShoppingCartId, AttachmentTypeEnum.Archive);
 
-                        scope.Complete();
+                        //scope.Complete();
                         status = true;
-                    }
+                    //}
 
                     return RedirectToAction("Index", "Receipt", new { shoppingCartId = shoppingCart.ShoppingCartId });
                     //return Json(new { Status = status, ShoppingCartId = shoppingCart.ShoppingCartId, Message = message }, JsonRequestBehavior.AllowGet);
@@ -674,7 +674,6 @@ namespace Keystone.Web.Controllers
 
                     EmailSender email = new EmailSender
                     {
-                        SSL = bool.Parse(ConfigurationManager.AppSettings["MAIL_SERVER_SSL"].ToString()),
                         Subject = "Order confirmation",
                         To = (attachmentType == AttachmentTypeEnum.PDF) ? shoppingCart.UserAccount.EmailId :
                             ConfigurationManager.AppSettings["MarchentEmailId"].ToString()
@@ -689,7 +688,8 @@ namespace Keystone.Web.Controllers
                         ("_OrderConfirmationMailContentForUser", shoppingCart,
                         this, new Dictionary<string, object>() { 
                             { "UserName", shoppingCart.UserAccount.ToString() },
-                            { "AttachmentType", attachmentType }});
+                            { "AttachmentType", attachmentType },
+                            { "OrderId", shoppingCart.OrderId.ToString() }});
 
                     email.SendMailAsync(mailBody, () =>
                     {
@@ -727,20 +727,20 @@ namespace Keystone.Web.Controllers
                 switch (attachmentType)
                 {
                     case AttachmentTypeEnum.Archive:
-                        var imagePaths = orderItems.Select(x =>
-                            new OrderedImageModel
-                            {
-                                OrderedItemCode = x.OrderItemId,
-                                OrderedImages = x.Draft.DraftPages
-                                    .OrderBy(z => z.TemplateId)
-                                    .ThenBy(z => z.TemplatePage.OrderIndex)
-                                    .Select(y => y.FinalImageUrl.ToBase64Encode()).ToList()
-                            }).ToList<OrderedImageModel>();
+                        //var imagePaths = orderItems.Select(x =>
+                        //    new OrderedImageModel
+                        //    {
+                        //        OrderedItemCode = x.OrderItemId,
+                        //        OrderedImages = x.Draft.DraftPages
+                        //            .OrderBy(z => z.TemplateId)
+                        //            .ThenBy(z => z.TemplatePage.OrderIndex)
+                        //            .Select(y => y.FinalImageUrl.ToBase64Encode()).ToList()
+                        //    }).ToList<OrderedImageModel>();
 
-                        outputMemoryStream.Add(CommonUtility.CreateArchiveStream(imagePaths));
+                        //outputMemoryStream.Add(CommonUtility.CreateArchiveStream(imagePaths));
 
-                        attachments.Add(new System.Net.Mail.Attachment(outputMemoryStream.LastOrDefault(),
-                            string.Format("{0}.zip", CommonUtility.ConvertToTimestamp(DateTime.Now))));
+                        //attachments.Add(new System.Net.Mail.Attachment(outputMemoryStream.LastOrDefault(),
+                        //    string.Format("{0}.zip", CommonUtility.ConvertToTimestamp(DateTime.Now))));
 
                         break;
 

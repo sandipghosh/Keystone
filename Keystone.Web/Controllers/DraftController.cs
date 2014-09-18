@@ -26,6 +26,7 @@ namespace Keystone.Web.Controllers
         private readonly IQueryDataRepository _draftQueryDataRepository;
         private readonly ITemplateDataRepository _templateDataRepository;
         private readonly IOrderItemDataRepository _orderItemDataRepository;
+        private readonly IOrderDataRepository _orderDataRepository;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DraftController"/> class.
@@ -36,12 +37,14 @@ namespace Keystone.Web.Controllers
         public DraftController(IDraftDataRepository draftDataRepository,
             IDraftPagesDataRepository draftPagesDataRepository,
             ITemplateDataRepository templateDataRepository,
-            IOrderItemDataRepository orderItemDataRepository)
+            IOrderItemDataRepository orderItemDataRepository,
+            IOrderDataRepository orderDataRepository)
         {
             this._draftDataRepository = draftDataRepository;
             this._draftPagesDataRepository = draftPagesDataRepository;
             this._templateDataRepository = templateDataRepository;
             this._orderItemDataRepository = orderItemDataRepository;
+            this._orderDataRepository = orderDataRepository;
             this._draftQueryDataRepository = new QueryDataRepository<KeystoneDBEntities>();
         }
 
@@ -265,11 +268,39 @@ namespace Keystone.Web.Controllers
             {
                 var drafts = this._draftDataRepository
                     .GetList(x => x.UserAccountId.Equals(userAccountId)
-                    && x.StatusId.Equals((int)StatusEnum.Active)).ToList();
+                    && x.StatusId.Equals((int)StatusEnum.Active)
+                    && !Utilities.CommonFuntionality.IsDraftOrdered(x.DraftId)).ToList();
 
-                if (drafts != null)
+                if (!drafts.IsEmptyCollection())
                 {
                     return PartialView("_DraftList", drafts);
+                }
+            }
+            catch (Exception ex)
+            {
+                ex.ExceptionValueTracker(userAccountId);
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Gets the order items.
+        /// </summary>
+        /// <param name="userAccountId">The user account identifier.</param>
+        /// <returns></returns>
+        [AcceptVerbs(HttpVerbs.Get),
+        ChildActionOnly()]
+        public PartialViewResult GetOrderItems(int userAccountId)
+        {
+            try
+            {
+                List<OrderModel> orders = this._orderDataRepository
+                    .GetList(x => x.UserAccountId.Equals(userAccountId)
+                    && x.StatusId.Equals((int)StatusEnum.Active)).ToList();
+
+                if (!orders.IsEmptyCollection())
+                {
+                    return PartialView("_SavedOrderList", orders);
                 }
             }
             catch (Exception ex)

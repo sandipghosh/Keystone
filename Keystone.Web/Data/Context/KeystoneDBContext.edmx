@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="KeystoneDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="KeystoneDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AddressType">
           <Key>
             <PropertyRef Name="AddressTypeId" />
@@ -1116,27 +1116,237 @@
             <End Role="UserAddress" EntitySet="UserAddress" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="KeystoneDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="KeystoneDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="KeystoneDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AddressTypes" EntityType="KeystoneDBModel.AddressType" />
+          <EntitySet Name="DeliverySchedules" EntityType="KeystoneDBModel.DeliverySchedule" />
+          <EntitySet Name="Drafts" EntityType="KeystoneDBModel.Draft" />
+          <EntitySet Name="DraftPages" EntityType="KeystoneDBModel.DraftPage" />
+          <EntitySet Name="Orders" EntityType="KeystoneDBModel.Order" />
+          <EntitySet Name="OrderAppliedPromoes" EntityType="KeystoneDBModel.OrderAppliedPromo" />
+          <EntitySet Name="OrderItems" EntityType="KeystoneDBModel.OrderItem" />
+          <EntitySet Name="OrderItemPages" EntityType="KeystoneDBModel.OrderItemPage" />
+          <EntitySet Name="PaymentInfoes" EntityType="KeystoneDBModel.PaymentInfo" />
+          <EntitySet Name="PaymentTypes" EntityType="KeystoneDBModel.PaymentType" />
+          <EntitySet Name="PromoCodes" EntityType="KeystoneDBModel.PromoCode" />
+          <EntitySet Name="ShoppingCarts" EntityType="KeystoneDBModel.ShoppingCart" />
+          <EntitySet Name="Status" EntityType="KeystoneDBModel.Status" />
+          <EntitySet Name="Templates" EntityType="KeystoneDBModel.Template" />
+          <EntitySet Name="TemplateCategoties" EntityType="KeystoneDBModel.TemplateCategoty" />
+          <EntitySet Name="TemplatePages" EntityType="KeystoneDBModel.TemplatePage" />
+          <EntitySet Name="TemplatePrices" EntityType="KeystoneDBModel.TemplatePrice" />
+          <EntitySet Name="TemplateTypes" EntityType="KeystoneDBModel.TemplateType" />
+          <EntitySet Name="Testimonials" EntityType="KeystoneDBModel.Testimonial" />
+          <EntitySet Name="UserAccounts" EntityType="KeystoneDBModel.UserAccount" />
+          <EntitySet Name="UserAddresses" EntityType="KeystoneDBModel.UserAddress" />
+          <AssociationSet Name="FK_AddressType_Status" Association="KeystoneDBModel.FK_AddressType_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="AddressType" EntitySet="AddressTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserAddress_AddressType" Association="KeystoneDBModel.FK_UserAddress_AddressType">
+            <End Role="AddressType" EntitySet="AddressTypes" />
+            <End Role="UserAddress" EntitySet="UserAddresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DeliverySchedule_Status" Association="KeystoneDBModel.FK_DeliverySchedule_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="DeliverySchedule" EntitySet="DeliverySchedules" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItem_DeliverySchedule" Association="KeystoneDBModel.FK_OrderItem_DeliverySchedule">
+            <End Role="DeliverySchedule" EntitySet="DeliverySchedules" />
+            <End Role="OrderItem" EntitySet="OrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TemplatePrice_DeliverySchedule" Association="KeystoneDBModel.FK_TemplatePrice_DeliverySchedule">
+            <End Role="DeliverySchedule" EntitySet="DeliverySchedules" />
+            <End Role="TemplatePrice" EntitySet="TemplatePrices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Draft_Status" Association="KeystoneDBModel.FK_Draft_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Draft" EntitySet="Drafts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Draft_Template" Association="KeystoneDBModel.FK_Draft_Template">
+            <End Role="Template" EntitySet="Templates" />
+            <End Role="Draft" EntitySet="Drafts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Draft_UserAccount" Association="KeystoneDBModel.FK_Draft_UserAccount">
+            <End Role="UserAccount" EntitySet="UserAccounts" />
+            <End Role="Draft" EntitySet="Drafts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DraftPage_Draft" Association="KeystoneDBModel.FK_DraftPage_Draft">
+            <End Role="Draft" EntitySet="Drafts" />
+            <End Role="DraftPage" EntitySet="DraftPages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItem_Draft" Association="KeystoneDBModel.FK_OrderItem_Draft">
+            <End Role="Draft" EntitySet="Drafts" />
+            <End Role="OrderItem" EntitySet="OrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DraftPage_Status" Association="KeystoneDBModel.FK_DraftPage_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="DraftPage" EntitySet="DraftPages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DraftPage_Template" Association="KeystoneDBModel.FK_DraftPage_Template">
+            <End Role="Template" EntitySet="Templates" />
+            <End Role="DraftPage" EntitySet="DraftPages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DraftPage_TemplatePage" Association="KeystoneDBModel.FK_DraftPage_TemplatePage">
+            <End Role="TemplatePage" EntitySet="TemplatePages" />
+            <End Role="DraftPage" EntitySet="DraftPages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_Status" Association="KeystoneDBModel.FK_Order_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_UserAccount" Association="KeystoneDBModel.FK_Order_UserAccount">
+            <End Role="UserAccount" EntitySet="UserAccounts" />
+            <End Role="Order" EntitySet="Orders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderAppliedPromo_Order" Association="KeystoneDBModel.FK_OrderAppliedPromo_Order">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="OrderAppliedPromo" EntitySet="OrderAppliedPromoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItem_Order" Association="KeystoneDBModel.FK_OrderItem_Order">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="OrderItem" EntitySet="OrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaymentInfo_Order" Association="KeystoneDBModel.FK_PaymentInfo_Order">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="PaymentInfo" EntitySet="PaymentInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShoppingCart_Order" Association="KeystoneDBModel.FK_ShoppingCart_Order">
+            <End Role="Order" EntitySet="Orders" />
+            <End Role="ShoppingCart" EntitySet="ShoppingCarts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderAppliedPromo_PromoCode" Association="KeystoneDBModel.FK_OrderAppliedPromo_PromoCode">
+            <End Role="PromoCode" EntitySet="PromoCodes" />
+            <End Role="OrderAppliedPromo" EntitySet="OrderAppliedPromoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderAppliedPromo_Status" Association="KeystoneDBModel.FK_OrderAppliedPromo_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="OrderAppliedPromo" EntitySet="OrderAppliedPromoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderAppliedPromo_UserAccount" Association="KeystoneDBModel.FK_OrderAppliedPromo_UserAccount">
+            <End Role="UserAccount" EntitySet="UserAccounts" />
+            <End Role="OrderAppliedPromo" EntitySet="OrderAppliedPromoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItem_Status" Association="KeystoneDBModel.FK_OrderItem_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="OrderItem" EntitySet="OrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItem_Template" Association="KeystoneDBModel.FK_OrderItem_Template">
+            <End Role="Template" EntitySet="Templates" />
+            <End Role="OrderItem" EntitySet="OrderItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItemPage_OrderItem" Association="KeystoneDBModel.FK_OrderItemPage_OrderItem">
+            <End Role="OrderItem" EntitySet="OrderItems" />
+            <End Role="OrderItemPage" EntitySet="OrderItemPages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrderItemPage_Status" Association="KeystoneDBModel.FK_OrderItemPage_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="OrderItemPage" EntitySet="OrderItemPages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PaymentInfo_Status" Association="KeystoneDBModel.FK_PaymentInfo_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="PaymentInfo" EntitySet="PaymentInfoes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShoppingCart_PaymentInfo" Association="KeystoneDBModel.FK_ShoppingCart_PaymentInfo">
+            <End Role="PaymentInfo" EntitySet="PaymentInfoes" />
+            <End Role="ShoppingCart" EntitySet="ShoppingCarts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShoppingCart_PaymentType" Association="KeystoneDBModel.FK_ShoppingCart_PaymentType">
+            <End Role="PaymentType" EntitySet="PaymentTypes" />
+            <End Role="ShoppingCart" EntitySet="ShoppingCarts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PromoCode_Status" Association="KeystoneDBModel.FK_PromoCode_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="PromoCode" EntitySet="PromoCodes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShoppingCart_PromoCode" Association="KeystoneDBModel.FK_ShoppingCart_PromoCode">
+            <End Role="PromoCode" EntitySet="PromoCodes" />
+            <End Role="ShoppingCart" EntitySet="ShoppingCarts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShoppingCart_Status" Association="KeystoneDBModel.FK_ShoppingCart_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="ShoppingCart" EntitySet="ShoppingCarts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShoppingCart_UserAccount" Association="KeystoneDBModel.FK_ShoppingCart_UserAccount">
+            <End Role="UserAccount" EntitySet="UserAccounts" />
+            <End Role="ShoppingCart" EntitySet="ShoppingCarts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShoppingCart_UserBillingAddress" Association="KeystoneDBModel.FK_ShoppingCart_UserBillingAddress">
+            <End Role="UserAddress" EntitySet="UserAddresses" />
+            <End Role="ShoppingCart" EntitySet="ShoppingCarts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShoppingCart_UserShippingAddress" Association="KeystoneDBModel.FK_ShoppingCart_UserShippingAddress">
+            <End Role="UserAddress" EntitySet="UserAddresses" />
+            <End Role="ShoppingCart" EntitySet="ShoppingCarts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Template_Status" Association="KeystoneDBModel.FK_Template_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Template" EntitySet="Templates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TemplatePage_Status" Association="KeystoneDBModel.FK_TemplatePage_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="TemplatePage" EntitySet="TemplatePages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TemplatePrice_Status" Association="KeystoneDBModel.FK_TemplatePrice_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="TemplatePrice" EntitySet="TemplatePrices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TemplateType_Status" Association="KeystoneDBModel.FK_TemplateType_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="TemplateType" EntitySet="TemplateTypes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Testimonial_Status" Association="KeystoneDBModel.FK_Testimonial_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Testimonial" EntitySet="Testimonials" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserAccount_Status" Association="KeystoneDBModel.FK_UserAccount_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="UserAccount" EntitySet="UserAccounts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserAddress_Status" Association="KeystoneDBModel.FK_UserAddress_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="UserAddress" EntitySet="UserAddresses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Template_TemplateCategoty" Association="KeystoneDBModel.FK_Template_TemplateCategoty">
+            <End Role="TemplateCategoty" EntitySet="TemplateCategoties" />
+            <End Role="Template" EntitySet="Templates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Template_TemplateType" Association="KeystoneDBModel.FK_Template_TemplateType">
+            <End Role="TemplateType" EntitySet="TemplateTypes" />
+            <End Role="Template" EntitySet="Templates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TemplatePage_Template" Association="KeystoneDBModel.FK_TemplatePage_Template">
+            <End Role="Template" EntitySet="Templates" />
+            <End Role="TemplatePage" EntitySet="TemplatePages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TemplatePrice_TemplateType" Association="KeystoneDBModel.FK_TemplatePrice_TemplateType">
+            <End Role="TemplateType" EntitySet="TemplateTypes" />
+            <End Role="TemplatePrice" EntitySet="TemplatePrices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserAddress_UserAccount" Association="KeystoneDBModel.FK_UserAddress_UserAccount">
+            <End Role="UserAccount" EntitySet="UserAccounts" />
+            <End Role="UserAddress" EntitySet="UserAddresses" />
+          </AssociationSet>
+        </EntityContainer>
         <EntityType Name="AddressType">
           <Key>
             <PropertyRef Name="AddressTypeId" />
           </Key>
           <Property Name="AddressTypeId" Type="Int32" Nullable="false" />
-          <Property Name="AddressTypeCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="AddressTypeCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="StatusId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Status" Relationship="Self.FK_AddressType_Status" FromRole="AddressType" ToRole="Status" />
-          <NavigationProperty Name="UserAddresses" Relationship="Self.FK_UserAddress_AddressType" FromRole="AddressType" ToRole="UserAddress" />
+          <NavigationProperty Name="Status" Relationship="KeystoneDBModel.FK_AddressType_Status" FromRole="AddressType" ToRole="Status" />
+          <NavigationProperty Name="UserAddresses" Relationship="KeystoneDBModel.FK_UserAddress_AddressType" FromRole="AddressType" ToRole="UserAddress" />
         </EntityType>
         <EntityType Name="DeliverySchedule">
           <Key>
             <PropertyRef Name="DeliveryScheduleId" />
           </Key>
           <Property Name="DeliveryScheduleId" Type="Int32" Nullable="false" />
-          <Property Name="DeliveryCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DeliveryCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DeliveryFrom" Type="Int32" Nullable="false" />
           <Property Name="DeliveryTo" Type="Int32" Nullable="false" />
           <Property Name="StatusId" Type="Int32" Nullable="false" />
@@ -1145,9 +1355,9 @@
           <Property Name="UpdatedBy" Type="Int32" />
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
           <Property Name="Version" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <NavigationProperty Name="Status" Relationship="Self.FK_DeliverySchedule_Status" FromRole="DeliverySchedule" ToRole="Status" />
-          <NavigationProperty Name="OrderItems" Relationship="Self.FK_OrderItem_DeliverySchedule" FromRole="DeliverySchedule" ToRole="OrderItem" />
-          <NavigationProperty Name="TemplatePrices" Relationship="Self.FK_TemplatePrice_DeliverySchedule" FromRole="DeliverySchedule" ToRole="TemplatePrice" />
+          <NavigationProperty Name="Status" Relationship="KeystoneDBModel.FK_DeliverySchedule_Status" FromRole="DeliverySchedule" ToRole="Status" />
+          <NavigationProperty Name="OrderItems" Relationship="KeystoneDBModel.FK_OrderItem_DeliverySchedule" FromRole="DeliverySchedule" ToRole="OrderItem" />
+          <NavigationProperty Name="TemplatePrices" Relationship="KeystoneDBModel.FK_TemplatePrice_DeliverySchedule" FromRole="DeliverySchedule" ToRole="TemplatePrice" />
         </EntityType>
         <EntityType Name="Draft">
           <Key>
@@ -1156,21 +1366,21 @@
           <Property Name="DraftId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserAccountId" Type="Int32" Nullable="false" />
           <Property Name="TemplateId" Type="Int32" Nullable="false" />
-          <Property Name="DraftName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DraftName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DeliveryScheduleId" Type="Int32" Nullable="false" />
           <Property Name="Quantity" Type="Int32" Nullable="false" />
-          <Property Name="Price" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
           <Property Name="StatusId" Type="Int32" Nullable="false" />
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdatedBy" Type="Int32" />
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
           <Property Name="Version" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <NavigationProperty Name="Status" Relationship="Self.FK_Draft_Status" FromRole="Draft" ToRole="Status" />
-          <NavigationProperty Name="Template" Relationship="Self.FK_Draft_Template" FromRole="Draft" ToRole="Template" />
-          <NavigationProperty Name="UserAccount" Relationship="Self.FK_Draft_UserAccount" FromRole="Draft" ToRole="UserAccount" />
-          <NavigationProperty Name="DraftPages" Relationship="Self.FK_DraftPage_Draft" FromRole="Draft" ToRole="DraftPage" />
-          <NavigationProperty Name="OrderItems" Relationship="Self.FK_OrderItem_Draft" FromRole="Draft" ToRole="OrderItem" />
+          <NavigationProperty Name="Status" Relationship="KeystoneDBModel.FK_Draft_Status" FromRole="Draft" ToRole="Status" />
+          <NavigationProperty Name="Template" Relationship="KeystoneDBModel.FK_Draft_Template" FromRole="Draft" ToRole="Template" />
+          <NavigationProperty Name="UserAccount" Relationship="KeystoneDBModel.FK_Draft_UserAccount" FromRole="Draft" ToRole="UserAccount" />
+          <NavigationProperty Name="DraftPages" Relationship="KeystoneDBModel.FK_DraftPage_Draft" FromRole="Draft" ToRole="DraftPage" />
+          <NavigationProperty Name="OrderItems" Relationship="KeystoneDBModel.FK_OrderItem_Draft" FromRole="Draft" ToRole="OrderItem" />
         </EntityType>
         <EntityType Name="DraftPage">
           <Key>
@@ -1180,19 +1390,19 @@
           <Property Name="DraftId" Type="Int32" Nullable="false" />
           <Property Name="TemplateId" Type="Int32" Nullable="false" />
           <Property Name="TemplatePageId" Type="Int32" Nullable="false" />
-          <Property Name="DraftPreviewUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="FinalImageUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="DraftJsonString" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="DraftPreviewUrl" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="FinalImageUrl" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="DraftJsonString" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="StatusId" Type="Int32" Nullable="false" />
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdatedBy" Type="Int32" />
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
           <Property Name="Version" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <NavigationProperty Name="Draft" Relationship="Self.FK_DraftPage_Draft" FromRole="DraftPage" ToRole="Draft" />
-          <NavigationProperty Name="Status" Relationship="Self.FK_DraftPage_Status" FromRole="DraftPage" ToRole="Status" />
-          <NavigationProperty Name="Template" Relationship="Self.FK_DraftPage_Template" FromRole="DraftPage" ToRole="Template" />
-          <NavigationProperty Name="TemplatePage" Relationship="Self.FK_DraftPage_TemplatePage" FromRole="DraftPage" ToRole="TemplatePage" />
+          <NavigationProperty Name="Draft" Relationship="KeystoneDBModel.FK_DraftPage_Draft" FromRole="DraftPage" ToRole="Draft" />
+          <NavigationProperty Name="Status" Relationship="KeystoneDBModel.FK_DraftPage_Status" FromRole="DraftPage" ToRole="Status" />
+          <NavigationProperty Name="Template" Relationship="KeystoneDBModel.FK_DraftPage_Template" FromRole="DraftPage" ToRole="Template" />
+          <NavigationProperty Name="TemplatePage" Relationship="KeystoneDBModel.FK_DraftPage_TemplatePage" FromRole="DraftPage" ToRole="TemplatePage" />
         </EntityType>
         <EntityType Name="Order">
           <Key>
@@ -1200,23 +1410,23 @@
           </Key>
           <Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserAccountId" Type="Int32" Nullable="false" />
-          <Property Name="OrderReferance" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OrderReferance" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="SubTotal" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
-          <Property Name="DiscountAmount" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
-          <Property Name="TotalAmount" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="SubTotal" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
+          <Property Name="DiscountAmount" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
+          <Property Name="TotalAmount" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
           <Property Name="StatusId" Type="Int32" Nullable="false" />
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdatedBy" Type="Int32" />
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
           <Property Name="Version" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <NavigationProperty Name="Status" Relationship="Self.FK_Order_Status" FromRole="Order" ToRole="Status" />
-          <NavigationProperty Name="UserAccount" Relationship="Self.FK_Order_UserAccount" FromRole="Order" ToRole="UserAccount" />
-          <NavigationProperty Name="OrderAppliedPromoes" Relationship="Self.FK_OrderAppliedPromo_Order" FromRole="Order" ToRole="OrderAppliedPromo" />
-          <NavigationProperty Name="OrderItems" Relationship="Self.FK_OrderItem_Order" FromRole="Order" ToRole="OrderItem" />
-          <NavigationProperty Name="PaymentInfoes" Relationship="Self.FK_PaymentInfo_Order" FromRole="Order" ToRole="PaymentInfo" />
-          <NavigationProperty Name="ShoppingCarts" Relationship="Self.FK_ShoppingCart_Order" FromRole="Order" ToRole="ShoppingCart" />
+          <NavigationProperty Name="Status" Relationship="KeystoneDBModel.FK_Order_Status" FromRole="Order" ToRole="Status" />
+          <NavigationProperty Name="UserAccount" Relationship="KeystoneDBModel.FK_Order_UserAccount" FromRole="Order" ToRole="UserAccount" />
+          <NavigationProperty Name="OrderAppliedPromoes" Relationship="KeystoneDBModel.FK_OrderAppliedPromo_Order" FromRole="Order" ToRole="OrderAppliedPromo" />
+          <NavigationProperty Name="OrderItems" Relationship="KeystoneDBModel.FK_OrderItem_Order" FromRole="Order" ToRole="OrderItem" />
+          <NavigationProperty Name="PaymentInfoes" Relationship="KeystoneDBModel.FK_PaymentInfo_Order" FromRole="Order" ToRole="PaymentInfo" />
+          <NavigationProperty Name="ShoppingCarts" Relationship="KeystoneDBModel.FK_ShoppingCart_Order" FromRole="Order" ToRole="ShoppingCart" />
         </EntityType>
         <EntityType Name="OrderAppliedPromo">
           <Key>
@@ -1226,17 +1436,17 @@
           <Property Name="OrderId" Type="Int32" Nullable="false" />
           <Property Name="PromoCodeId" Type="Int32" Nullable="false" />
           <Property Name="UserAccountId" Type="Int32" Nullable="false" />
-          <Property Name="AppliedAmount" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="AppliedAmount" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
           <Property Name="StatusId" Type="Int32" Nullable="false" />
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdatedBy" Type="Int32" />
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
           <Property Name="Version" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <NavigationProperty Name="Order" Relationship="Self.FK_OrderAppliedPromo_Order" FromRole="OrderAppliedPromo" ToRole="Order" />
-          <NavigationProperty Name="PromoCode" Relationship="Self.FK_OrderAppliedPromo_PromoCode" FromRole="OrderAppliedPromo" ToRole="PromoCode" />
-          <NavigationProperty Name="Status" Relationship="Self.FK_OrderAppliedPromo_Status" FromRole="OrderAppliedPromo" ToRole="Status" />
-          <NavigationProperty Name="UserAccount" Relationship="Self.FK_OrderAppliedPromo_UserAccount" FromRole="OrderAppliedPromo" ToRole="UserAccount" />
+          <NavigationProperty Name="Order" Relationship="KeystoneDBModel.FK_OrderAppliedPromo_Order" FromRole="OrderAppliedPromo" ToRole="Order" />
+          <NavigationProperty Name="PromoCode" Relationship="KeystoneDBModel.FK_OrderAppliedPromo_PromoCode" FromRole="OrderAppliedPromo" ToRole="PromoCode" />
+          <NavigationProperty Name="Status" Relationship="KeystoneDBModel.FK_OrderAppliedPromo_Status" FromRole="OrderAppliedPromo" ToRole="Status" />
+          <NavigationProperty Name="UserAccount" Relationship="KeystoneDBModel.FK_OrderAppliedPromo_UserAccount" FromRole="OrderAppliedPromo" ToRole="UserAccount" />
         </EntityType>
         <EntityType Name="OrderItem">
           <Key>
@@ -1247,21 +1457,21 @@
           <Property Name="TemplateId" Type="Int32" Nullable="false" />
           <Property Name="DeliveryScheduleId" Type="Int32" Nullable="false" />
           <Property Name="DraftId" Type="Int32" Nullable="false" />
-          <Property Name="DisplayUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DisplayUrl" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="Quantity" Type="Int32" Nullable="false" />
-          <Property Name="Price" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
           <Property Name="StatusId" Type="Int32" Nullable="false" />
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdatedBy" Type="Int32" />
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
           <Property Name="Version" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <NavigationProperty Name="DeliverySchedule" Relationship="Self.FK_OrderItem_DeliverySchedule" FromRole="OrderItem" ToRole="DeliverySchedule" />
-          <NavigationProperty Name="Draft" Relationship="Self.FK_OrderItem_Draft" FromRole="OrderItem" ToRole="Draft" />
-          <NavigationProperty Name="Order" Relationship="Self.FK_OrderItem_Order" FromRole="OrderItem" ToRole="Order" />
-          <NavigationProperty Name="Status" Relationship="Self.FK_OrderItem_Status" FromRole="OrderItem" ToRole="Status" />
-          <NavigationProperty Name="Template" Relationship="Self.FK_OrderItem_Template" FromRole="OrderItem" ToRole="Template" />
-          <NavigationProperty Name="OrderItemPages" Relationship="Self.FK_OrderItemPage_OrderItem" FromRole="OrderItem" ToRole="OrderItemPage" />
+          <NavigationProperty Name="DeliverySchedule" Relationship="KeystoneDBModel.FK_OrderItem_DeliverySchedule" FromRole="OrderItem" ToRole="DeliverySchedule" />
+          <NavigationProperty Name="Draft" Relationship="KeystoneDBModel.FK_OrderItem_Draft" FromRole="OrderItem" ToRole="Draft" />
+          <NavigationProperty Name="Order" Relationship="KeystoneDBModel.FK_OrderItem_Order" FromRole="OrderItem" ToRole="Order" />
+          <NavigationProperty Name="Status" Relationship="KeystoneDBModel.FK_OrderItem_Status" FromRole="OrderItem" ToRole="Status" />
+          <NavigationProperty Name="Template" Relationship="KeystoneDBModel.FK_OrderItem_Template" FromRole="OrderItem" ToRole="Template" />
+          <NavigationProperty Name="OrderItemPages" Relationship="KeystoneDBModel.FK_OrderItemPage_OrderItem" FromRole="OrderItem" ToRole="OrderItemPage" />
         </EntityType>
         <EntityType Name="OrderItemPage">
           <Key>
@@ -1278,8 +1488,8 @@
           <Property Name="UpdatedBy" Type="Int32" />
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
           <Property Name="Version" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <NavigationProperty Name="OrderItem" Relationship="Self.FK_OrderItemPage_OrderItem" FromRole="OrderItemPage" ToRole="OrderItem" />
-          <NavigationProperty Name="Status" Relationship="Self.FK_OrderItemPage_Status" FromRole="OrderItemPage" ToRole="Status" />
+          <NavigationProperty Name="OrderItem" Relationship="KeystoneDBModel.FK_OrderItemPage_OrderItem" FromRole="OrderItemPage" ToRole="OrderItem" />
+          <NavigationProperty Name="Status" Relationship="KeystoneDBModel.FK_OrderItemPage_Status" FromRole="OrderItemPage" ToRole="Status" />
         </EntityType>
         <EntityType Name="PaymentInfo">
           <Key>
@@ -1287,46 +1497,46 @@
           </Key>
           <Property Name="PaymentInfoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="OrderId" Type="Int32" Nullable="false" />
-          <Property Name="RequistedIp" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Acknowledgement" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RequistedIp" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Acknowledgement" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="TransactionTime" Type="DateTime" Precision="3" />
           <Property Name="TransactionId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="TransactionType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="TransactionErrorCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="TransactionShortMessage" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="TransactionLongMessage" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
-          <Property Name="TransactionAmount" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="TransactionAmount" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
           <Property Name="StatusId" Type="Int32" Nullable="false" />
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdatedBy" Type="Int32" />
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
           <Property Name="Version" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <NavigationProperty Name="Order" Relationship="Self.FK_PaymentInfo_Order" FromRole="PaymentInfo" ToRole="Order" />
-          <NavigationProperty Name="Status" Relationship="Self.FK_PaymentInfo_Status" FromRole="PaymentInfo" ToRole="Status" />
-          <NavigationProperty Name="ShoppingCarts" Relationship="Self.FK_ShoppingCart_PaymentInfo" FromRole="PaymentInfo" ToRole="ShoppingCart" />
+          <NavigationProperty Name="Order" Relationship="KeystoneDBModel.FK_PaymentInfo_Order" FromRole="PaymentInfo" ToRole="Order" />
+          <NavigationProperty Name="Status" Relationship="KeystoneDBModel.FK_PaymentInfo_Status" FromRole="PaymentInfo" ToRole="Status" />
+          <NavigationProperty Name="ShoppingCarts" Relationship="KeystoneDBModel.FK_ShoppingCart_PaymentInfo" FromRole="PaymentInfo" ToRole="ShoppingCart" />
         </EntityType>
         <EntityType Name="PaymentType">
           <Key>
             <PropertyRef Name="PaymentTypeId" />
           </Key>
           <Property Name="PaymentTypeId" Type="Int32" Nullable="false" />
-          <Property Name="PaymentCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PaymentCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="StatusId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ShoppingCarts" Relationship="Self.FK_ShoppingCart_PaymentType" FromRole="PaymentType" ToRole="ShoppingCart" />
+          <NavigationProperty Name="ShoppingCarts" Relationship="KeystoneDBModel.FK_ShoppingCart_PaymentType" FromRole="PaymentType" ToRole="ShoppingCart" />
         </EntityType>
         <EntityType Name="PromoCode">
           <Key>
             <PropertyRef Name="PromoCodeId" />
           </Key>
           <Property Name="PromoCodeId" Type="Int32" Nullable="false" />
-          <Property Name="PromoCodeName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="PromoAmount" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="PromoCodeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PromoAmount" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
           <Property Name="StatusId" Type="Int32" Nullable="false" />
-          <Property Name="Version" Type="Binary" MaxLength="8" FixedLength="true" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
-          <NavigationProperty Name="OrderAppliedPromoes" Relationship="Self.FK_OrderAppliedPromo_PromoCode" FromRole="PromoCode" ToRole="OrderAppliedPromo" />
-          <NavigationProperty Name="Status" Relationship="Self.FK_PromoCode_Status" FromRole="PromoCode" ToRole="Status" />
-          <NavigationProperty Name="ShoppingCarts" Relationship="Self.FK_ShoppingCart_PromoCode" FromRole="PromoCode" ToRole="ShoppingCart" />
+          <Property Name="Version" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="OrderAppliedPromoes" Relationship="KeystoneDBModel.FK_OrderAppliedPromo_PromoCode" FromRole="PromoCode" ToRole="OrderAppliedPromo" />
+          <NavigationProperty Name="Status" Relationship="KeystoneDBModel.FK_PromoCode_Status" FromRole="PromoCode" ToRole="Status" />
+          <NavigationProperty Name="ShoppingCarts" Relationship="KeystoneDBModel.FK_ShoppingCart_PromoCode" FromRole="PromoCode" ToRole="ShoppingCart" />
         </EntityType>
         <EntityType Name="ShoppingCart">
           <Key>
@@ -1341,7 +1551,7 @@
           <Property Name="BillingAddressId" Type="Int32" Nullable="false" />
           <Property Name="ShippingAddressId" Type="Int32" Nullable="false" />
           <Property Name="TransactionId" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="CartReferance" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CartReferance" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ExpireOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="StatusId" Type="Int32" Nullable="false" />
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
@@ -1349,39 +1559,39 @@
           <Property Name="UpdatedBy" Type="Int32" />
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
           <Property Name="Version" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <NavigationProperty Name="Order" Relationship="Self.FK_ShoppingCart_Order" FromRole="ShoppingCart" ToRole="Order" />
-          <NavigationProperty Name="PaymentInfo" Relationship="Self.FK_ShoppingCart_PaymentInfo" FromRole="ShoppingCart" ToRole="PaymentInfo" />
-          <NavigationProperty Name="PaymentType" Relationship="Self.FK_ShoppingCart_PaymentType" FromRole="ShoppingCart" ToRole="PaymentType" />
-          <NavigationProperty Name="PromoCode" Relationship="Self.FK_ShoppingCart_PromoCode" FromRole="ShoppingCart" ToRole="PromoCode" />
-          <NavigationProperty Name="Status" Relationship="Self.FK_ShoppingCart_Status" FromRole="ShoppingCart" ToRole="Status" />
-          <NavigationProperty Name="UserAccount" Relationship="Self.FK_ShoppingCart_UserAccount" FromRole="ShoppingCart" ToRole="UserAccount" />
-          <NavigationProperty Name="UserAddress" Relationship="Self.FK_ShoppingCart_UserBillingAddress" FromRole="ShoppingCart" ToRole="UserAddress" />
-          <NavigationProperty Name="UserAddress1" Relationship="Self.FK_ShoppingCart_UserShippingAddress" FromRole="ShoppingCart" ToRole="UserAddress" />
+          <NavigationProperty Name="Order" Relationship="KeystoneDBModel.FK_ShoppingCart_Order" FromRole="ShoppingCart" ToRole="Order" />
+          <NavigationProperty Name="PaymentInfo" Relationship="KeystoneDBModel.FK_ShoppingCart_PaymentInfo" FromRole="ShoppingCart" ToRole="PaymentInfo" />
+          <NavigationProperty Name="PaymentType" Relationship="KeystoneDBModel.FK_ShoppingCart_PaymentType" FromRole="ShoppingCart" ToRole="PaymentType" />
+          <NavigationProperty Name="PromoCode" Relationship="KeystoneDBModel.FK_ShoppingCart_PromoCode" FromRole="ShoppingCart" ToRole="PromoCode" />
+          <NavigationProperty Name="Status" Relationship="KeystoneDBModel.FK_ShoppingCart_Status" FromRole="ShoppingCart" ToRole="Status" />
+          <NavigationProperty Name="UserAccount" Relationship="KeystoneDBModel.FK_ShoppingCart_UserAccount" FromRole="ShoppingCart" ToRole="UserAccount" />
+          <NavigationProperty Name="UserAddress" Relationship="KeystoneDBModel.FK_ShoppingCart_UserBillingAddress" FromRole="ShoppingCart" ToRole="UserAddress" />
+          <NavigationProperty Name="UserAddress1" Relationship="KeystoneDBModel.FK_ShoppingCart_UserShippingAddress" FromRole="ShoppingCart" ToRole="UserAddress" />
         </EntityType>
         <EntityType Name="Status">
           <Key>
             <PropertyRef Name="StatusId" />
           </Key>
           <Property Name="StatusId" Type="Int32" Nullable="false" />
-          <Property Name="StatusCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="AddressTypes" Relationship="Self.FK_AddressType_Status" FromRole="Status" ToRole="AddressType" />
-          <NavigationProperty Name="DeliverySchedules" Relationship="Self.FK_DeliverySchedule_Status" FromRole="Status" ToRole="DeliverySchedule" />
-          <NavigationProperty Name="Drafts" Relationship="Self.FK_Draft_Status" FromRole="Status" ToRole="Draft" />
-          <NavigationProperty Name="DraftPages" Relationship="Self.FK_DraftPage_Status" FromRole="Status" ToRole="DraftPage" />
-          <NavigationProperty Name="Orders" Relationship="Self.FK_Order_Status" FromRole="Status" ToRole="Order" />
-          <NavigationProperty Name="OrderAppliedPromoes" Relationship="Self.FK_OrderAppliedPromo_Status" FromRole="Status" ToRole="OrderAppliedPromo" />
-          <NavigationProperty Name="OrderItems" Relationship="Self.FK_OrderItem_Status" FromRole="Status" ToRole="OrderItem" />
-          <NavigationProperty Name="OrderItemPages" Relationship="Self.FK_OrderItemPage_Status" FromRole="Status" ToRole="OrderItemPage" />
-          <NavigationProperty Name="PaymentInfoes" Relationship="Self.FK_PaymentInfo_Status" FromRole="Status" ToRole="PaymentInfo" />
-          <NavigationProperty Name="PromoCodes" Relationship="Self.FK_PromoCode_Status" FromRole="Status" ToRole="PromoCode" />
-          <NavigationProperty Name="ShoppingCarts" Relationship="Self.FK_ShoppingCart_Status" FromRole="Status" ToRole="ShoppingCart" />
-          <NavigationProperty Name="Templates" Relationship="Self.FK_Template_Status" FromRole="Status" ToRole="Template" />
-          <NavigationProperty Name="TemplatePages" Relationship="Self.FK_TemplatePage_Status" FromRole="Status" ToRole="TemplatePage" />
-          <NavigationProperty Name="TemplatePrices" Relationship="Self.FK_TemplatePrice_Status" FromRole="Status" ToRole="TemplatePrice" />
-          <NavigationProperty Name="TemplateTypes" Relationship="Self.FK_TemplateType_Status" FromRole="Status" ToRole="TemplateType" />
-          <NavigationProperty Name="Testimonials" Relationship="Self.FK_Testimonial_Status" FromRole="Status" ToRole="Testimonial" />
-          <NavigationProperty Name="UserAccounts" Relationship="Self.FK_UserAccount_Status" FromRole="Status" ToRole="UserAccount" />
-          <NavigationProperty Name="UserAddresses" Relationship="Self.FK_UserAddress_Status" FromRole="Status" ToRole="UserAddress" />
+          <Property Name="StatusCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AddressTypes" Relationship="KeystoneDBModel.FK_AddressType_Status" FromRole="Status" ToRole="AddressType" />
+          <NavigationProperty Name="DeliverySchedules" Relationship="KeystoneDBModel.FK_DeliverySchedule_Status" FromRole="Status" ToRole="DeliverySchedule" />
+          <NavigationProperty Name="Drafts" Relationship="KeystoneDBModel.FK_Draft_Status" FromRole="Status" ToRole="Draft" />
+          <NavigationProperty Name="DraftPages" Relationship="KeystoneDBModel.FK_DraftPage_Status" FromRole="Status" ToRole="DraftPage" />
+          <NavigationProperty Name="Orders" Relationship="KeystoneDBModel.FK_Order_Status" FromRole="Status" ToRole="Order" />
+          <NavigationProperty Name="OrderAppliedPromoes" Relationship="KeystoneDBModel.FK_OrderAppliedPromo_Status" FromRole="Status" ToRole="OrderAppliedPromo" />
+          <NavigationProperty Name="OrderItems" Relationship="KeystoneDBModel.FK_OrderItem_Status" FromRole="Status" ToRole="OrderItem" />
+          <NavigationProperty Name="OrderItemPages" Relationship="KeystoneDBModel.FK_OrderItemPage_Status" FromRole="Status" ToRole="OrderItemPage" />
+          <NavigationProperty Name="PaymentInfoes" Relationship="KeystoneDBModel.FK_PaymentInfo_Status" FromRole="Status" ToRole="PaymentInfo" />
+          <NavigationProperty Name="PromoCodes" Relationship="KeystoneDBModel.FK_PromoCode_Status" FromRole="Status" ToRole="PromoCode" />
+          <NavigationProperty Name="ShoppingCarts" Relationship="KeystoneDBModel.FK_ShoppingCart_Status" FromRole="Status" ToRole="ShoppingCart" />
+          <NavigationProperty Name="Templates" Relationship="KeystoneDBModel.FK_Template_Status" FromRole="Status" ToRole="Template" />
+          <NavigationProperty Name="TemplatePages" Relationship="KeystoneDBModel.FK_TemplatePage_Status" FromRole="Status" ToRole="TemplatePage" />
+          <NavigationProperty Name="TemplatePrices" Relationship="KeystoneDBModel.FK_TemplatePrice_Status" FromRole="Status" ToRole="TemplatePrice" />
+          <NavigationProperty Name="TemplateTypes" Relationship="KeystoneDBModel.FK_TemplateType_Status" FromRole="Status" ToRole="TemplateType" />
+          <NavigationProperty Name="Testimonials" Relationship="KeystoneDBModel.FK_Testimonial_Status" FromRole="Status" ToRole="Testimonial" />
+          <NavigationProperty Name="UserAccounts" Relationship="KeystoneDBModel.FK_UserAccount_Status" FromRole="Status" ToRole="UserAccount" />
+          <NavigationProperty Name="UserAddresses" Relationship="KeystoneDBModel.FK_UserAddress_Status" FromRole="Status" ToRole="UserAddress" />
         </EntityType>
         <EntityType Name="Template">
           <Key>
@@ -1390,12 +1600,12 @@
           <Property Name="TemplateId" Type="Int32" Nullable="false" />
           <Property Name="TemplateTypeId" Type="Int32" Nullable="false" />
           <Property Name="TemplateCategotyId" Type="Int32" Nullable="false" />
-          <Property Name="TemplateCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TemplateCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="TemplateTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="TemplateDesc" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="TemplateDesc" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="TotalPages" Type="Int32" Nullable="false" />
-          <Property Name="TemplateHeight" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
-          <Property Name="TemplateWidth" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="TemplateHeight" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
+          <Property Name="TemplateWidth" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
           <Property Name="GalleryUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="StatusId" Type="Int32" Nullable="false" />
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
@@ -1403,22 +1613,22 @@
           <Property Name="UpdatedBy" Type="Int32" />
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
           <Property Name="Version" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <NavigationProperty Name="Drafts" Relationship="Self.FK_Draft_Template" FromRole="Template" ToRole="Draft" />
-          <NavigationProperty Name="DraftPages" Relationship="Self.FK_DraftPage_Template" FromRole="Template" ToRole="DraftPage" />
-          <NavigationProperty Name="OrderItems" Relationship="Self.FK_OrderItem_Template" FromRole="Template" ToRole="OrderItem" />
-          <NavigationProperty Name="Status" Relationship="Self.FK_Template_Status" FromRole="Template" ToRole="Status" />
-          <NavigationProperty Name="TemplateCategoty" Relationship="Self.FK_Template_TemplateCategoty" FromRole="Template" ToRole="TemplateCategoty" />
-          <NavigationProperty Name="TemplateType" Relationship="Self.FK_Template_TemplateType" FromRole="Template" ToRole="TemplateType" />
-          <NavigationProperty Name="TemplatePages" Relationship="Self.FK_TemplatePage_Template" FromRole="Template" ToRole="TemplatePage" />
+          <NavigationProperty Name="Drafts" Relationship="KeystoneDBModel.FK_Draft_Template" FromRole="Template" ToRole="Draft" />
+          <NavigationProperty Name="DraftPages" Relationship="KeystoneDBModel.FK_DraftPage_Template" FromRole="Template" ToRole="DraftPage" />
+          <NavigationProperty Name="OrderItems" Relationship="KeystoneDBModel.FK_OrderItem_Template" FromRole="Template" ToRole="OrderItem" />
+          <NavigationProperty Name="Status" Relationship="KeystoneDBModel.FK_Template_Status" FromRole="Template" ToRole="Status" />
+          <NavigationProperty Name="TemplateCategoty" Relationship="KeystoneDBModel.FK_Template_TemplateCategoty" FromRole="Template" ToRole="TemplateCategoty" />
+          <NavigationProperty Name="TemplateType" Relationship="KeystoneDBModel.FK_Template_TemplateType" FromRole="Template" ToRole="TemplateType" />
+          <NavigationProperty Name="TemplatePages" Relationship="KeystoneDBModel.FK_TemplatePage_Template" FromRole="Template" ToRole="TemplatePage" />
         </EntityType>
         <EntityType Name="TemplateCategoty">
           <Key>
             <PropertyRef Name="TemplateCategotyId" />
           </Key>
           <Property Name="TemplateCategotyId" Type="Int32" Nullable="false" />
-          <Property Name="TemplateCategotyCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TemplateCategotyCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="StatusId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Templates" Relationship="Self.FK_Template_TemplateCategoty" FromRole="TemplateCategoty" ToRole="Template" />
+          <NavigationProperty Name="Templates" Relationship="KeystoneDBModel.FK_Template_TemplateCategoty" FromRole="TemplateCategoty" ToRole="Template" />
         </EntityType>
         <EntityType Name="TemplatePage">
           <Key>
@@ -1428,7 +1638,7 @@
           <Property Name="TemplateId" Type="Int32" Nullable="false" />
           <Property Name="PageHeight" Type="Int32" Nullable="false" />
           <Property Name="PageWidth" Type="Int32" Nullable="false" />
-          <Property Name="TemplatePageUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TemplatePageUrl" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="TemplatePageJson" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="OrderIndex" Type="Int32" Nullable="false" />
           <Property Name="StatusId" Type="Int32" Nullable="false" />
@@ -1437,9 +1647,9 @@
           <Property Name="UpdatedBy" Type="Int32" />
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
           <Property Name="Version" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <NavigationProperty Name="DraftPages" Relationship="Self.FK_DraftPage_TemplatePage" FromRole="TemplatePage" ToRole="DraftPage" />
-          <NavigationProperty Name="Status" Relationship="Self.FK_TemplatePage_Status" FromRole="TemplatePage" ToRole="Status" />
-          <NavigationProperty Name="Template" Relationship="Self.FK_TemplatePage_Template" FromRole="TemplatePage" ToRole="Template" />
+          <NavigationProperty Name="DraftPages" Relationship="KeystoneDBModel.FK_DraftPage_TemplatePage" FromRole="TemplatePage" ToRole="DraftPage" />
+          <NavigationProperty Name="Status" Relationship="KeystoneDBModel.FK_TemplatePage_Status" FromRole="TemplatePage" ToRole="Status" />
+          <NavigationProperty Name="Template" Relationship="KeystoneDBModel.FK_TemplatePage_Template" FromRole="TemplatePage" ToRole="Template" />
         </EntityType>
         <EntityType Name="TemplatePrice">
           <Key>
@@ -1449,58 +1659,58 @@
           <Property Name="TemplateTypeId" Type="Int32" Nullable="false" />
           <Property Name="DeliveryScheduleId" Type="Int32" Nullable="false" />
           <Property Name="TemplatePriceCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="TemplateHeight" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
-          <Property Name="TemplateWidth" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="TemplateHeight" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
+          <Property Name="TemplateWidth" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
           <Property Name="PrintQuantity" Type="Int32" Nullable="false" />
-          <Property Name="Price" Type="Decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
           <Property Name="StatusId" Type="Int32" Nullable="false" />
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdatedBy" Type="Int32" />
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
           <Property Name="Version" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <NavigationProperty Name="DeliverySchedule" Relationship="Self.FK_TemplatePrice_DeliverySchedule" FromRole="TemplatePrice" ToRole="DeliverySchedule" />
-          <NavigationProperty Name="Status" Relationship="Self.FK_TemplatePrice_Status" FromRole="TemplatePrice" ToRole="Status" />
-          <NavigationProperty Name="TemplateType" Relationship="Self.FK_TemplatePrice_TemplateType" FromRole="TemplatePrice" ToRole="TemplateType" />
+          <NavigationProperty Name="DeliverySchedule" Relationship="KeystoneDBModel.FK_TemplatePrice_DeliverySchedule" FromRole="TemplatePrice" ToRole="DeliverySchedule" />
+          <NavigationProperty Name="Status" Relationship="KeystoneDBModel.FK_TemplatePrice_Status" FromRole="TemplatePrice" ToRole="Status" />
+          <NavigationProperty Name="TemplateType" Relationship="KeystoneDBModel.FK_TemplatePrice_TemplateType" FromRole="TemplatePrice" ToRole="TemplateType" />
         </EntityType>
         <EntityType Name="TemplateType">
           <Key>
             <PropertyRef Name="TemplateTypeId" />
           </Key>
           <Property Name="TemplateTypeId" Type="Int32" Nullable="false" />
-          <Property Name="TemplateCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TemplateCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="StatusId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Status" Relationship="Self.FK_TemplateType_Status" FromRole="TemplateType" ToRole="Status" />
-          <NavigationProperty Name="Templates" Relationship="Self.FK_Template_TemplateType" FromRole="TemplateType" ToRole="Template" />
-          <NavigationProperty Name="TemplatePrices" Relationship="Self.FK_TemplatePrice_TemplateType" FromRole="TemplateType" ToRole="TemplatePrice" />
+          <NavigationProperty Name="Status" Relationship="KeystoneDBModel.FK_TemplateType_Status" FromRole="TemplateType" ToRole="Status" />
+          <NavigationProperty Name="Templates" Relationship="KeystoneDBModel.FK_Template_TemplateType" FromRole="TemplateType" ToRole="Template" />
+          <NavigationProperty Name="TemplatePrices" Relationship="KeystoneDBModel.FK_TemplatePrice_TemplateType" FromRole="TemplateType" ToRole="TemplatePrice" />
         </EntityType>
         <EntityType Name="Testimonial">
           <Key>
             <PropertyRef Name="TestimonialId" />
           </Key>
           <Property Name="TestimonialId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="WriterName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="WriterName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DisplayOrder" Type="Int32" Nullable="false" />
           <Property Name="PostedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="TestimonialContent" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TestimonialContent" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
           <Property Name="StatusId" Type="Int32" Nullable="false" />
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdatedBy" Type="Int32" />
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
           <Property Name="Version" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <NavigationProperty Name="Status" Relationship="Self.FK_Testimonial_Status" FromRole="Testimonial" ToRole="Status" />
+          <NavigationProperty Name="Status" Relationship="KeystoneDBModel.FK_Testimonial_Status" FromRole="Testimonial" ToRole="Status" />
         </EntityType>
         <EntityType Name="UserAccount">
           <Key>
             <PropertyRef Name="UserAccountId" />
           </Key>
           <Property Name="UserAccountId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="FirstName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Password" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="EmailId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="EmailId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="IsNewUser" Type="Boolean" Nullable="false" />
           <Property Name="IsAdmin" Type="Boolean" Nullable="false" />
           <Property Name="PrimaryContact" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
@@ -1517,12 +1727,12 @@
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
           <Property Name="Version" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
           <Property Name="RowId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Drafts" Relationship="Self.FK_Draft_UserAccount" FromRole="UserAccount" ToRole="Draft" />
-          <NavigationProperty Name="Orders" Relationship="Self.FK_Order_UserAccount" FromRole="UserAccount" ToRole="Order" />
-          <NavigationProperty Name="OrderAppliedPromoes" Relationship="Self.FK_OrderAppliedPromo_UserAccount" FromRole="UserAccount" ToRole="OrderAppliedPromo" />
-          <NavigationProperty Name="ShoppingCarts" Relationship="Self.FK_ShoppingCart_UserAccount" FromRole="UserAccount" ToRole="ShoppingCart" />
-          <NavigationProperty Name="Status" Relationship="Self.FK_UserAccount_Status" FromRole="UserAccount" ToRole="Status" />
-          <NavigationProperty Name="UserAddresses" Relationship="Self.FK_UserAddress_UserAccount" FromRole="UserAccount" ToRole="UserAddress" />
+          <NavigationProperty Name="Drafts" Relationship="KeystoneDBModel.FK_Draft_UserAccount" FromRole="UserAccount" ToRole="Draft" />
+          <NavigationProperty Name="Orders" Relationship="KeystoneDBModel.FK_Order_UserAccount" FromRole="UserAccount" ToRole="Order" />
+          <NavigationProperty Name="OrderAppliedPromoes" Relationship="KeystoneDBModel.FK_OrderAppliedPromo_UserAccount" FromRole="UserAccount" ToRole="OrderAppliedPromo" />
+          <NavigationProperty Name="ShoppingCarts" Relationship="KeystoneDBModel.FK_ShoppingCart_UserAccount" FromRole="UserAccount" ToRole="ShoppingCart" />
+          <NavigationProperty Name="Status" Relationship="KeystoneDBModel.FK_UserAccount_Status" FromRole="UserAccount" ToRole="Status" />
+          <NavigationProperty Name="UserAddresses" Relationship="KeystoneDBModel.FK_UserAddress_UserAccount" FromRole="UserAccount" ToRole="UserAddress" />
         </EntityType>
         <EntityType Name="UserAddress">
           <Key>
@@ -1545,15 +1755,15 @@
           <Property Name="UpdatedBy" Type="Int32" />
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
           <Property Name="Version" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <NavigationProperty Name="AddressType" Relationship="Self.FK_UserAddress_AddressType" FromRole="UserAddress" ToRole="AddressType" />
-          <NavigationProperty Name="ShoppingCarts" Relationship="Self.FK_ShoppingCart_UserBillingAddress" FromRole="UserAddress" ToRole="ShoppingCart" />
-          <NavigationProperty Name="ShoppingCarts1" Relationship="Self.FK_ShoppingCart_UserShippingAddress" FromRole="UserAddress" ToRole="ShoppingCart" />
-          <NavigationProperty Name="Status" Relationship="Self.FK_UserAddress_Status" FromRole="UserAddress" ToRole="Status" />
-          <NavigationProperty Name="UserAccount" Relationship="Self.FK_UserAddress_UserAccount" FromRole="UserAddress" ToRole="UserAccount" />
+          <NavigationProperty Name="AddressType" Relationship="KeystoneDBModel.FK_UserAddress_AddressType" FromRole="UserAddress" ToRole="AddressType" />
+          <NavigationProperty Name="ShoppingCarts" Relationship="KeystoneDBModel.FK_ShoppingCart_UserBillingAddress" FromRole="UserAddress" ToRole="ShoppingCart" />
+          <NavigationProperty Name="ShoppingCarts1" Relationship="KeystoneDBModel.FK_ShoppingCart_UserShippingAddress" FromRole="UserAddress" ToRole="ShoppingCart" />
+          <NavigationProperty Name="Status" Relationship="KeystoneDBModel.FK_UserAddress_Status" FromRole="UserAddress" ToRole="Status" />
+          <NavigationProperty Name="UserAccount" Relationship="KeystoneDBModel.FK_UserAddress_UserAccount" FromRole="UserAddress" ToRole="UserAccount" />
         </EntityType>
         <Association Name="FK_AddressType_Status">
-          <End Role="Status" Type="Self.Status" Multiplicity="1" />
-          <End Role="AddressType" Type="Self.AddressType" Multiplicity="*" />
+          <End Type="KeystoneDBModel.Status" Role="Status" Multiplicity="1" />
+          <End Type="KeystoneDBModel.AddressType" Role="AddressType" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Status">
               <PropertyRef Name="StatusId" />
@@ -1564,8 +1774,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserAddress_AddressType">
-          <End Role="AddressType" Type="Self.AddressType" Multiplicity="1" />
-          <End Role="UserAddress" Type="Self.UserAddress" Multiplicity="*" />
+          <End Type="KeystoneDBModel.AddressType" Role="AddressType" Multiplicity="1" />
+          <End Type="KeystoneDBModel.UserAddress" Role="UserAddress" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AddressType">
               <PropertyRef Name="AddressTypeId" />
@@ -1576,8 +1786,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DeliverySchedule_Status">
-          <End Role="Status" Type="Self.Status" Multiplicity="1" />
-          <End Role="DeliverySchedule" Type="Self.DeliverySchedule" Multiplicity="*" />
+          <End Type="KeystoneDBModel.Status" Role="Status" Multiplicity="1" />
+          <End Type="KeystoneDBModel.DeliverySchedule" Role="DeliverySchedule" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Status">
               <PropertyRef Name="StatusId" />
@@ -1588,8 +1798,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OrderItem_DeliverySchedule">
-          <End Role="DeliverySchedule" Type="Self.DeliverySchedule" Multiplicity="1" />
-          <End Role="OrderItem" Type="Self.OrderItem" Multiplicity="*" />
+          <End Type="KeystoneDBModel.DeliverySchedule" Role="DeliverySchedule" Multiplicity="1" />
+          <End Type="KeystoneDBModel.OrderItem" Role="OrderItem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DeliverySchedule">
               <PropertyRef Name="DeliveryScheduleId" />
@@ -1600,8 +1810,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TemplatePrice_DeliverySchedule">
-          <End Role="DeliverySchedule" Type="Self.DeliverySchedule" Multiplicity="1" />
-          <End Role="TemplatePrice" Type="Self.TemplatePrice" Multiplicity="*" />
+          <End Type="KeystoneDBModel.DeliverySchedule" Role="DeliverySchedule" Multiplicity="1" />
+          <End Type="KeystoneDBModel.TemplatePrice" Role="TemplatePrice" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DeliverySchedule">
               <PropertyRef Name="DeliveryScheduleId" />
@@ -1612,8 +1822,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Draft_Status">
-          <End Role="Status" Type="Self.Status" Multiplicity="1" />
-          <End Role="Draft" Type="Self.Draft" Multiplicity="*" />
+          <End Type="KeystoneDBModel.Status" Role="Status" Multiplicity="1" />
+          <End Type="KeystoneDBModel.Draft" Role="Draft" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Status">
               <PropertyRef Name="StatusId" />
@@ -1624,8 +1834,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Draft_Template">
-          <End Role="Template" Type="Self.Template" Multiplicity="1" />
-          <End Role="Draft" Type="Self.Draft" Multiplicity="*" />
+          <End Type="KeystoneDBModel.Template" Role="Template" Multiplicity="1" />
+          <End Type="KeystoneDBModel.Draft" Role="Draft" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Template">
               <PropertyRef Name="TemplateId" />
@@ -1636,8 +1846,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Draft_UserAccount">
-          <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="1" />
-          <End Role="Draft" Type="Self.Draft" Multiplicity="*" />
+          <End Type="KeystoneDBModel.UserAccount" Role="UserAccount" Multiplicity="1" />
+          <End Type="KeystoneDBModel.Draft" Role="Draft" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserAccount">
               <PropertyRef Name="UserAccountId" />
@@ -1648,8 +1858,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DraftPage_Draft">
-          <End Role="Draft" Type="Self.Draft" Multiplicity="1" />
-          <End Role="DraftPage" Type="Self.DraftPage" Multiplicity="*" />
+          <End Type="KeystoneDBModel.Draft" Role="Draft" Multiplicity="1" />
+          <End Type="KeystoneDBModel.DraftPage" Role="DraftPage" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Draft">
               <PropertyRef Name="DraftId" />
@@ -1660,8 +1870,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OrderItem_Draft">
-          <End Role="Draft" Type="Self.Draft" Multiplicity="1" />
-          <End Role="OrderItem" Type="Self.OrderItem" Multiplicity="*" />
+          <End Type="KeystoneDBModel.Draft" Role="Draft" Multiplicity="1" />
+          <End Type="KeystoneDBModel.OrderItem" Role="OrderItem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Draft">
               <PropertyRef Name="DraftId" />
@@ -1672,8 +1882,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DraftPage_Status">
-          <End Role="Status" Type="Self.Status" Multiplicity="1" />
-          <End Role="DraftPage" Type="Self.DraftPage" Multiplicity="*" />
+          <End Type="KeystoneDBModel.Status" Role="Status" Multiplicity="1" />
+          <End Type="KeystoneDBModel.DraftPage" Role="DraftPage" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Status">
               <PropertyRef Name="StatusId" />
@@ -1684,8 +1894,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DraftPage_Template">
-          <End Role="Template" Type="Self.Template" Multiplicity="1" />
-          <End Role="DraftPage" Type="Self.DraftPage" Multiplicity="*" />
+          <End Type="KeystoneDBModel.Template" Role="Template" Multiplicity="1" />
+          <End Type="KeystoneDBModel.DraftPage" Role="DraftPage" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Template">
               <PropertyRef Name="TemplateId" />
@@ -1696,8 +1906,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_DraftPage_TemplatePage">
-          <End Role="TemplatePage" Type="Self.TemplatePage" Multiplicity="1" />
-          <End Role="DraftPage" Type="Self.DraftPage" Multiplicity="*" />
+          <End Type="KeystoneDBModel.TemplatePage" Role="TemplatePage" Multiplicity="1" />
+          <End Type="KeystoneDBModel.DraftPage" Role="DraftPage" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TemplatePage">
               <PropertyRef Name="TemplatePageId" />
@@ -1708,8 +1918,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Order_Status">
-          <End Role="Status" Type="Self.Status" Multiplicity="1" />
-          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <End Type="KeystoneDBModel.Status" Role="Status" Multiplicity="1" />
+          <End Type="KeystoneDBModel.Order" Role="Order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Status">
               <PropertyRef Name="StatusId" />
@@ -1720,8 +1930,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Order_UserAccount">
-          <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="1" />
-          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <End Type="KeystoneDBModel.UserAccount" Role="UserAccount" Multiplicity="1" />
+          <End Type="KeystoneDBModel.Order" Role="Order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserAccount">
               <PropertyRef Name="UserAccountId" />
@@ -1732,8 +1942,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OrderAppliedPromo_Order">
-          <End Role="Order" Type="Self.Order" Multiplicity="1" />
-          <End Role="OrderAppliedPromo" Type="Self.OrderAppliedPromo" Multiplicity="*" />
+          <End Type="KeystoneDBModel.Order" Role="Order" Multiplicity="1" />
+          <End Type="KeystoneDBModel.OrderAppliedPromo" Role="OrderAppliedPromo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Order">
               <PropertyRef Name="OrderId" />
@@ -1744,8 +1954,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OrderItem_Order">
-          <End Role="Order" Type="Self.Order" Multiplicity="1" />
-          <End Role="OrderItem" Type="Self.OrderItem" Multiplicity="*" />
+          <End Type="KeystoneDBModel.Order" Role="Order" Multiplicity="1" />
+          <End Type="KeystoneDBModel.OrderItem" Role="OrderItem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Order">
               <PropertyRef Name="OrderId" />
@@ -1756,8 +1966,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PaymentInfo_Order">
-          <End Role="Order" Type="Self.Order" Multiplicity="1" />
-          <End Role="PaymentInfo" Type="Self.PaymentInfo" Multiplicity="*" />
+          <End Type="KeystoneDBModel.Order" Role="Order" Multiplicity="1" />
+          <End Type="KeystoneDBModel.PaymentInfo" Role="PaymentInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Order">
               <PropertyRef Name="OrderId" />
@@ -1768,8 +1978,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ShoppingCart_Order">
-          <End Role="Order" Type="Self.Order" Multiplicity="1" />
-          <End Role="ShoppingCart" Type="Self.ShoppingCart" Multiplicity="*" />
+          <End Type="KeystoneDBModel.Order" Role="Order" Multiplicity="1" />
+          <End Type="KeystoneDBModel.ShoppingCart" Role="ShoppingCart" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Order">
               <PropertyRef Name="OrderId" />
@@ -1780,8 +1990,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OrderAppliedPromo_PromoCode">
-          <End Role="PromoCode" Type="Self.PromoCode" Multiplicity="1" />
-          <End Role="OrderAppliedPromo" Type="Self.OrderAppliedPromo" Multiplicity="*" />
+          <End Type="KeystoneDBModel.PromoCode" Role="PromoCode" Multiplicity="1" />
+          <End Type="KeystoneDBModel.OrderAppliedPromo" Role="OrderAppliedPromo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PromoCode">
               <PropertyRef Name="PromoCodeId" />
@@ -1792,8 +2002,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OrderAppliedPromo_Status">
-          <End Role="Status" Type="Self.Status" Multiplicity="1" />
-          <End Role="OrderAppliedPromo" Type="Self.OrderAppliedPromo" Multiplicity="*" />
+          <End Type="KeystoneDBModel.Status" Role="Status" Multiplicity="1" />
+          <End Type="KeystoneDBModel.OrderAppliedPromo" Role="OrderAppliedPromo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Status">
               <PropertyRef Name="StatusId" />
@@ -1804,8 +2014,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OrderAppliedPromo_UserAccount">
-          <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="1" />
-          <End Role="OrderAppliedPromo" Type="Self.OrderAppliedPromo" Multiplicity="*" />
+          <End Type="KeystoneDBModel.UserAccount" Role="UserAccount" Multiplicity="1" />
+          <End Type="KeystoneDBModel.OrderAppliedPromo" Role="OrderAppliedPromo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserAccount">
               <PropertyRef Name="UserAccountId" />
@@ -1816,8 +2026,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OrderItem_Status">
-          <End Role="Status" Type="Self.Status" Multiplicity="1" />
-          <End Role="OrderItem" Type="Self.OrderItem" Multiplicity="*" />
+          <End Type="KeystoneDBModel.Status" Role="Status" Multiplicity="1" />
+          <End Type="KeystoneDBModel.OrderItem" Role="OrderItem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Status">
               <PropertyRef Name="StatusId" />
@@ -1828,8 +2038,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OrderItem_Template">
-          <End Role="Template" Type="Self.Template" Multiplicity="1" />
-          <End Role="OrderItem" Type="Self.OrderItem" Multiplicity="*" />
+          <End Type="KeystoneDBModel.Template" Role="Template" Multiplicity="1" />
+          <End Type="KeystoneDBModel.OrderItem" Role="OrderItem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Template">
               <PropertyRef Name="TemplateId" />
@@ -1840,8 +2050,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OrderItemPage_OrderItem">
-          <End Role="OrderItem" Type="Self.OrderItem" Multiplicity="1" />
-          <End Role="OrderItemPage" Type="Self.OrderItemPage" Multiplicity="*" />
+          <End Type="KeystoneDBModel.OrderItem" Role="OrderItem" Multiplicity="1" />
+          <End Type="KeystoneDBModel.OrderItemPage" Role="OrderItemPage" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="OrderItem">
               <PropertyRef Name="OrderItemId" />
@@ -1852,8 +2062,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OrderItemPage_Status">
-          <End Role="Status" Type="Self.Status" Multiplicity="1" />
-          <End Role="OrderItemPage" Type="Self.OrderItemPage" Multiplicity="*" />
+          <End Type="KeystoneDBModel.Status" Role="Status" Multiplicity="1" />
+          <End Type="KeystoneDBModel.OrderItemPage" Role="OrderItemPage" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Status">
               <PropertyRef Name="StatusId" />
@@ -1864,8 +2074,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PaymentInfo_Status">
-          <End Role="Status" Type="Self.Status" Multiplicity="1" />
-          <End Role="PaymentInfo" Type="Self.PaymentInfo" Multiplicity="*" />
+          <End Type="KeystoneDBModel.Status" Role="Status" Multiplicity="1" />
+          <End Type="KeystoneDBModel.PaymentInfo" Role="PaymentInfo" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Status">
               <PropertyRef Name="StatusId" />
@@ -1876,8 +2086,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ShoppingCart_PaymentInfo">
-          <End Role="PaymentInfo" Type="Self.PaymentInfo" Multiplicity="1" />
-          <End Role="ShoppingCart" Type="Self.ShoppingCart" Multiplicity="*" />
+          <End Type="KeystoneDBModel.PaymentInfo" Role="PaymentInfo" Multiplicity="1" />
+          <End Type="KeystoneDBModel.ShoppingCart" Role="ShoppingCart" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PaymentInfo">
               <PropertyRef Name="PaymentInfoId" />
@@ -1888,8 +2098,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ShoppingCart_PaymentType">
-          <End Role="PaymentType" Type="Self.PaymentType" Multiplicity="1" />
-          <End Role="ShoppingCart" Type="Self.ShoppingCart" Multiplicity="*" />
+          <End Type="KeystoneDBModel.PaymentType" Role="PaymentType" Multiplicity="1" />
+          <End Type="KeystoneDBModel.ShoppingCart" Role="ShoppingCart" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PaymentType">
               <PropertyRef Name="PaymentTypeId" />
@@ -1900,8 +2110,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PromoCode_Status">
-          <End Role="Status" Type="Self.Status" Multiplicity="1" />
-          <End Role="PromoCode" Type="Self.PromoCode" Multiplicity="*" />
+          <End Type="KeystoneDBModel.Status" Role="Status" Multiplicity="1" />
+          <End Type="KeystoneDBModel.PromoCode" Role="PromoCode" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Status">
               <PropertyRef Name="StatusId" />
@@ -1912,8 +2122,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ShoppingCart_PromoCode">
-          <End Role="PromoCode" Type="Self.PromoCode" Multiplicity="0..1" />
-          <End Role="ShoppingCart" Type="Self.ShoppingCart" Multiplicity="*" />
+          <End Type="KeystoneDBModel.PromoCode" Role="PromoCode" Multiplicity="0..1" />
+          <End Type="KeystoneDBModel.ShoppingCart" Role="ShoppingCart" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="PromoCode">
               <PropertyRef Name="PromoCodeId" />
@@ -1924,8 +2134,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ShoppingCart_Status">
-          <End Role="Status" Type="Self.Status" Multiplicity="1" />
-          <End Role="ShoppingCart" Type="Self.ShoppingCart" Multiplicity="*" />
+          <End Type="KeystoneDBModel.Status" Role="Status" Multiplicity="1" />
+          <End Type="KeystoneDBModel.ShoppingCart" Role="ShoppingCart" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Status">
               <PropertyRef Name="StatusId" />
@@ -1936,8 +2146,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ShoppingCart_UserAccount">
-          <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="1" />
-          <End Role="ShoppingCart" Type="Self.ShoppingCart" Multiplicity="*" />
+          <End Type="KeystoneDBModel.UserAccount" Role="UserAccount" Multiplicity="1" />
+          <End Type="KeystoneDBModel.ShoppingCart" Role="ShoppingCart" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserAccount">
               <PropertyRef Name="UserAccountId" />
@@ -1948,8 +2158,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ShoppingCart_UserBillingAddress">
-          <End Role="UserAddress" Type="Self.UserAddress" Multiplicity="1" />
-          <End Role="ShoppingCart" Type="Self.ShoppingCart" Multiplicity="*" />
+          <End Type="KeystoneDBModel.UserAddress" Role="UserAddress" Multiplicity="1" />
+          <End Type="KeystoneDBModel.ShoppingCart" Role="ShoppingCart" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserAddress">
               <PropertyRef Name="UserAddressId" />
@@ -1960,8 +2170,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ShoppingCart_UserShippingAddress">
-          <End Role="UserAddress" Type="Self.UserAddress" Multiplicity="1" />
-          <End Role="ShoppingCart" Type="Self.ShoppingCart" Multiplicity="*" />
+          <End Type="KeystoneDBModel.UserAddress" Role="UserAddress" Multiplicity="1" />
+          <End Type="KeystoneDBModel.ShoppingCart" Role="ShoppingCart" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserAddress">
               <PropertyRef Name="UserAddressId" />
@@ -1972,8 +2182,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Template_Status">
-          <End Role="Status" Type="Self.Status" Multiplicity="1" />
-          <End Role="Template" Type="Self.Template" Multiplicity="*" />
+          <End Type="KeystoneDBModel.Status" Role="Status" Multiplicity="1" />
+          <End Type="KeystoneDBModel.Template" Role="Template" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Status">
               <PropertyRef Name="StatusId" />
@@ -1984,8 +2194,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TemplatePage_Status">
-          <End Role="Status" Type="Self.Status" Multiplicity="1" />
-          <End Role="TemplatePage" Type="Self.TemplatePage" Multiplicity="*" />
+          <End Type="KeystoneDBModel.Status" Role="Status" Multiplicity="1" />
+          <End Type="KeystoneDBModel.TemplatePage" Role="TemplatePage" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Status">
               <PropertyRef Name="StatusId" />
@@ -1996,8 +2206,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TemplatePrice_Status">
-          <End Role="Status" Type="Self.Status" Multiplicity="1" />
-          <End Role="TemplatePrice" Type="Self.TemplatePrice" Multiplicity="*" />
+          <End Type="KeystoneDBModel.Status" Role="Status" Multiplicity="1" />
+          <End Type="KeystoneDBModel.TemplatePrice" Role="TemplatePrice" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Status">
               <PropertyRef Name="StatusId" />
@@ -2008,8 +2218,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TemplateType_Status">
-          <End Role="Status" Type="Self.Status" Multiplicity="1" />
-          <End Role="TemplateType" Type="Self.TemplateType" Multiplicity="*" />
+          <End Type="KeystoneDBModel.Status" Role="Status" Multiplicity="1" />
+          <End Type="KeystoneDBModel.TemplateType" Role="TemplateType" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Status">
               <PropertyRef Name="StatusId" />
@@ -2020,8 +2230,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Testimonial_Status">
-          <End Role="Status" Type="Self.Status" Multiplicity="1" />
-          <End Role="Testimonial" Type="Self.Testimonial" Multiplicity="*" />
+          <End Type="KeystoneDBModel.Status" Role="Status" Multiplicity="1" />
+          <End Type="KeystoneDBModel.Testimonial" Role="Testimonial" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Status">
               <PropertyRef Name="StatusId" />
@@ -2032,8 +2242,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserAccount_Status">
-          <End Role="Status" Type="Self.Status" Multiplicity="1" />
-          <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="*" />
+          <End Type="KeystoneDBModel.Status" Role="Status" Multiplicity="1" />
+          <End Type="KeystoneDBModel.UserAccount" Role="UserAccount" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Status">
               <PropertyRef Name="StatusId" />
@@ -2044,8 +2254,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserAddress_Status">
-          <End Role="Status" Type="Self.Status" Multiplicity="1" />
-          <End Role="UserAddress" Type="Self.UserAddress" Multiplicity="*" />
+          <End Type="KeystoneDBModel.Status" Role="Status" Multiplicity="1" />
+          <End Type="KeystoneDBModel.UserAddress" Role="UserAddress" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Status">
               <PropertyRef Name="StatusId" />
@@ -2056,8 +2266,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Template_TemplateCategoty">
-          <End Role="TemplateCategoty" Type="Self.TemplateCategoty" Multiplicity="1" />
-          <End Role="Template" Type="Self.Template" Multiplicity="*" />
+          <End Type="KeystoneDBModel.TemplateCategoty" Role="TemplateCategoty" Multiplicity="1" />
+          <End Type="KeystoneDBModel.Template" Role="Template" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TemplateCategoty">
               <PropertyRef Name="TemplateCategotyId" />
@@ -2068,8 +2278,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Template_TemplateType">
-          <End Role="TemplateType" Type="Self.TemplateType" Multiplicity="1" />
-          <End Role="Template" Type="Self.Template" Multiplicity="*" />
+          <End Type="KeystoneDBModel.TemplateType" Role="TemplateType" Multiplicity="1" />
+          <End Type="KeystoneDBModel.Template" Role="Template" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TemplateType">
               <PropertyRef Name="TemplateTypeId" />
@@ -2080,8 +2290,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TemplatePage_Template">
-          <End Role="Template" Type="Self.Template" Multiplicity="1" />
-          <End Role="TemplatePage" Type="Self.TemplatePage" Multiplicity="*" />
+          <End Type="KeystoneDBModel.Template" Role="Template" Multiplicity="1" />
+          <End Type="KeystoneDBModel.TemplatePage" Role="TemplatePage" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Template">
               <PropertyRef Name="TemplateId" />
@@ -2092,8 +2302,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TemplatePrice_TemplateType">
-          <End Role="TemplateType" Type="Self.TemplateType" Multiplicity="1" />
-          <End Role="TemplatePrice" Type="Self.TemplatePrice" Multiplicity="*" />
+          <End Type="KeystoneDBModel.TemplateType" Role="TemplateType" Multiplicity="1" />
+          <End Type="KeystoneDBModel.TemplatePrice" Role="TemplatePrice" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="TemplateType">
               <PropertyRef Name="TemplateTypeId" />
@@ -2104,8 +2314,8 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserAddress_UserAccount">
-          <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="1" />
-          <End Role="UserAddress" Type="Self.UserAddress" Multiplicity="*" />
+          <End Type="KeystoneDBModel.UserAccount" Role="UserAccount" Multiplicity="1" />
+          <End Type="KeystoneDBModel.UserAddress" Role="UserAddress" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="UserAccount">
               <PropertyRef Name="UserAccountId" />
@@ -2115,218 +2325,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="KeystoneDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="AddressTypes" EntityType="Self.AddressType" />
-          <EntitySet Name="DeliverySchedules" EntityType="Self.DeliverySchedule" />
-          <EntitySet Name="Drafts" EntityType="Self.Draft" />
-          <EntitySet Name="DraftPages" EntityType="Self.DraftPage" />
-          <EntitySet Name="Orders" EntityType="Self.Order" />
-          <EntitySet Name="OrderAppliedPromoes" EntityType="Self.OrderAppliedPromo" />
-          <EntitySet Name="OrderItems" EntityType="Self.OrderItem" />
-          <EntitySet Name="OrderItemPages" EntityType="Self.OrderItemPage" />
-          <EntitySet Name="PaymentInfoes" EntityType="Self.PaymentInfo" />
-          <EntitySet Name="PaymentTypes" EntityType="Self.PaymentType" />
-          <EntitySet Name="PromoCodes" EntityType="Self.PromoCode" />
-          <EntitySet Name="ShoppingCarts" EntityType="Self.ShoppingCart" />
-          <EntitySet Name="Status" EntityType="Self.Status" />
-          <EntitySet Name="Templates" EntityType="Self.Template" />
-          <EntitySet Name="TemplateCategoties" EntityType="Self.TemplateCategoty" />
-          <EntitySet Name="TemplatePages" EntityType="Self.TemplatePage" />
-          <EntitySet Name="TemplatePrices" EntityType="Self.TemplatePrice" />
-          <EntitySet Name="TemplateTypes" EntityType="Self.TemplateType" />
-          <EntitySet Name="Testimonials" EntityType="Self.Testimonial" />
-          <EntitySet Name="UserAccounts" EntityType="Self.UserAccount" />
-          <EntitySet Name="UserAddresses" EntityType="Self.UserAddress" />
-          <AssociationSet Name="FK_AddressType_Status" Association="Self.FK_AddressType_Status">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="AddressType" EntitySet="AddressTypes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserAddress_AddressType" Association="Self.FK_UserAddress_AddressType">
-            <End Role="AddressType" EntitySet="AddressTypes" />
-            <End Role="UserAddress" EntitySet="UserAddresses" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DeliverySchedule_Status" Association="Self.FK_DeliverySchedule_Status">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="DeliverySchedule" EntitySet="DeliverySchedules" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderItem_DeliverySchedule" Association="Self.FK_OrderItem_DeliverySchedule">
-            <End Role="DeliverySchedule" EntitySet="DeliverySchedules" />
-            <End Role="OrderItem" EntitySet="OrderItems" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TemplatePrice_DeliverySchedule" Association="Self.FK_TemplatePrice_DeliverySchedule">
-            <End Role="DeliverySchedule" EntitySet="DeliverySchedules" />
-            <End Role="TemplatePrice" EntitySet="TemplatePrices" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Draft_Status" Association="Self.FK_Draft_Status">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="Draft" EntitySet="Drafts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Draft_Template" Association="Self.FK_Draft_Template">
-            <End Role="Template" EntitySet="Templates" />
-            <End Role="Draft" EntitySet="Drafts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Draft_UserAccount" Association="Self.FK_Draft_UserAccount">
-            <End Role="UserAccount" EntitySet="UserAccounts" />
-            <End Role="Draft" EntitySet="Drafts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DraftPage_Draft" Association="Self.FK_DraftPage_Draft">
-            <End Role="Draft" EntitySet="Drafts" />
-            <End Role="DraftPage" EntitySet="DraftPages" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderItem_Draft" Association="Self.FK_OrderItem_Draft">
-            <End Role="Draft" EntitySet="Drafts" />
-            <End Role="OrderItem" EntitySet="OrderItems" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DraftPage_Status" Association="Self.FK_DraftPage_Status">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="DraftPage" EntitySet="DraftPages" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DraftPage_Template" Association="Self.FK_DraftPage_Template">
-            <End Role="Template" EntitySet="Templates" />
-            <End Role="DraftPage" EntitySet="DraftPages" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DraftPage_TemplatePage" Association="Self.FK_DraftPage_TemplatePage">
-            <End Role="TemplatePage" EntitySet="TemplatePages" />
-            <End Role="DraftPage" EntitySet="DraftPages" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Order_Status" Association="Self.FK_Order_Status">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="Order" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Order_UserAccount" Association="Self.FK_Order_UserAccount">
-            <End Role="UserAccount" EntitySet="UserAccounts" />
-            <End Role="Order" EntitySet="Orders" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderAppliedPromo_Order" Association="Self.FK_OrderAppliedPromo_Order">
-            <End Role="Order" EntitySet="Orders" />
-            <End Role="OrderAppliedPromo" EntitySet="OrderAppliedPromoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderItem_Order" Association="Self.FK_OrderItem_Order">
-            <End Role="Order" EntitySet="Orders" />
-            <End Role="OrderItem" EntitySet="OrderItems" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PaymentInfo_Order" Association="Self.FK_PaymentInfo_Order">
-            <End Role="Order" EntitySet="Orders" />
-            <End Role="PaymentInfo" EntitySet="PaymentInfoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ShoppingCart_Order" Association="Self.FK_ShoppingCart_Order">
-            <End Role="Order" EntitySet="Orders" />
-            <End Role="ShoppingCart" EntitySet="ShoppingCarts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderAppliedPromo_PromoCode" Association="Self.FK_OrderAppliedPromo_PromoCode">
-            <End Role="PromoCode" EntitySet="PromoCodes" />
-            <End Role="OrderAppliedPromo" EntitySet="OrderAppliedPromoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderAppliedPromo_Status" Association="Self.FK_OrderAppliedPromo_Status">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="OrderAppliedPromo" EntitySet="OrderAppliedPromoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderAppliedPromo_UserAccount" Association="Self.FK_OrderAppliedPromo_UserAccount">
-            <End Role="UserAccount" EntitySet="UserAccounts" />
-            <End Role="OrderAppliedPromo" EntitySet="OrderAppliedPromoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderItem_Status" Association="Self.FK_OrderItem_Status">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="OrderItem" EntitySet="OrderItems" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderItem_Template" Association="Self.FK_OrderItem_Template">
-            <End Role="Template" EntitySet="Templates" />
-            <End Role="OrderItem" EntitySet="OrderItems" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderItemPage_OrderItem" Association="Self.FK_OrderItemPage_OrderItem">
-            <End Role="OrderItem" EntitySet="OrderItems" />
-            <End Role="OrderItemPage" EntitySet="OrderItemPages" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderItemPage_Status" Association="Self.FK_OrderItemPage_Status">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="OrderItemPage" EntitySet="OrderItemPages" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PaymentInfo_Status" Association="Self.FK_PaymentInfo_Status">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="PaymentInfo" EntitySet="PaymentInfoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ShoppingCart_PaymentInfo" Association="Self.FK_ShoppingCart_PaymentInfo">
-            <End Role="PaymentInfo" EntitySet="PaymentInfoes" />
-            <End Role="ShoppingCart" EntitySet="ShoppingCarts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ShoppingCart_PaymentType" Association="Self.FK_ShoppingCart_PaymentType">
-            <End Role="PaymentType" EntitySet="PaymentTypes" />
-            <End Role="ShoppingCart" EntitySet="ShoppingCarts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PromoCode_Status" Association="Self.FK_PromoCode_Status">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="PromoCode" EntitySet="PromoCodes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ShoppingCart_PromoCode" Association="Self.FK_ShoppingCart_PromoCode">
-            <End Role="PromoCode" EntitySet="PromoCodes" />
-            <End Role="ShoppingCart" EntitySet="ShoppingCarts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ShoppingCart_Status" Association="Self.FK_ShoppingCart_Status">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="ShoppingCart" EntitySet="ShoppingCarts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ShoppingCart_UserAccount" Association="Self.FK_ShoppingCart_UserAccount">
-            <End Role="UserAccount" EntitySet="UserAccounts" />
-            <End Role="ShoppingCart" EntitySet="ShoppingCarts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ShoppingCart_UserBillingAddress" Association="Self.FK_ShoppingCart_UserBillingAddress">
-            <End Role="UserAddress" EntitySet="UserAddresses" />
-            <End Role="ShoppingCart" EntitySet="ShoppingCarts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ShoppingCart_UserShippingAddress" Association="Self.FK_ShoppingCart_UserShippingAddress">
-            <End Role="UserAddress" EntitySet="UserAddresses" />
-            <End Role="ShoppingCart" EntitySet="ShoppingCarts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Template_Status" Association="Self.FK_Template_Status">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="Template" EntitySet="Templates" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TemplatePage_Status" Association="Self.FK_TemplatePage_Status">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="TemplatePage" EntitySet="TemplatePages" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TemplatePrice_Status" Association="Self.FK_TemplatePrice_Status">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="TemplatePrice" EntitySet="TemplatePrices" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TemplateType_Status" Association="Self.FK_TemplateType_Status">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="TemplateType" EntitySet="TemplateTypes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Testimonial_Status" Association="Self.FK_Testimonial_Status">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="Testimonial" EntitySet="Testimonials" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserAccount_Status" Association="Self.FK_UserAccount_Status">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="UserAccount" EntitySet="UserAccounts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserAddress_Status" Association="Self.FK_UserAddress_Status">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="UserAddress" EntitySet="UserAddresses" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Template_TemplateCategoty" Association="Self.FK_Template_TemplateCategoty">
-            <End Role="TemplateCategoty" EntitySet="TemplateCategoties" />
-            <End Role="Template" EntitySet="Templates" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Template_TemplateType" Association="Self.FK_Template_TemplateType">
-            <End Role="TemplateType" EntitySet="TemplateTypes" />
-            <End Role="Template" EntitySet="Templates" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TemplatePage_Template" Association="Self.FK_TemplatePage_Template">
-            <End Role="Template" EntitySet="Templates" />
-            <End Role="TemplatePage" EntitySet="TemplatePages" />
-          </AssociationSet>
-          <AssociationSet Name="FK_TemplatePrice_TemplateType" Association="Self.FK_TemplatePrice_TemplateType">
-            <End Role="TemplateType" EntitySet="TemplateTypes" />
-            <End Role="TemplatePrice" EntitySet="TemplatePrices" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserAddress_UserAccount" Association="Self.FK_UserAddress_UserAccount">
-            <End Role="UserAccount" EntitySet="UserAccounts" />
-            <End Role="UserAddress" EntitySet="UserAddresses" />
-          </AssociationSet>
-        </EntityContainer>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -2335,357 +2334,357 @@
           <EntitySetMapping Name="AddressTypes">
             <EntityTypeMapping TypeName="KeystoneDBModel.AddressType">
               <MappingFragment StoreEntitySet="AddressType">
-                <ScalarProperty Name="AddressTypeId" ColumnName="AddressTypeId" />
-                <ScalarProperty Name="AddressTypeCode" ColumnName="AddressTypeCode" />
                 <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="AddressTypeCode" ColumnName="AddressTypeCode" />
+                <ScalarProperty Name="AddressTypeId" ColumnName="AddressTypeId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DeliverySchedules">
             <EntityTypeMapping TypeName="KeystoneDBModel.DeliverySchedule">
               <MappingFragment StoreEntitySet="DeliverySchedule">
-                <ScalarProperty Name="DeliveryScheduleId" ColumnName="DeliveryScheduleId" />
-                <ScalarProperty Name="DeliveryCode" ColumnName="DeliveryCode" />
-                <ScalarProperty Name="DeliveryFrom" ColumnName="DeliveryFrom" />
-                <ScalarProperty Name="DeliveryTo" ColumnName="DeliveryTo" />
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
                 <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="DeliveryTo" ColumnName="DeliveryTo" />
+                <ScalarProperty Name="DeliveryFrom" ColumnName="DeliveryFrom" />
+                <ScalarProperty Name="DeliveryCode" ColumnName="DeliveryCode" />
+                <ScalarProperty Name="DeliveryScheduleId" ColumnName="DeliveryScheduleId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Drafts">
             <EntityTypeMapping TypeName="KeystoneDBModel.Draft">
               <MappingFragment StoreEntitySet="Draft">
-                <ScalarProperty Name="DraftId" ColumnName="DraftId" />
-                <ScalarProperty Name="UserAccountId" ColumnName="UserAccountId" />
-                <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
-                <ScalarProperty Name="DraftName" ColumnName="DraftName" />
-                <ScalarProperty Name="DeliveryScheduleId" ColumnName="DeliveryScheduleId" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
                 <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="DeliveryScheduleId" ColumnName="DeliveryScheduleId" />
+                <ScalarProperty Name="DraftName" ColumnName="DraftName" />
+                <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
+                <ScalarProperty Name="UserAccountId" ColumnName="UserAccountId" />
+                <ScalarProperty Name="DraftId" ColumnName="DraftId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="DraftPages">
             <EntityTypeMapping TypeName="KeystoneDBModel.DraftPage">
               <MappingFragment StoreEntitySet="DraftPage">
-                <ScalarProperty Name="DraftPageId" ColumnName="DraftPageId" />
-                <ScalarProperty Name="DraftId" ColumnName="DraftId" />
-                <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
-                <ScalarProperty Name="TemplatePageId" ColumnName="TemplatePageId" />
-                <ScalarProperty Name="DraftPreviewUrl" ColumnName="DraftPreviewUrl" />
-                <ScalarProperty Name="FinalImageUrl" ColumnName="FinalImageUrl" />
-                <ScalarProperty Name="DraftJsonString" ColumnName="DraftJsonString" />
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
                 <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="DraftJsonString" ColumnName="DraftJsonString" />
+                <ScalarProperty Name="FinalImageUrl" ColumnName="FinalImageUrl" />
+                <ScalarProperty Name="DraftPreviewUrl" ColumnName="DraftPreviewUrl" />
+                <ScalarProperty Name="TemplatePageId" ColumnName="TemplatePageId" />
+                <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
+                <ScalarProperty Name="DraftId" ColumnName="DraftId" />
+                <ScalarProperty Name="DraftPageId" ColumnName="DraftPageId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Orders">
             <EntityTypeMapping TypeName="KeystoneDBModel.Order">
               <MappingFragment StoreEntitySet="Order">
-                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
-                <ScalarProperty Name="UserAccountId" ColumnName="UserAccountId" />
-                <ScalarProperty Name="OrderReferance" ColumnName="OrderReferance" />
-                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
-                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
-                <ScalarProperty Name="DiscountAmount" ColumnName="DiscountAmount" />
-                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
                 <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="DiscountAmount" ColumnName="DiscountAmount" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
+                <ScalarProperty Name="OrderReferance" ColumnName="OrderReferance" />
+                <ScalarProperty Name="UserAccountId" ColumnName="UserAccountId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderAppliedPromoes">
             <EntityTypeMapping TypeName="KeystoneDBModel.OrderAppliedPromo">
               <MappingFragment StoreEntitySet="OrderAppliedPromo">
-                <ScalarProperty Name="OrderAppliedPromoId" ColumnName="OrderAppliedPromoId" />
-                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
-                <ScalarProperty Name="PromoCodeId" ColumnName="PromoCodeId" />
-                <ScalarProperty Name="UserAccountId" ColumnName="UserAccountId" />
-                <ScalarProperty Name="AppliedAmount" ColumnName="AppliedAmount" />
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
                 <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="AppliedAmount" ColumnName="AppliedAmount" />
+                <ScalarProperty Name="UserAccountId" ColumnName="UserAccountId" />
+                <ScalarProperty Name="PromoCodeId" ColumnName="PromoCodeId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="OrderAppliedPromoId" ColumnName="OrderAppliedPromoId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderItems">
             <EntityTypeMapping TypeName="KeystoneDBModel.OrderItem">
               <MappingFragment StoreEntitySet="OrderItem">
-                <ScalarProperty Name="OrderItemId" ColumnName="OrderItemId" />
-                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
-                <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
-                <ScalarProperty Name="DeliveryScheduleId" ColumnName="DeliveryScheduleId" />
-                <ScalarProperty Name="DraftId" ColumnName="DraftId" />
-                <ScalarProperty Name="DisplayUrl" ColumnName="DisplayUrl" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
                 <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
+                <ScalarProperty Name="DisplayUrl" ColumnName="DisplayUrl" />
+                <ScalarProperty Name="DraftId" ColumnName="DraftId" />
+                <ScalarProperty Name="DeliveryScheduleId" ColumnName="DeliveryScheduleId" />
+                <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="OrderItemId" ColumnName="OrderItemId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="OrderItemPages">
             <EntityTypeMapping TypeName="KeystoneDBModel.OrderItemPage">
               <MappingFragment StoreEntitySet="OrderItemPage">
-                <ScalarProperty Name="OrderItemPageId" ColumnName="OrderItemPageId" />
-                <ScalarProperty Name="OrderItemId" ColumnName="OrderItemId" />
-                <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
-                <ScalarProperty Name="TemplatePageId" ColumnName="TemplatePageId" />
-                <ScalarProperty Name="OrderPageUrl" ColumnName="OrderPageUrl" />
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
                 <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="OrderPageUrl" ColumnName="OrderPageUrl" />
+                <ScalarProperty Name="TemplatePageId" ColumnName="TemplatePageId" />
+                <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
+                <ScalarProperty Name="OrderItemId" ColumnName="OrderItemId" />
+                <ScalarProperty Name="OrderItemPageId" ColumnName="OrderItemPageId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PaymentInfoes">
             <EntityTypeMapping TypeName="KeystoneDBModel.PaymentInfo">
               <MappingFragment StoreEntitySet="PaymentInfo">
-                <ScalarProperty Name="PaymentInfoId" ColumnName="PaymentInfoId" />
-                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
-                <ScalarProperty Name="RequistedIp" ColumnName="RequistedIp" />
-                <ScalarProperty Name="Acknowledgement" ColumnName="Acknowledgement" />
-                <ScalarProperty Name="TransactionTime" ColumnName="TransactionTime" />
-                <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
-                <ScalarProperty Name="TransactionType" ColumnName="TransactionType" />
-                <ScalarProperty Name="TransactionErrorCode" ColumnName="TransactionErrorCode" />
-                <ScalarProperty Name="TransactionShortMessage" ColumnName="TransactionShortMessage" />
-                <ScalarProperty Name="TransactionLongMessage" ColumnName="TransactionLongMessage" />
-                <ScalarProperty Name="TransactionAmount" ColumnName="TransactionAmount" />
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
                 <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="TransactionAmount" ColumnName="TransactionAmount" />
+                <ScalarProperty Name="TransactionLongMessage" ColumnName="TransactionLongMessage" />
+                <ScalarProperty Name="TransactionShortMessage" ColumnName="TransactionShortMessage" />
+                <ScalarProperty Name="TransactionErrorCode" ColumnName="TransactionErrorCode" />
+                <ScalarProperty Name="TransactionType" ColumnName="TransactionType" />
+                <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
+                <ScalarProperty Name="TransactionTime" ColumnName="TransactionTime" />
+                <ScalarProperty Name="Acknowledgement" ColumnName="Acknowledgement" />
+                <ScalarProperty Name="RequistedIp" ColumnName="RequistedIp" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="PaymentInfoId" ColumnName="PaymentInfoId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PaymentTypes">
             <EntityTypeMapping TypeName="KeystoneDBModel.PaymentType">
               <MappingFragment StoreEntitySet="PaymentType">
-                <ScalarProperty Name="PaymentTypeId" ColumnName="PaymentTypeId" />
-                <ScalarProperty Name="PaymentCode" ColumnName="PaymentCode" />
                 <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="PaymentCode" ColumnName="PaymentCode" />
+                <ScalarProperty Name="PaymentTypeId" ColumnName="PaymentTypeId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="PromoCodes">
             <EntityTypeMapping TypeName="KeystoneDBModel.PromoCode">
               <MappingFragment StoreEntitySet="PromoCode">
-                <ScalarProperty Name="PromoCodeId" ColumnName="PromoCodeId" />
-                <ScalarProperty Name="PromoCodeName" ColumnName="PromoCodeName" />
-                <ScalarProperty Name="PromoAmount" ColumnName="PromoAmount" />
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
                 <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="PromoAmount" ColumnName="PromoAmount" />
+                <ScalarProperty Name="PromoCodeName" ColumnName="PromoCodeName" />
+                <ScalarProperty Name="PromoCodeId" ColumnName="PromoCodeId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ShoppingCarts">
             <EntityTypeMapping TypeName="KeystoneDBModel.ShoppingCart">
               <MappingFragment StoreEntitySet="ShoppingCart">
-                <ScalarProperty Name="ShoppingCartId" ColumnName="ShoppingCartId" />
-                <ScalarProperty Name="UserAccountId" ColumnName="UserAccountId" />
-                <ScalarProperty Name="PaymentTypeId" ColumnName="PaymentTypeId" />
-                <ScalarProperty Name="PaymentInfoId" ColumnName="PaymentInfoId" />
-                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
-                <ScalarProperty Name="PromoCodeId" ColumnName="PromoCodeId" />
-                <ScalarProperty Name="BillingAddressId" ColumnName="BillingAddressId" />
-                <ScalarProperty Name="ShippingAddressId" ColumnName="ShippingAddressId" />
-                <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
-                <ScalarProperty Name="CartReferance" ColumnName="CartReferance" />
-                <ScalarProperty Name="ExpireOn" ColumnName="ExpireOn" />
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
                 <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="ExpireOn" ColumnName="ExpireOn" />
+                <ScalarProperty Name="CartReferance" ColumnName="CartReferance" />
+                <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
+                <ScalarProperty Name="ShippingAddressId" ColumnName="ShippingAddressId" />
+                <ScalarProperty Name="BillingAddressId" ColumnName="BillingAddressId" />
+                <ScalarProperty Name="PromoCodeId" ColumnName="PromoCodeId" />
+                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
+                <ScalarProperty Name="PaymentInfoId" ColumnName="PaymentInfoId" />
+                <ScalarProperty Name="PaymentTypeId" ColumnName="PaymentTypeId" />
+                <ScalarProperty Name="UserAccountId" ColumnName="UserAccountId" />
+                <ScalarProperty Name="ShoppingCartId" ColumnName="ShoppingCartId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Status">
             <EntityTypeMapping TypeName="KeystoneDBModel.Status">
               <MappingFragment StoreEntitySet="Status">
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
                 <ScalarProperty Name="StatusCode" ColumnName="StatusCode" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Templates">
             <EntityTypeMapping TypeName="KeystoneDBModel.Template">
               <MappingFragment StoreEntitySet="Template">
-                <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
-                <ScalarProperty Name="TemplateTypeId" ColumnName="TemplateTypeId" />
-                <ScalarProperty Name="TemplateCategotyId" ColumnName="TemplateCategotyId" />
-                <ScalarProperty Name="TemplateCode" ColumnName="TemplateCode" />
-                <ScalarProperty Name="TemplateTitle" ColumnName="TemplateTitle" />
-                <ScalarProperty Name="TemplateDesc" ColumnName="TemplateDesc" />
-                <ScalarProperty Name="TotalPages" ColumnName="TotalPages" />
-                <ScalarProperty Name="TemplateHeight" ColumnName="TemplateHeight" />
-                <ScalarProperty Name="TemplateWidth" ColumnName="TemplateWidth" />
-                <ScalarProperty Name="GalleryUrl" ColumnName="GalleryUrl" />
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
                 <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="GalleryUrl" ColumnName="GalleryUrl" />
+                <ScalarProperty Name="TemplateWidth" ColumnName="TemplateWidth" />
+                <ScalarProperty Name="TemplateHeight" ColumnName="TemplateHeight" />
+                <ScalarProperty Name="TotalPages" ColumnName="TotalPages" />
+                <ScalarProperty Name="TemplateDesc" ColumnName="TemplateDesc" />
+                <ScalarProperty Name="TemplateTitle" ColumnName="TemplateTitle" />
+                <ScalarProperty Name="TemplateCode" ColumnName="TemplateCode" />
+                <ScalarProperty Name="TemplateCategotyId" ColumnName="TemplateCategotyId" />
+                <ScalarProperty Name="TemplateTypeId" ColumnName="TemplateTypeId" />
+                <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TemplateCategoties">
             <EntityTypeMapping TypeName="KeystoneDBModel.TemplateCategoty">
               <MappingFragment StoreEntitySet="TemplateCategoty">
-                <ScalarProperty Name="TemplateCategotyId" ColumnName="TemplateCategotyId" />
-                <ScalarProperty Name="TemplateCategotyCode" ColumnName="TemplateCategotyCode" />
                 <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="TemplateCategotyCode" ColumnName="TemplateCategotyCode" />
+                <ScalarProperty Name="TemplateCategotyId" ColumnName="TemplateCategotyId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TemplatePages">
             <EntityTypeMapping TypeName="KeystoneDBModel.TemplatePage">
               <MappingFragment StoreEntitySet="TemplatePage">
-                <ScalarProperty Name="TemplatePageId" ColumnName="TemplatePageId" />
-                <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
-                <ScalarProperty Name="PageHeight" ColumnName="PageHeight" />
-                <ScalarProperty Name="PageWidth" ColumnName="PageWidth" />
-                <ScalarProperty Name="TemplatePageUrl" ColumnName="TemplatePageUrl" />
-                <ScalarProperty Name="TemplatePageJson" ColumnName="TemplatePageJson" />
-                <ScalarProperty Name="OrderIndex" ColumnName="OrderIndex" />
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
                 <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="OrderIndex" ColumnName="OrderIndex" />
+                <ScalarProperty Name="TemplatePageJson" ColumnName="TemplatePageJson" />
+                <ScalarProperty Name="TemplatePageUrl" ColumnName="TemplatePageUrl" />
+                <ScalarProperty Name="PageWidth" ColumnName="PageWidth" />
+                <ScalarProperty Name="PageHeight" ColumnName="PageHeight" />
+                <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
+                <ScalarProperty Name="TemplatePageId" ColumnName="TemplatePageId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TemplatePrices">
             <EntityTypeMapping TypeName="KeystoneDBModel.TemplatePrice">
               <MappingFragment StoreEntitySet="TemplatePrice">
-                <ScalarProperty Name="TemplatePriceId" ColumnName="TemplatePriceId" />
-                <ScalarProperty Name="TemplateTypeId" ColumnName="TemplateTypeId" />
-                <ScalarProperty Name="DeliveryScheduleId" ColumnName="DeliveryScheduleId" />
-                <ScalarProperty Name="TemplatePriceCode" ColumnName="TemplatePriceCode" />
-                <ScalarProperty Name="TemplateHeight" ColumnName="TemplateHeight" />
-                <ScalarProperty Name="TemplateWidth" ColumnName="TemplateWidth" />
-                <ScalarProperty Name="PrintQuantity" ColumnName="PrintQuantity" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
                 <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="PrintQuantity" ColumnName="PrintQuantity" />
+                <ScalarProperty Name="TemplateWidth" ColumnName="TemplateWidth" />
+                <ScalarProperty Name="TemplateHeight" ColumnName="TemplateHeight" />
+                <ScalarProperty Name="TemplatePriceCode" ColumnName="TemplatePriceCode" />
+                <ScalarProperty Name="DeliveryScheduleId" ColumnName="DeliveryScheduleId" />
+                <ScalarProperty Name="TemplateTypeId" ColumnName="TemplateTypeId" />
+                <ScalarProperty Name="TemplatePriceId" ColumnName="TemplatePriceId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TemplateTypes">
             <EntityTypeMapping TypeName="KeystoneDBModel.TemplateType">
               <MappingFragment StoreEntitySet="TemplateType">
-                <ScalarProperty Name="TemplateTypeId" ColumnName="TemplateTypeId" />
-                <ScalarProperty Name="TemplateCode" ColumnName="TemplateCode" />
                 <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="TemplateCode" ColumnName="TemplateCode" />
+                <ScalarProperty Name="TemplateTypeId" ColumnName="TemplateTypeId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Testimonials">
             <EntityTypeMapping TypeName="KeystoneDBModel.Testimonial">
               <MappingFragment StoreEntitySet="Testimonial">
-                <ScalarProperty Name="TestimonialId" ColumnName="TestimonialId" />
-                <ScalarProperty Name="WriterName" ColumnName="WriterName" />
-                <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
-                <ScalarProperty Name="PostedOn" ColumnName="PostedOn" />
-                <ScalarProperty Name="TestimonialContent" ColumnName="TestimonialContent" />
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
                 <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="TestimonialContent" ColumnName="TestimonialContent" />
+                <ScalarProperty Name="PostedOn" ColumnName="PostedOn" />
+                <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
+                <ScalarProperty Name="WriterName" ColumnName="WriterName" />
+                <ScalarProperty Name="TestimonialId" ColumnName="TestimonialId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserAccounts">
             <EntityTypeMapping TypeName="KeystoneDBModel.UserAccount">
               <MappingFragment StoreEntitySet="UserAccount">
-                <ScalarProperty Name="UserAccountId" ColumnName="UserAccountId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
-                <ScalarProperty Name="IsNewUser" ColumnName="IsNewUser" />
-                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
-                <ScalarProperty Name="PrimaryContact" ColumnName="PrimaryContact" />
-                <ScalarProperty Name="Address1" ColumnName="Address1" />
-                <ScalarProperty Name="Address2" ColumnName="Address2" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="Pin" ColumnName="Pin" />
-                <ScalarProperty Name="Country" ColumnName="Country" />
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-                <ScalarProperty Name="Version" ColumnName="Version" />
                 <ScalarProperty Name="RowId" ColumnName="RowId" />
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Pin" ColumnName="Pin" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="PrimaryContact" ColumnName="PrimaryContact" />
+                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
+                <ScalarProperty Name="IsNewUser" ColumnName="IsNewUser" />
+                <ScalarProperty Name="EmailId" ColumnName="EmailId" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UserAccountId" ColumnName="UserAccountId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserAddresses">
             <EntityTypeMapping TypeName="KeystoneDBModel.UserAddress">
               <MappingFragment StoreEntitySet="UserAddress">
-                <ScalarProperty Name="UserAddressId" ColumnName="UserAddressId" />
-                <ScalarProperty Name="UaserAccountId" ColumnName="UaserAccountId" />
-                <ScalarProperty Name="AddressTypeId" ColumnName="AddressTypeId" />
-                <ScalarProperty Name="IsCurrentAddress" ColumnName="IsCurrentAddress" />
-                <ScalarProperty Name="SeconderyContact" ColumnName="SeconderyContact" />
-                <ScalarProperty Name="Address1" ColumnName="Address1" />
-                <ScalarProperty Name="Address2" ColumnName="Address2" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="Pin" ColumnName="Pin" />
-                <ScalarProperty Name="Country" ColumnName="Country" />
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
                 <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="Country" ColumnName="Country" />
+                <ScalarProperty Name="Pin" ColumnName="Pin" />
+                <ScalarProperty Name="City" ColumnName="City" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="SeconderyContact" ColumnName="SeconderyContact" />
+                <ScalarProperty Name="IsCurrentAddress" ColumnName="IsCurrentAddress" />
+                <ScalarProperty Name="AddressTypeId" ColumnName="AddressTypeId" />
+                <ScalarProperty Name="UaserAccountId" ColumnName="UaserAccountId" />
+                <ScalarProperty Name="UserAddressId" ColumnName="UserAddressId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

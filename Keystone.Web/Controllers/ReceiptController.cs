@@ -49,6 +49,7 @@ namespace Keystone.Web.Controllers
 
                     TempData["AttachmentType"] = AttachmentTypeEnum.PDF;
                     TempData["UserName"] = CommonUtility.GetSessionData<string>(SessionVariable.UserName);
+                    TempData["OrderId"] = shoppingCart.OrderId.ToString();
 
                     Session.Remove(SessionVariable.SelectedTemplate);
                     Session.Remove(SessionVariable.CurrentDraft);
@@ -61,7 +62,31 @@ namespace Keystone.Web.Controllers
             }
             catch (Exception ex)
             {
-                ex.ExceptionValueTracker(ex);
+                ex.ExceptionValueTracker(shoppingCartId);
+            }
+            return RedirectToAction("Index", "Error", new { errorMsg = message.ToBase64Encode() });
+        }
+
+        /// <summary>
+        /// Paids the order receipt.
+        /// </summary>
+        /// <param name="orderId">The order identifier.</param>
+        /// <returns></returns>
+        [AcceptVerbs(HttpVerbs.Get),
+        OutputCache(NoStore = true, Duration = 0, VaryByHeader = "*")]
+        public ActionResult PaidOrderReceipt(int orderId)
+        {
+            string message = "Unable to access the receipt. Please try again.";
+            try
+            {
+                ShoppingCartModel shoppingCart = _shoppingCartDataRepository
+                    .GetList(x => x.OrderId == orderId).FirstOrDefaultCustom();
+
+                return RedirectToAction("Index", "Receipt", new { shoppingCartId = shoppingCart.ShoppingCartId }); 
+            }
+            catch (Exception ex)
+            {
+                ex.ExceptionValueTracker(orderId);
             }
             return RedirectToAction("Index", "Error", new { errorMsg = message.ToBase64Encode() });
         }

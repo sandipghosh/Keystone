@@ -5,6 +5,7 @@
     Layout = null;
     string baseUrl = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority);
     AttachmentTypeEnum attachmentType = (AttachmentTypeEnum)TempData["AttachmentType"];
+    string orderId = TempData["OrderId"].ToString();
 }
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -41,6 +42,7 @@
                                                 <br />
                                                 Your order is being processed!
                                                 <br />
+                                                <span style="color:#9a2f2f; font-weight:bold;">If there is a problem with your order,  please send an e-mail to info@gt-keystone.com and reference your above confirmation number.</span>
                                                 <br />
                                                 Thank you
                                             </div>
@@ -55,23 +57,37 @@
                                                 <br />
                                                 Your order is being processed!
                                                 <br />
+                                                <span style="font-family:'Trebuchet MS', Arial, Helvetica, sans-serif;color:#9a2f2f; font-weight:bold; line-height:1; margin: 8px 0 8px 0;float: left;">
+                                                    If there is a problem with your order,  please send an e-mail to <a href="mailto:info@gt-keystone.com?Subject=Hello%20again">info@gt-keystone.com</a> and reference your above confirmation number.
+                                                </span>
                                                 <br />
                                                 Thank you
                                             </div>
                                         }
-                                        <div style="width: 100%; clear: both;">
-                                            <a href='@Url.Action("SelectedIndex", "PriceSummary", new { templateid = 1 }, this.Request.Url.Scheme)'>
+                                        <div style="clear: both;">
+                                            <a href='@string.Format("{0}/PriceSummary/SelectedIndex?templateid=1", System.Configuration.ConfigurationManager.AppSettings["DomainName"])'>
                                                 <input style="background:url(@System.Configuration.ConfigurationManager.AppSettings["DomainName"]/Styles/Images/payby_btn.png); border: none;width: 189px;height: 35px;font-size: 18px;font-weight: bold;color: #ffffff;font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;" type="button" class="rup_checkout" value="Continue Shopping" />
                                             </a>
+
+                                            @if (attachmentType == AttachmentTypeEnum.Archive)
+                                            {
+                                                <a href='@string.Format("{0}/Admin/OrderManager/DownloadOrderedFile?orderId={1}&drownloadType={2}", System.Configuration.ConfigurationManager.AppSettings["DomainName"], orderId, "PDF")'>
+                                                    <input style="background:url(@System.Configuration.ConfigurationManager.AppSettings["DomainName"]/Styles/Images/payby_btn.png); border: none;width: 189px;height: 35px;font-size: 18px;font-weight: bold;color: #ffffff;font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;" type="button" class="rup_checkout" value="Download Order" />
+                                                </a>
+                                            }
                                         </div>
                                     </td>
+
                                 </tr>
                                 <tr>
-                                    <td style="background-color: #d7d7d7; margin: 14px 0 14px 0; width: 682px; float: left;">
+                                    <td style="background-color: #C9C5C5; margin: 14px 0 14px 0; width: 682px; float: left;">
                                         <div style="width: 669px; background-color: #e4e4e4; float: left; margin: 5px;">
                                             <div style="width: 648px; min-height: 20px; float: left; margin: 5px 10px;">
-                                                <div style="font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif; font-weight: 900; font-size: 21px; color: #515151; width: 648px; float: left; border-bottom: 1px solid #989898;">
+                                                <div style="font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif; font-weight: 900; font-size: 21px; color: #515151; width: 648px; float: left;">
                                                     Order details
+                                                </div>
+                                                <div style="font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif; font-weight: 900; font-size: 13px; margin-top:5px; color: #515151; width: 648px; float: left; border-bottom: 1px solid #989898;">
+                                                    Confirmation Number: @Model.Order.OrderReferance
                                                 </div>
                                             </div>
                                             <div style="width: 648px; min-height: 20px; float: left; margin: 10px;">
@@ -103,7 +119,7 @@
                                     </td>
                                 </tr>
                                 <tr>
-                                    <td style="background-color: #d7d7d7; margin: 0 0 14px 0; width: 682px; float: left;">
+                                    <td style="background-color: #C9C5C5; margin: 0 0 14px 0; width: 682px; float: left;">
                                         <div style="width: 669px; background-color: #e4e4e4; float: left; margin: 5px;">
                                             <div style="width: 648px; min-height: 20px; float: left; margin: 5px 10px;">
                                                 <div style="font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif; font-weight: 900; font-size: 21px; color: #515151; width: 648px; float: left;">
@@ -119,7 +135,7 @@
 
                                                 @foreach (OrderItemModel item in Model.Order.OrderItems)
                                                 {
-                                                    <div style="width: 648px; min-height: 20px; float: left; margin: 5px 0; font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: bold; color: #00a9d4;">
+                                                    <div style="width: 648px; min-height: 20px; float: left; margin: 5px 0; font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: bold; color: #1597B8;">
                                                         @item.Template.ToString()
                                                     </div>
 
@@ -163,28 +179,35 @@
                                                     <div style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #010101; font-weight: bold; float: left;">
                                                         Total :
                                                     </div>
-                                                    <div style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #010101; font-weight: bold; min-width: 60px; float: left; margin-left: 164px;">
+                                                    <div style="font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #010101; font-weight: bold; min-width: 60px; float: right; margin-right: 48px;">
                                                         @Model.Order.TotalAmount.ToString("c")
                                                     </div>
                                                 </div>
 
                                                 <div style="width: 100%; clear: both;">
-                                                    <a href='@Url.Action("SelectedIndex", "PriceSummary", new { templateid = 1 })'>
+                                                    <a href='@string.Format("{0}/PriceSummary/SelectedIndex?templateid=1", System.Configuration.ConfigurationManager.AppSettings["DomainName"])'>
                                                         <input style="background:url(@System.Configuration.ConfigurationManager.AppSettings["DomainName"]/Styles/Images/payby_btn.png); border: none;width: 189px;height: 35px;font-size: 18px;font-weight: bold;color: #ffffff;font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;" type="button" class="rup_checkout" value="Continue Shopping" />
                                                     </a>
+
+                                                    @if (attachmentType == AttachmentTypeEnum.Archive)
+                                                    {
+                                                        <a href='@string.Format("{0}/Admin/OrderManager/DownloadOrderedFile?orderId={1}&drownloadType={2}", System.Configuration.ConfigurationManager.AppSettings["DomainName"], orderId, "PDF")'>
+                                                            <input style="background:url(@System.Configuration.ConfigurationManager.AppSettings["DomainName"]/Styles/Images/payby_btn.png); border: none;width: 189px;height: 35px;font-size: 18px;font-weight: bold;color: #ffffff;font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;" type="button" class="rup_checkout" value="Download Order" />
+                                                        </a>
+                                                    }
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div style="width: 100%;height: 52px;float: left;background: url(@System.Configuration.ConfigurationManager.AppSettings["DomainName"]/Styles/Images/price_heading.png) no-repeat;margin: 12px 0px 0px -12px;">
-                                            <h2 style="font-family: 'oswaldbold'; font-size: 16px; color: #fff; width: 128px; min-height: 20px; margin-left: 28px; margin-top: 6px;">Other Services</h2>
+                                            <h2 style="font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif; font-size: 16px; color: #fff; width: 128px; min-height: 20px; margin-left: 28px; margin-top: 6px;">Other Services</h2>
                                         </div>
-                                        <ul style="list-style: none; padding: 0; width: 100%; min-height: 20px; float: left; margin-left: 15px; margin-top: -20px; margin-bottom: 10px;">
+                                        <ul style="list-style: none;padding: 0;width: 100%;float: left;margin-left: 15px;margin-top: -13px;margin-bottom: 5px;">
                                             <li style="display: block; margin: 0; padding: 0;">
-                                                <a style="font-family: 'oswaldbold'; font-size: 14px; color: #373737; text-decoration: none; line-height: 25px;" href="#">» Mailing Services</a>
+                                                <a style="font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif; font-size: 14px; color: #373737; text-decoration: none; line-height: 25px;" href="#">» Mailing Services</a>
                                             </li>
                                             <li style="display: block; margin: 0; padding: 0;">
-                                                <a style="font-family: 'oswaldbold'; font-size: 14px; color: #373737; text-decoration: none; line-height: 25px;" href="#">» Marketing Services</a>
+                                                <a style="font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif; font-size: 14px; color: #373737; text-decoration: none; line-height: 25px;" href="#">» Marketing Services</a>
                                             </li>
                                         </ul>
 

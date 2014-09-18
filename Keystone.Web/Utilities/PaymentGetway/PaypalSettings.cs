@@ -23,9 +23,30 @@ namespace Keystone.Web.Utilities.PaymentGetway
                     CommonUtility.GetAppSetting<string>("Paypal:Host");
             }
         }
-        public static string PaypalApiUsername { get { return CommonUtility.GetAppSetting<string>("Paypal:APIUsername"); } }
-        public static string PaypalApiPassword { get { return CommonUtility.GetAppSetting<string>("Paypal:APIPassword"); } }
-        public static string PaypalApiSignature { get { return CommonUtility.GetAppSetting<string>("Paypal:APISignature"); } }
+        public static string PaypalApiUsername
+        {
+            get
+            {
+                return (Sandbox) ? CommonUtility.GetAppSetting<string>("Paypal:APIUsername_SB") :
+                    CommonUtility.GetAppSetting<string>("Paypal:APIUsername");
+            }
+        }
+        public static string PaypalApiPassword
+        {
+            get
+            {
+                return (Sandbox) ? CommonUtility.GetAppSetting<string>("Paypal:APIPassword_SB") :
+                    CommonUtility.GetAppSetting<string>("Paypal:APIPassword");
+            }
+        }
+        public static string PaypalApiSignature
+        {
+            get
+            {
+                return (Sandbox) ? CommonUtility.GetAppSetting<string>("Paypal:APISignature_SB") :
+                    CommonUtility.GetAppSetting<string>("Paypal:APISignature");
+            }
+        }
 
         public static string ManagerEndPointUrl
         {
@@ -47,10 +68,34 @@ namespace Keystone.Web.Utilities.PaymentGetway
         {
             get { return (Sandbox) ? "TEST" : "LIVE"; }
         }
-        public static string PaypalManagerPartner { get { return CommonUtility.GetAppSetting<string>("Paypal:Manager:Partner"); } }
-        public static string PaypalManagerMerchantLogin { get { return CommonUtility.GetAppSetting<string>("Paypal:Manager:MerchantLogin"); } }
-        public static string PaypalManagerUser { get { return CommonUtility.GetAppSetting<string>("Paypal:Manager:User"); } }
-        public static string PaypalManagerPassword { get { return CommonUtility.GetAppSetting<string>("Paypal:Manager:Password"); } }
+        public static string PaypalManagerPartner
+        {
+            get
+            {
+                return CommonUtility.GetAppSetting<string>("Paypal:Manager:Partner");
+            }
+        }
+        public static string PaypalManagerMerchantLogin
+        {
+            get
+            {
+                return CommonUtility.GetAppSetting<string>("Paypal:Manager:MerchantLogin");
+            }
+        }
+        public static string PaypalManagerUser
+        {
+            get
+            {
+                return CommonUtility.GetAppSetting<string>("Paypal:Manager:User");
+            }
+        }
+        public static string PaypalManagerPassword
+        {
+            get
+            {
+                return CommonUtility.GetAppSetting<string>("Paypal:Manager:Password");
+            }
+        }
 
         public static string Currency { get { return CommonUtility.GetAppSetting<string>("Paypal:Currency"); } }
         public static string PaypalReturnUrl

@@ -2174,7 +2174,7 @@ var editorCanvas = {
         }
     },
 
-    createRuler: function () {
+    createRuler : function () {
         try {
             $('.canvas-container').ruler({
                 vRuleSize: 18,
