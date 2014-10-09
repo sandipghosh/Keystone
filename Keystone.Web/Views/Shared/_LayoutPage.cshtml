@@ -13,35 +13,54 @@
     <title>@ViewBag.Title</title>
     <link rel="shortcut icon" href="http://www.keystoneind.com/sites/all/files/keystone_favicon.ico" type="image/x-icon" />
     <script type="text/javascript">
-        var loadingCounter = 0;
-        var canvasScaleValue = 0.5494588235294117;
-        var virtualDirectory = '@ConfigurationManager.AppSettings["VirtualDirectory"].ToString()'
+        @(Html.JsMinify(@<text>
+            var loadingCounter = 0;
+            var canvasScaleValue = 0.5494588235294117;
+            var virtualDirectory = '@ConfigurationManager.AppSettings["VirtualDirectory"].ToString()';
+        </text>))
     </script>
-    @Styles.Render("~/Styles/Common")
-    @Scripts.Render("~/Scripts/Common")
+
+    @if (OptimizationExtensions.IsJsMinify)
+    {
+        <script type="text/javascript" src='@BundleTable.Bundles.ResolveBundleUrl("~/Scripts/Common")'></script>
+    }
+    else
+    {
+        @Scripts.Render("~/Scripts/Common")
+    }
+    @if (OptimizationExtensions.IsCssMinify)
+    {
+        <link rel="stylesheet" type="text/css" href='@BundleTable.Bundles.ResolveBundleUrl("~/Styles/Common")' />
+    }
+    else
+    {
+        @Styles.Render("~/Styles/Common")
+    }
 
     @RenderSection("PageStyle", false)
     @RenderSection("PageScript", false)
 
     <script type="text/jscript" language="javascript">
-        function noBack() { window.history.forward(); }
+        @(Html.JsMinify(@<text>
+            function noBack() { window.history.forward(); }
 
-        $(document).ready(function () {
-            try {
-                $(window).load(function () {
-                    $('.loading-overlay').fadeOut('slow', function () {
-                        $('body').css({ 'overflow': 'auro' });
+            $(document).ready(function () {
+                try {
+                    $(window).load(function () {
+                        $('.loading-overlay').fadeOut('slow', function () {
+                            $('body').css({ 'overflow': 'auro' });
+                        });
                     });
-                });
 
-                sessionStorage.setItem('IDENTITY', '@Session.SessionID');
-                $('body').css({ 'overflow': 'hidden' });
+                    sessionStorage.setItem('IDENTITY', '@Session.SessionID');
+                    $('body').css({ 'overflow': 'hidden' });
 
-                HandleSessionTimeout('Yes, Keep Working', 'No, Logoff', parseInt('@((Session.Timeout - 0.5) * 60)'));
-            } catch (ex) {
-                console.log(ex);
-            }
-        });
+                    HandleSessionTimeout('Yes, Keep Working', 'No, Logoff', parseInt('@((Session.Timeout - 0.5) * 60)'));
+                } catch (ex) {
+                    console.log(ex);
+                }
+            });
+        </text>))
     </script>
 </head>
 <body>

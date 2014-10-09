@@ -2,7 +2,6 @@
 @using Keystone.Web.Utilities
 @{
     string pageType = ViewData["Page"].ToString();
-    //int? orderId = (int?)ViewData["OrderId"];
     IList<OrderItemModel> orderItems = CommonUtility.GetSessionData<IList<OrderItemModel>>(SessionVariable.OrderItems);
     int? orderId = CommonUtility.GetSessionData<int?>(SessionVariable.CurrentOrderId);
 }

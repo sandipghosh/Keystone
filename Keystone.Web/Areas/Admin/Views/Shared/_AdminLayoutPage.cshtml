@@ -1,4 +1,5 @@
 ﻿@using System.Web.Optimization;
+@using Keystone.Web.Utilities;
 @{
     Layout = "~/Views/Shared/_LayoutPage.cshtml";
     string currentController = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
@@ -6,20 +7,37 @@
 }
 @section PageScript{
     <script type="text/javascript">
+        @(Html.JsMinify(@<text>
         $(document).ready(function () {
             var currentController = '@currentController';
             $('.admin-menu-container li').removeClass('selected-menu');
-            $('.admin-menu-container li a[data-link="{0}"]'.format(currentController)).parent('li').addClass('selected-menu');
+            $('.admin-menu-container li a[data-link="{0}"]'.format(currentController))
+                .parent('li').addClass('selected-menu');
         });
+        </text>))
     </script>
-    @Scripts.Render("~/Scripts/Grid")
+
+    @if (OptimizationExtensions.IsJsMinify)
+    {
+        <script type="text/javascript" src='@BundleTable.Bundles.ResolveBundleUrl("~/Scripts/Grid")'></script>
+    }
+    else
+    {
+        @Scripts.Render("~/Scripts/Grid")
+    }
     @RenderSection("AdimnPageScript", false)
 }
 @section PageStyle{
-    @Styles.Render("~/Styles/Admin")
+    @if (OptimizationExtensions.IsCssMinify)
+    {
+        <link type="text/css" rel="stylesheet" href='@BundleTable.Bundles.ResolveBundleUrl("~/Styles/Admin")' />
+    }
+    else
+    {
+        @Styles.Render("~/Styles/Admin")
+    }
     @RenderSection("AdimnPageStyle", false)
 }
-
 <div class="admin-container">
     <div class="admin-menu-container">
         <span style="background:url('../Areas/Admin/Styles/Images/@imageclass') no-repeat left;">@System.Text.RegularExpressions.Regex.Replace(currentController, "([a-z])([A-Z])", "$1 $2")</span>

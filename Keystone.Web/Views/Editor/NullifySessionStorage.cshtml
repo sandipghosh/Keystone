@@ -13,6 +13,7 @@
     <title></title>
     <script type="text/javascript" src='@Url.Content("~/Scripts/jquery-2.1.0.min.js")'></script>
     <script type="text/javascript">
+        @(Html.JsMinify(@<text>
         for (var key in sessionStorage) {
             if (key != 'IDENTITY') {
                 sessionStorage.removeItem(key);
@@ -20,6 +21,7 @@
         }
         sessionStorage.setItem('SELECTED_TEMPLATE_ID', parseInt('@firstDraftPage.TemplateId'));
         window.location.href = '@Url.Action("SavedImageIndex", "Editor", new { draftId = Model.DraftId })';
+        </text>))
     </script>
 </head>
 <body>

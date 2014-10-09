@@ -2,6 +2,7 @@
 namespace Keystone.Web
 {
     using System.Web.Mvc;
+    using Keystone.Web.Utilities;
 
     public class FilterConfig
     {
@@ -11,9 +12,16 @@ namespace Keystone.Web
         /// <param name="filters">The filters.</param>
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            filters.Add(new HandleErrorAttribute());
-            filters.Add(new CustomGlobalFilters());
-            filters.Add(new FileDownloadAttribute());
+            try
+            {
+                filters.Add(new HandleErrorAttribute());
+                filters.Add(new CustomGlobalFilters());
+                filters.Add(new FileDownloadAttribute());
+            }
+            catch (System.Exception ex)
+            {
+                ex.ExceptionValueTracker(filters);
+            }
         }
     }
 }

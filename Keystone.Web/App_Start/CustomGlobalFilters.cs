@@ -37,34 +37,41 @@ namespace Keystone.Web
         /// <param name="filterContext">The filter context.</param>
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            bool skipAuthorization = filterContext.ActionDescriptor.IsDefined(typeof(AllowAnonymousAccess), false)
-            || filterContext.ActionDescriptor.ControllerDescriptor.IsDefined(typeof(AllowAnonymousAccess), false);
-            if (skipAuthorization)
+            try
             {
-                base.OnActionExecuting(filterContext);
-            }
-            else
-            {
-                RedirectToRouteResult redirect = new RedirectToRouteResult(new RouteValueDictionary{
+                bool skipAuthorization = filterContext.ActionDescriptor.IsDefined(typeof(AllowAnonymousAccess), false)
+                    || filterContext.ActionDescriptor.ControllerDescriptor.IsDefined(typeof(AllowAnonymousAccess), false);
+                if (skipAuthorization)
+                {
+                    base.OnActionExecuting(filterContext);
+                }
+                else
+                {
+                    RedirectToRouteResult redirect = new RedirectToRouteResult(new RouteValueDictionary{
                     { "action", "ShowSignInScreen" },
                     { "controller", "UserAccount" },
                     { "area", "" },
                     { "referalUrl", filterContext.RequestContext.HttpContext.Request.Url.AbsoluteUri.ToBase64Encode() }
                 });
 
-                if (filterContext.RequestContext.HttpContext.Session == null)
-                    filterContext.Result = redirect;
-                else
-                {
-                    if (filterContext.RequestContext.HttpContext.Session[SessionVariable.UserId] == null)
+                    if (filterContext.RequestContext.HttpContext.Session == null)
                         filterContext.Result = redirect;
                     else
-                        if (this._validateAdimnUser)
-                        {
-                            if (!Convert.ToBoolean(filterContext.RequestContext.HttpContext.Session[SessionVariable.IsAdminUser]))
-                                filterContext.Result = redirect;
-                        }
+                    {
+                        if (filterContext.RequestContext.HttpContext.Session[SessionVariable.UserId] == null)
+                            filterContext.Result = redirect;
+                        else
+                            if (this._validateAdimnUser)
+                            {
+                                if (!Convert.ToBoolean(filterContext.RequestContext.HttpContext.Session[SessionVariable.IsAdminUser]))
+                                    filterContext.Result = redirect;
+                            }
+                    }
                 }
+            }
+            catch (Exception ex)
+            {
+                ex.ExceptionValueTracker(filterContext);
             }
         }
     }
@@ -95,25 +102,38 @@ namespace Keystone.Web
         /// <param name="filterContext"></param>
         private void CheckAndHandleFileResult(ActionExecutedContext filterContext)
         {
-            var httpContext = filterContext.HttpContext;
-            var response = httpContext.Response;
+            try
+            {
+                var httpContext = filterContext.HttpContext;
+                var response = httpContext.Response;
 
-            if (filterContext.Result is FileResult)
-                //jquery.fileDownload uses this cookie to determine that a file download has completed successfully
-                response.AppendCookie(new HttpCookie(CookieName, "true") { Path = CookiePath });
-            else
-                //ensure that the cookie is removed in case someone did a file download without using jquery.fileDownload
-                if (httpContext.Request.Cookies[CookieName] != null)
-                {
-                    response.AppendCookie(new HttpCookie(CookieName, "true") { Expires = DateTime.Now.AddYears(-1), Path = CookiePath });
-                }
+                if (filterContext.Result is FileResult)
+                    //jquery.fileDownload uses this cookie to determine that a file download has completed successfully
+                    response.AppendCookie(new HttpCookie(CookieName, "true") { Path = CookiePath });
+                else
+                    //ensure that the cookie is removed in case someone did a file download without using jquery.fileDownload
+                    if (httpContext.Request.Cookies[CookieName] != null)
+                    {
+                        response.AppendCookie(new HttpCookie(CookieName, "true") { Expires = DateTime.Now.AddYears(-1), Path = CookiePath });
+                    }
+            }
+            catch (Exception ex)
+            {
+                ex.ExceptionValueTracker(filterContext);
+            }
         }
 
         public override void OnActionExecuted(ActionExecutedContext filterContext)
         {
-            CheckAndHandleFileResult(filterContext);
-
-            base.OnActionExecuted(filterContext);
+            try
+            {
+                CheckAndHandleFileResult(filterContext);
+                base.OnActionExecuted(filterContext);
+            }
+            catch (Exception ex)
+            {
+                ex.ExceptionValueTracker(filterContext);
+            }
         }
     }
 }

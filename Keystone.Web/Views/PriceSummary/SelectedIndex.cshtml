@@ -1,14 +1,12 @@
 ﻿@using Keystone.Web.Models
+@using Keystone.Web.Utilities
 @model TemplateModel
-@{
-    //ViewBag.Title = "Price Summary";
-    //Layout = "~/Views/Shared/_LayoutPage.cshtml";
-}
+
 @section PageScript{
     <script type="text/javascript">
+        @(Html.JsMinify(@<text>
         $(document).ready(function () {
             var templateId = $('#templateid').val();
-            //alert(templateId);
             if (templateId) {
                 sessionStorage.setItem('SELECTED_TEMPLATE_ID', parseInt(templateId));
 
@@ -28,6 +26,7 @@
                 console.log(ex);
             }
         });
+        </text>))
     </script>
 }
 @Html.Partial("_NavBar")

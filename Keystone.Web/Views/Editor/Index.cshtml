@@ -7,7 +7,14 @@
     int? selectedTemplateId = Convert.ToInt32(ViewBag.SelectedTemplateId.ToString());
 }
 @section PageStyle{
-    @Styles.Render("~/Styles/Editor")
+    @if (OptimizationExtensions.IsCssMinify)
+    {
+        <link rel="stylesheet" type="text/css" href='@BundleTable.Bundles.ResolveBundleUrl("~/Styles/Editor")' />
+    }
+    else
+    {
+        @Styles.Render("~/Styles/Editor")
+    }
 
     <style type="text/css">
         .three_part {
@@ -19,27 +26,40 @@
     @if (selectedTemplateId.HasValue)
     {
         <script type="text/javascript">
+            @(Html.JsMinify(@<text>
             $(document).ready(function () {
                 sessionStorage.setItem('SELECTED_TEMPLATE_ID', parseInt('@selectedTemplateId.Value.ToString()'));
 
                 $('#worning').flash();
             });
+            </text>))
         </script>
     }
     @if (ViewContext.HttpContext.Request.Url.AbsoluteUri.Contains("SavedImageIndex") &&
         selectedTemplateId.HasValue)
     {
         <script type="text/javascript">
+            @(Html.JsMinify(@<text>
             $(document).ready(function () {
                 sessionStorage.setItem('SELECTED_TEMPLATE_DELIVERY_{0}'.format('@selectedTemplateId.Value.ToString()'), parseInt('@ViewBag.DeliveryId'));
                 sessionStorage.setItem('SELECTED_TEMPLATE_QUANTITY_{0}'.format('@selectedTemplateId.Value.ToString()'), parseInt('@ViewBag.Quantity'));
                 sessionStorage.setItem('SELECTED_TEMPLATE_PRICE_{0}'.format('@selectedTemplateId.Value.ToString()'), parseInt('@ViewBag.Price'));
             });
+            </text>))
         </script>
     }
-    @Scripts.Render("~/Scripts/Fabric")
+
+    @if (OptimizationExtensions.IsJsMinify)
+    {
+        <script type="text/javascript" src='@BundleTable.Bundles.ResolveBundleUrl("~/Scripts/Fabric")'></script>
+    }
+    else
+    {
+        @Scripts.Render("~/Scripts/Fabric")
+    }
 
     <script type="text/javascript">
+        @(Html.JsMinify(@<text>
         (function ($, win) {
             this.PickTemplate = function () {
                 try {
@@ -62,6 +82,7 @@
             });
 
         }(jQuery, window));
+        </text>))
     </script>
 }
 <div class="body_part_inner">

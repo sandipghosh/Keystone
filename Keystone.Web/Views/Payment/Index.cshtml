@@ -1,13 +1,20 @@
 ﻿@using Keystone.Web.Utilities
 @using Keystone.Web.Models
+@using System.Web.Optimization
 @model OrderModel
 @{
     UserAddressModel shippingAddress = Model.UserAccount.GetAddress(AddressTypeEnum.Shipping);
     UserAddressModel billingAddress = Model.UserAccount.GetAddress(AddressTypeEnum.Billing);
 }
 @section PageScript{
-    <script type="text/javascript" src='@Url.Content("~/Scripts/Payment.js")'></script>
-    <script type="text/javascript" src='@Url.Content("~/Scripts/jquery.creditCardValidator.js")'></script>
+    @if (OptimizationExtensions.IsJsMinify)
+    {
+        <script type="text/javascript" src='@BundleTable.Bundles.ResolveBundleUrl("~/Scripts/Payment")'></script>
+    }
+    else
+    {
+        @Scripts.Render("~/Scripts/Payment")
+    }
 }
 @Html.Hidden("Error", (object)ViewBag.Error ?? "")
 <div class="body_part_inner">

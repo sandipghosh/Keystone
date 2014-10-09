@@ -44,8 +44,11 @@ namespace Keystone.Web.Security
         {
             try
             {
-                Process(DecryptProcess);
-                Process(EncryptProcess);
+                if (HttpContext.Current.Request.QueryString["v"] == null)
+                {
+                    Process(DecryptProcess);
+                    Process(EncryptProcess);
+                }
             }
             catch (Exception ex)
             {

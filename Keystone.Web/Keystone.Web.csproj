@@ -405,6 +405,7 @@
     <Compile Include="Utilities\JsFunctionConverter.cs" />
     <Compile Include="Utilities\JSONActionResult.cs" />
     <Compile Include="Utilities\MapperExtension.cs" />
+    <Compile Include="Utilities\OptimizationExtensions.cs" />
     <Compile Include="Utilities\PaymentGetway\NVPCodec.cs" />
     <Compile Include="Utilities\PaymentGetway\PaypalApiCaller.cs" />
     <Compile Include="Utilities\PaymentGetway\PaypalSettings.cs" />

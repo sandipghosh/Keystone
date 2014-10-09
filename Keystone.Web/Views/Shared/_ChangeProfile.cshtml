@@ -1,56 +1,58 @@
 ﻿@using Keystone.Web.Models
+@using Keystone.Web.Utilities
 @model UserAccountModel
 
 <script type="text/javascript">
-    (function ($, win) {
-        $(document).ready(function () { });
+    @(Html.JsMinify(@<text>
+        (function ($, win) {
+            $(document).ready(function () { });
 
-        this.SubmitChangeProfile = function () {
-            try {
-                if ($('#frmChangeProfile').valid()) {
-                    $('#frmChangeProfile').submit();
-                }
-            } catch (ex) {
-                console.log(ex);
-            }
-        };
-
-        this.ChangeProfile_OnSuccess = function (data) {
-            try {
-                if (data) {
-                    if (data.IsUserCreated) {
-                        var referalUrl = $('#ReferalUrl').val();
-
-                        alert("Your profile has been changed successfully.", function () {
-                            if (referalUrl == '') {
-                                win.location.href = '@Url.Action("Index", "Home")';
-                            }
-                            else {
-                                win.location.href = Base64Decode(referalUrl);
-                            }
-                        });
+            this.SubmitChangeProfile = function () {
+                try {
+                    if ($('#frmChangeProfile').valid()) {
+                        $('#frmChangeProfile').submit();
                     }
+                } catch (ex) {
+                    console.log(ex);
                 }
-            } catch (ex) {
-                console.log(ex);
-            }
-        };
+            };
 
-        this.CancelProfile = function () {
-            try {
-                var referalUrl = $('#ReferalUrl').val();
-                if (referalUrl == '') {
-                    win.location.href = '@Url.Action("Index", "Home")';
-                }
-                else {
-                    win.location.href = Base64Decode(referalUrl);
-                }
-            } catch (ex) {
-                console.log(ex);
-            }
-        };
-    }(jQuery, window));
+            this.ChangeProfile_OnSuccess = function (data) {
+                try {
+                    if (data) {
+                        if (data.IsUserCreated) {
+                            var referalUrl = $('#ReferalUrl').val();
 
+                            alert("Your profile has been changed successfully.", function () {
+                                if (referalUrl == '') {
+                                    win.location.href = '@Url.Action("Index", "Home")';
+                                }
+                                else {
+                                    win.location.href = Base64Decode(referalUrl);
+                                }
+                            });
+                        }
+                    }
+                } catch (ex) {
+                    console.log(ex);
+                }
+            };
+
+            this.CancelProfile = function () {
+                try {
+                    var referalUrl = $('#ReferalUrl').val();
+                    if (referalUrl == '') {
+                        win.location.href = '@Url.Action("Index", "Home")';
+                    }
+                    else {
+                        win.location.href = Base64Decode(referalUrl);
+                    }
+                } catch (ex) {
+                    console.log(ex);
+                }
+            };
+        }(jQuery, window));
+    </text>))
 </script>
 
 @using (Ajax.BeginForm("UpdateUser", "UserAccount", null,

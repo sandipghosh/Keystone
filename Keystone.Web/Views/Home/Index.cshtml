@@ -1,12 +1,24 @@
 ﻿@using Keystone.Web.Models
+@using Keystone.Web.Utilities
 @using System.Collections.Generic
+@using System.Web.Optimization
 @model IEnumerable<TemplateModel>
 
 @section PageScript{
-    <script src='@Url.Content("~/Scripts/HomeScript.js")'></script>
+    @if (OptimizationExtensions.IsJsMinify)
+    {
+        <script type="text/javascript" src='@BundleTable.Bundles.ResolveBundleUrl("~/Scripts/HomeScript")'></script>
+    }
+    else
+    { @Scripts.Render("~/Scripts/HomeScript") }
+
 }
 @section PageStyle{
-    <link rel="stylesheet" href='@Url.Content("~/Styles/TestimonialStyle.css")' />
+    @if (OptimizationExtensions.IsCssMinify)
+    { <link rel="stylesheet" type="text/css" href='@BundleTable.Bundles.ResolveBundleUrl("~/Styles/TestimonialStyle")' />}
+    else
+    { @Styles.Render("~/Styles/TestimonialStyle") }
+    
 }
 @Html.Partial("_NavBar")
 <div class="banner_part">

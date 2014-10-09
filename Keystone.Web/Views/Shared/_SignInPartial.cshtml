@@ -1,56 +1,58 @@
 ﻿@using Keystone.Web.Models
+@using Keystone.Web.Utilities
 @model UserAccountModel
 
 <script type="text/javascript">
-    (function ($, win) {
-        $(document).ready(function () {
-            SignInValidationSetup();
-            GetCredential({
-                UserId: '#UserId[data-type="partial"]',
-                Password: '#Password[data-type="partial"]',
-                IsRemember: $('#chkRememberCredential[data-type="partial"]').is(":checked")
+    @(Html.JsMinify(@<text>
+        (function ($, win) {
+            $(document).ready(function () {
+                SignInValidationSetup();
+                GetCredential({
+                    UserId: '#UserId[data-type="partial"]',
+                    Password: '#Password[data-type="partial"]',
+                    IsRemember: $('#chkRememberCredential[data-type="partial"]').is(":checked")
+                });
             });
-        });
 
-        var SignInValidationSetup = function () {
-            try {
-                var validationData = GetValidationErrorMarkup();
-                validationData.rules = {
-                    UserId: { required: true },
-                    Password: { required: true }
-                };
-                validationData.messages = {
-                    UserId: { required: 'UserId is required' },
-                    Password: { required: 'Password is required' }
-                };
-                $('#frmSignInUser').validate(validationData);
-            } catch (ex) {
-                console.log(ex);
-            }
-        };
-
-        this.SubmitSignIn = function () {
-            try {
-                if ($('#frmSignInUser').valid()) {
-                    SetCredential({
-                        UserId: '#UserId[data-type="partial"]',
-                        Password: '#Password[data-type="partial"]',
-                        IsRemember: $('#chkRememberCredential[data-type="partial"]').is(":checked")
-                    });
-                    $('#frmSignInUser').submit();
+            var SignInValidationSetup = function () {
+                try {
+                    var validationData = GetValidationErrorMarkup();
+                    validationData.rules = {
+                        UserId: { required: true },
+                        Password: { required: true }
+                    };
+                    validationData.messages = {
+                        UserId: { required: 'UserId is required' },
+                        Password: { required: 'Password is required' }
+                    };
+                    $('#frmSignInUser').validate(validationData);
+                } catch (ex) {
+                    console.log(ex);
                 }
-            } catch (ex) {
-                console.log(ex);
-            }
-        };
+            };
 
-        this.SignInUser_OnSuccess = function (data) {
-            try {
-                if (data) {
-                    if (data.Status) {
-                        var referalUrl = $('#ReferalUrl').val();
-                        if (referalUrl == '') {
-                            win.location.href = '@Url.Action("Index", "Home")';
+            this.SubmitSignIn = function () {
+                try {
+                    if ($('#frmSignInUser').valid()) {
+                        SetCredential({
+                            UserId: '#UserId[data-type="partial"]',
+                            Password: '#Password[data-type="partial"]',
+                            IsRemember: $('#chkRememberCredential[data-type="partial"]').is(":checked")
+                        });
+                        $('#frmSignInUser').submit();
+                    }
+                } catch (ex) {
+                    console.log(ex);
+                }
+            };
+
+            this.SignInUser_OnSuccess = function (data) {
+                try {
+                    if (data) {
+                        if (data.Status) {
+                            var referalUrl = $('#ReferalUrl').val();
+                            if (referalUrl == '') {
+                                win.location.href = '@Url.Action("Index", "Home")';
                         }
                         else {
                             win.location.href = Base64Decode(referalUrl);
@@ -60,9 +62,9 @@
             } catch (ex) {
                 console.log(ex);
             }
-        }
-    }(jQuery, window));
-
+            }
+        }(jQuery, window));
+    </text>))
 </script>
 
 @using (Ajax.BeginForm("SignInUser", "UserAccount", null,

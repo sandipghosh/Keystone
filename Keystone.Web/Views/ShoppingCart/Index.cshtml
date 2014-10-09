@@ -6,9 +6,18 @@
 }
 
 @section PageScript{
-    @Scripts.Render("~/Scripts/Knockout")
-    <script type="text/javascript" src='@Url.Content("~/Scripts/ShoppingCart.js")'></script>
+    @if (OptimizationExtensions.IsJsMinify)
+    {
+        <script type="text/javascript" src='@BundleTable.Bundles.ResolveBundleUrl("~/Scripts/Knockout")'></script>
+        <script type="text/javascript" src='@BundleTable.Bundles.ResolveBundleUrl("~/Scripts/ShoppingCart")'></script>
+    }
+    else
+    {
+        @Scripts.Render("~/Scripts/Knockout")
+        @Scripts.Render("~/Scripts/ShoppingCart")
+    }
     <script type="text/javascript">
+        @(Html.JsMinify(@<text>
         $(document).ready(function () {
             try {
                 $('#disclaimer').flash();
@@ -16,6 +25,7 @@
                 console.log(ex);
             }
         });
+        </text>))
     </script>
 }
 @Html.Hidden("OrderData", (object)ViewBag.SavedOrder)

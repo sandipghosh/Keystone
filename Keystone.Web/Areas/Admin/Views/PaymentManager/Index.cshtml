@@ -1,14 +1,22 @@
-﻿@{
-    //ViewBag.Title = "Index";
+﻿@using Keystone.Web.Utilities
+@using System.Web.Optimization
+@{
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayoutPage.cshtml";
 }
 
 @section AdimnPageScript{
-    <script type="text/javascript" src='@Url.Content("~/Areas/Admin/Scripts/payment-manager.js")'></script>
+    @if (OptimizationExtensions.IsJsMinify)
+    {
+        <script type="text/javascript" src='@BundleTable.Bundles.ResolveBundleUrl("~/Scripts/PaymentManager")'></script>
+    }
+    else
+    { @Scripts.Render("~/Scripts/PaymentManager")}
+
+    @*<script type="text/javascript" src='@Url.Content("~/Areas/Admin/Scripts/payment-manager.js")'></script>*@
 }
-@section AdimnPageStyle{
+@*@section AdimnPageStyle{
     <link rel="stylesheet" type="text/css" media="screen" href="themes/jqModal.css" />
-}
+}*@
 
 @Html.Hidden("SchemaData", (object)ViewBag.SchemaData)
 @Html.Partial("_GridGlobalMaster")
