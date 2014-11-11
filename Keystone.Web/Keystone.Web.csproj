@@ -283,9 +283,6 @@
     <Compile Include="Data\Context\Status.cs">
       <DependentUpon>KeystoneDBEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Context\sysdiagram.cs">
-      <DependentUpon>KeystoneDBEntities.tt</DependentUpon>
-    </Compile>
     <Compile Include="Data\Context\Template.cs">
       <DependentUpon>KeystoneDBEntities.tt</DependentUpon>
     </Compile>

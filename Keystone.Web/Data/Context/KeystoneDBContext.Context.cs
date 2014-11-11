@@ -29,21 +29,20 @@ namespace Keystone.Web.Data.Context
         public virtual DbSet<DeliverySchedule> DeliverySchedules { get; set; }
         public virtual DbSet<Draft> Drafts { get; set; }
         public virtual DbSet<DraftPage> DraftPages { get; set; }
+        public virtual DbSet<Invoice> Invoices { get; set; }
+        public virtual DbSet<InvoiceItem> InvoiceItems { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
-        public virtual DbSet<OrderAppliedPromo> OrderAppliedPromoes { get; set; }
         public virtual DbSet<OrderItem> OrderItems { get; set; }
         public virtual DbSet<OrderItemPage> OrderItemPages { get; set; }
-        public virtual DbSet<PaymentInfo> PaymentInfoes { get; set; }
         public virtual DbSet<PaymentType> PaymentTypes { get; set; }
-        public virtual DbSet<PromoCode> PromoCodes { get; set; }
         public virtual DbSet<ShoppingCart> ShoppingCarts { get; set; }
         public virtual DbSet<Status> Status { get; set; }
+        public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<Template> Templates { get; set; }
         public virtual DbSet<TemplateCategoty> TemplateCategoties { get; set; }
         public virtual DbSet<TemplatePage> TemplatePages { get; set; }
         public virtual DbSet<TemplatePrice> TemplatePrices { get; set; }
         public virtual DbSet<TemplateType> TemplateTypes { get; set; }
-        public virtual DbSet<Testimonial> Testimonials { get; set; }
         public virtual DbSet<UserAccount> UserAccounts { get; set; }
         public virtual DbSet<UserAddress> UserAddresses { get; set; }
     }

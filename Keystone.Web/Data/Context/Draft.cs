@@ -24,15 +24,15 @@ namespace Keystone.Web.Data.Context
         public int UserAccountId { get; set; }
         public int TemplateId { get; set; }
         public string DraftName { get; set; }
+        public int DeliveryScheduleId { get; set; }
+        public int Quantity { get; set; }
+        public decimal Price { get; set; }
         public int StatusId { get; set; }
         public int CreatedBy { get; set; }
         public System.DateTime CreatedOn { get; set; }
         public Nullable<int> UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
         public byte[] Version { get; set; }
-        public int DeliveryScheduleId { get; set; }
-        public int Quantity { get; set; }
-        public decimal Price { get; set; }
     
         public virtual Status Status { get; set; }
         public virtual Template Template { get; set; }

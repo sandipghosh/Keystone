@@ -4,13 +4,13 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="KeystoneDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="KeystoneDBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AddressType">
           <Key>
             <PropertyRef Name="AddressTypeId" />
           </Key>
           <Property Name="AddressTypeId" Type="int" Nullable="false" />
-          <Property Name="AddressTypeCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="AddressType" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="StatusId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="DeliverySchedule">
@@ -18,7 +18,6 @@
             <PropertyRef Name="DeliveryScheduleId" />
           </Key>
           <Property Name="DeliveryScheduleId" Type="int" Nullable="false" />
-          <Property Name="DeliveryCode" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="DeliveryFrom" Type="int" Nullable="false" />
           <Property Name="DeliveryTo" Type="int" Nullable="false" />
           <Property Name="StatusId" Type="int" Nullable="false" />
@@ -36,9 +35,6 @@
           <Property Name="UserAccountId" Type="int" Nullable="false" />
           <Property Name="TemplateId" Type="int" Nullable="false" />
           <Property Name="DraftName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="DeliveryScheduleId" Type="int" Nullable="false" />
-          <Property Name="Quantity" Type="int" Nullable="false" />
-          <Property Name="Price" Type="decimal" Precision="18" Scale="3" Nullable="false" />
           <Property Name="StatusId" Type="int" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
@@ -55,8 +51,36 @@
           <Property Name="TemplateId" Type="int" Nullable="false" />
           <Property Name="TemplatePageId" Type="int" Nullable="false" />
           <Property Name="DraftPreviewUrl" Type="varchar" MaxLength="500" Nullable="false" />
-          <Property Name="FinalImageUrl" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="DraftJsonString" Type="nvarchar(max)" Nullable="false" />
+          <Property Name="StatusId" Type="int" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="Version" Type="timestamp" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="InvoiceId" />
+          </Key>
+          <Property Name="InvoiceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserAccountId" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="InvoiceDate" Type="datetime" Nullable="false" />
+          <Property Name="StatusId" Type="int" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
+          <Property Name="UpdatedBy" Type="int" />
+          <Property Name="UpdatedOn" Type="datetime" />
+          <Property Name="Version" Type="timestamp" StoreGeneratedPattern="Computed" />
+        </EntityType>
+        <EntityType Name="InvoiceItem">
+          <Key>
+            <PropertyRef Name="InvoiceItemId" />
+          </Key>
+          <Property Name="InvoiceItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InvoiceId" Type="int" Nullable="false" />
+          <Property Name="TemplateId" Type="int" Nullable="false" />
           <Property Name="StatusId" Type="int" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
@@ -70,27 +94,10 @@
           </Key>
           <Property Name="OrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserAccountId" Type="int" Nullable="false" />
+          <Property Name="DeliveryScheduleId" Type="int" Nullable="false" />
           <Property Name="OrderReferance" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="OrderDate" Type="datetime" Nullable="false" />
-          <Property Name="SubTotal" Type="decimal" Precision="18" Scale="3" Nullable="false" />
-          <Property Name="DiscountAmount" Type="decimal" Precision="18" Scale="3" Nullable="false" />
           <Property Name="TotalAmount" Type="decimal" Precision="18" Scale="3" Nullable="false" />
-          <Property Name="StatusId" Type="int" Nullable="false" />
-          <Property Name="CreatedBy" Type="int" Nullable="false" />
-          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
-          <Property Name="UpdatedBy" Type="int" />
-          <Property Name="UpdatedOn" Type="datetime" />
-          <Property Name="Version" Type="timestamp" StoreGeneratedPattern="Computed" />
-        </EntityType>
-        <EntityType Name="OrderAppliedPromo">
-          <Key>
-            <PropertyRef Name="OrderAppliedPromoId" />
-          </Key>
-          <Property Name="OrderAppliedPromoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="OrderId" Type="int" Nullable="false" />
-          <Property Name="PromoCodeId" Type="int" Nullable="false" />
-          <Property Name="UserAccountId" Type="int" Nullable="false" />
-          <Property Name="AppliedAmount" Type="decimal" Precision="18" Scale="3" Nullable="false" />
           <Property Name="StatusId" Type="int" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
@@ -105,11 +112,6 @@
           <Property Name="OrderItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="OrderId" Type="int" Nullable="false" />
           <Property Name="TemplateId" Type="int" Nullable="false" />
-          <Property Name="DeliveryScheduleId" Type="int" Nullable="false" />
-          <Property Name="DraftId" Type="int" Nullable="false" />
-          <Property Name="DisplayUrl" Type="varchar" MaxLength="500" Nullable="false" />
-          <Property Name="Quantity" Type="int" Nullable="false" />
-          <Property Name="Price" Type="decimal" Precision="18" Scale="3" Nullable="false" />
           <Property Name="StatusId" Type="int" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
@@ -133,28 +135,6 @@
           <Property Name="UpdatedOn" Type="datetime" />
           <Property Name="Version" Type="timestamp" StoreGeneratedPattern="Computed" />
         </EntityType>
-        <EntityType Name="PaymentInfo">
-          <Key>
-            <PropertyRef Name="PaymentInfoId" />
-          </Key>
-          <Property Name="PaymentInfoId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="OrderId" Type="int" Nullable="false" />
-          <Property Name="RequistedIp" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Acknowledgement" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="TransactionTime" Type="datetime" />
-          <Property Name="TransactionId" Type="varchar" MaxLength="50" />
-          <Property Name="TransactionType" Type="varchar" MaxLength="50" />
-          <Property Name="TransactionErrorCode" Type="varchar" MaxLength="50" />
-          <Property Name="TransactionShortMessage" Type="varchar" MaxLength="500" />
-          <Property Name="TransactionLongMessage" Type="varchar" MaxLength="2000" />
-          <Property Name="TransactionAmount" Type="decimal" Precision="18" Scale="3" Nullable="false" />
-          <Property Name="StatusId" Type="int" Nullable="false" />
-          <Property Name="CreatedBy" Type="int" Nullable="false" />
-          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
-          <Property Name="UpdatedBy" Type="int" />
-          <Property Name="UpdatedOn" Type="datetime" />
-          <Property Name="Version" Type="timestamp" StoreGeneratedPattern="Computed" />
-        </EntityType>
         <EntityType Name="PaymentType">
           <Key>
             <PropertyRef Name="PaymentTypeId" />
@@ -163,29 +143,13 @@
           <Property Name="PaymentCode" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="StatusId" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="PromoCode">
-          <Key>
-            <PropertyRef Name="PromoCodeId" />
-          </Key>
-          <Property Name="PromoCodeId" Type="int" Nullable="false" />
-          <Property Name="PromoCodeName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="PromoAmount" Type="decimal" Precision="18" Scale="3" Nullable="false" />
-          <Property Name="StatusId" Type="int" Nullable="false" />
-          <Property Name="Version" Type="timestamp" StoreGeneratedPattern="Computed" Nullable="false" />
-        </EntityType>
         <EntityType Name="ShoppingCart">
           <Key>
             <PropertyRef Name="ShoppingCartId" />
           </Key>
           <Property Name="ShoppingCartId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserAccountId" Type="int" Nullable="false" />
-          <Property Name="PaymentTypeId" Type="int" Nullable="false" />
-          <Property Name="PaymentInfoId" Type="int" Nullable="false" />
           <Property Name="OrderId" Type="int" Nullable="false" />
-          <Property Name="PromoCodeId" Type="int" />
-          <Property Name="BillingAddressId" Type="int" Nullable="false" />
-          <Property Name="ShippingAddressId" Type="int" Nullable="false" />
-          <Property Name="TransactionId" Type="varchar" MaxLength="500" />
           <Property Name="CartReferance" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="ExpireOn" Type="datetime" Nullable="false" />
           <Property Name="StatusId" Type="int" Nullable="false" />
@@ -202,6 +166,16 @@
           <Property Name="StatusId" Type="int" Nullable="false" />
           <Property Name="StatusCode" Type="varchar" MaxLength="50" Nullable="false" />
         </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
         <EntityType Name="Template">
           <Key>
             <PropertyRef Name="TemplateId" />
@@ -213,8 +187,6 @@
           <Property Name="TemplateTitle" Type="varchar" MaxLength="50" />
           <Property Name="TemplateDesc" Type="nvarchar(max)" Nullable="false" />
           <Property Name="TotalPages" Type="int" Nullable="false" />
-          <Property Name="TemplateHeight" Type="decimal" Precision="18" Scale="3" Nullable="false" />
-          <Property Name="TemplateWidth" Type="decimal" Precision="18" Scale="3" Nullable="false" />
           <Property Name="GalleryUrl" Type="varchar" MaxLength="500" />
           <Property Name="StatusId" Type="int" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
@@ -235,13 +207,12 @@
           <Key>
             <PropertyRef Name="TemplatePageId" />
           </Key>
-          <Property Name="TemplatePageId" Type="int" Nullable="false" />
+          <Property Name="TemplatePageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TemplateId" Type="int" Nullable="false" />
           <Property Name="PageHeight" Type="int" Nullable="false" />
           <Property Name="PageWidth" Type="int" Nullable="false" />
           <Property Name="TemplatePageUrl" Type="varchar" MaxLength="500" Nullable="false" />
           <Property Name="TemplatePageJson" Type="nvarchar(max)" />
-          <Property Name="OrderIndex" Type="int" Nullable="false" />
           <Property Name="StatusId" Type="int" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
@@ -254,11 +225,11 @@
             <PropertyRef Name="TemplatePriceId" />
           </Key>
           <Property Name="TemplatePriceId" Type="int" Nullable="false" />
-          <Property Name="TemplateTypeId" Type="int" Nullable="false" />
+          <Property Name="TemplateId" Type="int" Nullable="false" />
           <Property Name="DeliveryScheduleId" Type="int" Nullable="false" />
-          <Property Name="TemplatePriceCode" Type="varchar" MaxLength="50" />
-          <Property Name="TemplateHeight" Type="decimal" Precision="18" Scale="3" Nullable="false" />
-          <Property Name="TemplateWidth" Type="decimal" Precision="18" Scale="3" Nullable="false" />
+          <Property Name="TemplatePriceCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="TemplateHeight" Type="int" Nullable="false" />
+          <Property Name="TemplateWidth" Type="int" Nullable="false" />
           <Property Name="PrintQuantity" Type="int" Nullable="false" />
           <Property Name="Price" Type="decimal" Precision="18" Scale="3" Nullable="false" />
           <Property Name="StatusId" Type="int" Nullable="false" />
@@ -276,48 +247,22 @@
           <Property Name="TemplateCode" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="StatusId" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="Testimonial">
-          <Key>
-            <PropertyRef Name="TestimonialId" />
-          </Key>
-          <Property Name="TestimonialId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="WriterName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="DisplayOrder" Type="int" Nullable="false" />
-          <Property Name="PostedOn" Type="datetime" Nullable="false" />
-          <Property Name="TestimonialContent" Type="varchar(max)" Nullable="false" />
-          <Property Name="StatusId" Type="int" Nullable="false" />
-          <Property Name="CreatedBy" Type="int" Nullable="false" />
-          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
-          <Property Name="UpdatedBy" Type="int" />
-          <Property Name="UpdatedOn" Type="datetime" />
-          <Property Name="Version" Type="timestamp" StoreGeneratedPattern="Computed" />
-        </EntityType>
         <EntityType Name="UserAccount">
           <Key>
             <PropertyRef Name="UserAccountId" />
           </Key>
           <Property Name="UserAccountId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="FirstName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="LastName" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Password" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="EmailId" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="IsNewUser" Type="bit" Nullable="false" />
-          <Property Name="IsAdmin" Type="bit" Nullable="false" />
-          <Property Name="PrimaryContact" Type="varchar" MaxLength="50" />
-          <Property Name="Address1" Type="varchar" MaxLength="500" />
-          <Property Name="Address2" Type="varchar" MaxLength="500" />
-          <Property Name="State" Type="varchar" MaxLength="50" />
-          <Property Name="City" Type="varchar" MaxLength="50" />
-          <Property Name="Pin" Type="varchar" MaxLength="50" />
-          <Property Name="Country" Type="varchar" MaxLength="50" />
+          <Property Name="PrimaryContact" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="StatusId" Type="int" Nullable="false" />
-          <Property Name="CreatedBy" Type="int" />
-          <Property Name="CreatedOn" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="UpdatedBy" Type="int" />
           <Property Name="UpdatedOn" Type="datetime" />
           <Property Name="Version" Type="timestamp" StoreGeneratedPattern="Computed" />
-          <Property Name="RowId" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="UserAddress">
           <Key>
@@ -333,7 +278,6 @@
           <Property Name="State" Type="varchar" MaxLength="50" />
           <Property Name="City" Type="varchar" MaxLength="50" />
           <Property Name="Pin" Type="varchar" MaxLength="50" />
-          <Property Name="Country" Type="varchar" MaxLength="50" />
           <Property Name="StatusId" Type="int" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
@@ -401,6 +345,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Draft_UserAccount1">
+          <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="1" />
+          <End Role="Draft" Type="Self.Draft" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccount">
+              <PropertyRef Name="UserAccountId" />
+            </Principal>
+            <Dependent Role="Draft">
+              <PropertyRef Name="UserAccountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DraftPage_Draft">
           <End Role="Draft" Type="Self.Draft" Multiplicity="1" />
           <End Role="DraftPage" Type="Self.DraftPage" Multiplicity="*" />
@@ -449,6 +405,78 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Invoice_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Invoice_UserAccount">
+          <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="1" />
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccount">
+              <PropertyRef Name="UserAccountId" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="UserAccountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceItem_Invoice">
+          <End Role="Invoice" Type="Self.Invoice" Multiplicity="1" />
+          <End Role="InvoiceItem" Type="Self.InvoiceItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="InvoiceId" />
+            </Principal>
+            <Dependent Role="InvoiceItem">
+              <PropertyRef Name="InvoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceItem_Status">
+          <End Role="Status" Type="Self.Status" Multiplicity="1" />
+          <End Role="InvoiceItem" Type="Self.InvoiceItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="InvoiceItem">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceItem_Template">
+          <End Role="Template" Type="Self.Template" Multiplicity="1" />
+          <End Role="InvoiceItem" Type="Self.InvoiceItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Template">
+              <PropertyRef Name="TemplateId" />
+            </Principal>
+            <Dependent Role="InvoiceItem">
+              <PropertyRef Name="TemplateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Order_DeliverySchedule">
+          <End Role="DeliverySchedule" Type="Self.DeliverySchedule" Multiplicity="1" />
+          <End Role="Order" Type="Self.Order" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DeliverySchedule">
+              <PropertyRef Name="DeliveryScheduleId" />
+            </Principal>
+            <Dependent Role="Order">
+              <PropertyRef Name="DeliveryScheduleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Order_Status">
           <End Role="Status" Type="Self.Status" Multiplicity="1" />
           <End Role="Order" Type="Self.Order" Multiplicity="*" />
@@ -470,78 +498,6 @@
             </Principal>
             <Dependent Role="Order">
               <PropertyRef Name="UserAccountId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrderAppliedPromo_Order">
-          <End Role="Order" Type="Self.Order" Multiplicity="1" />
-          <End Role="OrderAppliedPromo" Type="Self.OrderAppliedPromo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Order">
-              <PropertyRef Name="OrderId" />
-            </Principal>
-            <Dependent Role="OrderAppliedPromo">
-              <PropertyRef Name="OrderId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrderAppliedPromo_PromoCode">
-          <End Role="PromoCode" Type="Self.PromoCode" Multiplicity="1" />
-          <End Role="OrderAppliedPromo" Type="Self.OrderAppliedPromo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PromoCode">
-              <PropertyRef Name="PromoCodeId" />
-            </Principal>
-            <Dependent Role="OrderAppliedPromo">
-              <PropertyRef Name="PromoCodeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrderAppliedPromo_Status">
-          <End Role="Status" Type="Self.Status" Multiplicity="1" />
-          <End Role="OrderAppliedPromo" Type="Self.OrderAppliedPromo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Status">
-              <PropertyRef Name="StatusId" />
-            </Principal>
-            <Dependent Role="OrderAppliedPromo">
-              <PropertyRef Name="StatusId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrderAppliedPromo_UserAccount">
-          <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="1" />
-          <End Role="OrderAppliedPromo" Type="Self.OrderAppliedPromo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserAccount">
-              <PropertyRef Name="UserAccountId" />
-            </Principal>
-            <Dependent Role="OrderAppliedPromo">
-              <PropertyRef Name="UserAccountId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrderItem_DeliverySchedule">
-          <End Role="DeliverySchedule" Type="Self.DeliverySchedule" Multiplicity="1" />
-          <End Role="OrderItem" Type="Self.OrderItem" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DeliverySchedule">
-              <PropertyRef Name="DeliveryScheduleId" />
-            </Principal>
-            <Dependent Role="OrderItem">
-              <PropertyRef Name="DeliveryScheduleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrderItem_Draft">
-          <End Role="Draft" Type="Self.Draft" Multiplicity="1" />
-          <End Role="OrderItem" Type="Self.OrderItem" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Draft">
-              <PropertyRef Name="DraftId" />
-            </Principal>
-            <Dependent Role="OrderItem">
-              <PropertyRef Name="DraftId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -602,138 +558,6 @@
             </Principal>
             <Dependent Role="OrderItemPage">
               <PropertyRef Name="StatusId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PaymentInfo_Order">
-          <End Role="Order" Type="Self.Order" Multiplicity="1" />
-          <End Role="PaymentInfo" Type="Self.PaymentInfo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Order">
-              <PropertyRef Name="OrderId" />
-            </Principal>
-            <Dependent Role="PaymentInfo">
-              <PropertyRef Name="OrderId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PaymentInfo_Status">
-          <End Role="Status" Type="Self.Status" Multiplicity="1" />
-          <End Role="PaymentInfo" Type="Self.PaymentInfo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Status">
-              <PropertyRef Name="StatusId" />
-            </Principal>
-            <Dependent Role="PaymentInfo">
-              <PropertyRef Name="StatusId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PromoCode_Status">
-          <End Role="Status" Type="Self.Status" Multiplicity="1" />
-          <End Role="PromoCode" Type="Self.PromoCode" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Status">
-              <PropertyRef Name="StatusId" />
-            </Principal>
-            <Dependent Role="PromoCode">
-              <PropertyRef Name="StatusId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ShoppingCart_Order">
-          <End Role="Order" Type="Self.Order" Multiplicity="1" />
-          <End Role="ShoppingCart" Type="Self.ShoppingCart" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Order">
-              <PropertyRef Name="OrderId" />
-            </Principal>
-            <Dependent Role="ShoppingCart">
-              <PropertyRef Name="OrderId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ShoppingCart_PaymentInfo">
-          <End Role="PaymentInfo" Type="Self.PaymentInfo" Multiplicity="1" />
-          <End Role="ShoppingCart" Type="Self.ShoppingCart" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PaymentInfo">
-              <PropertyRef Name="PaymentInfoId" />
-            </Principal>
-            <Dependent Role="ShoppingCart">
-              <PropertyRef Name="PaymentInfoId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ShoppingCart_PaymentType">
-          <End Role="PaymentType" Type="Self.PaymentType" Multiplicity="1" />
-          <End Role="ShoppingCart" Type="Self.ShoppingCart" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PaymentType">
-              <PropertyRef Name="PaymentTypeId" />
-            </Principal>
-            <Dependent Role="ShoppingCart">
-              <PropertyRef Name="PaymentTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ShoppingCart_PromoCode">
-          <End Role="PromoCode" Type="Self.PromoCode" Multiplicity="0..1" />
-          <End Role="ShoppingCart" Type="Self.ShoppingCart" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PromoCode">
-              <PropertyRef Name="PromoCodeId" />
-            </Principal>
-            <Dependent Role="ShoppingCart">
-              <PropertyRef Name="PromoCodeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ShoppingCart_Status">
-          <End Role="Status" Type="Self.Status" Multiplicity="1" />
-          <End Role="ShoppingCart" Type="Self.ShoppingCart" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Status">
-              <PropertyRef Name="StatusId" />
-            </Principal>
-            <Dependent Role="ShoppingCart">
-              <PropertyRef Name="StatusId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ShoppingCart_UserAccount">
-          <End Role="UserAccount" Type="Self.UserAccount" Multiplicity="1" />
-          <End Role="ShoppingCart" Type="Self.ShoppingCart" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserAccount">
-              <PropertyRef Name="UserAccountId" />
-            </Principal>
-            <Dependent Role="ShoppingCart">
-              <PropertyRef Name="UserAccountId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ShoppingCart_UserBillingAddress">
-          <End Role="UserAddress" Type="Self.UserAddress" Multiplicity="1" />
-          <End Role="ShoppingCart" Type="Self.ShoppingCart" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserAddress">
-              <PropertyRef Name="UserAddressId" />
-            </Principal>
-            <Dependent Role="ShoppingCart">
-              <PropertyRef Name="BillingAddressId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ShoppingCart_UserShippingAddress">
-          <End Role="UserAddress" Type="Self.UserAddress" Multiplicity="1" />
-          <End Role="ShoppingCart" Type="Self.ShoppingCart" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserAddress">
-              <PropertyRef Name="UserAddressId" />
-            </Principal>
-            <Dependent Role="ShoppingCart">
-              <PropertyRef Name="ShippingAddressId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -821,15 +645,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TemplatePrice_TemplateType">
-          <End Role="TemplateType" Type="Self.TemplateType" Multiplicity="1" />
+        <Association Name="FK_TemplatePrice_Template">
+          <End Role="Template" Type="Self.Template" Multiplicity="1" />
           <End Role="TemplatePrice" Type="Self.TemplatePrice" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="TemplateType">
-              <PropertyRef Name="TemplateTypeId" />
+            <Principal Role="Template">
+              <PropertyRef Name="TemplateId" />
             </Principal>
             <Dependent Role="TemplatePrice">
-              <PropertyRef Name="TemplateTypeId" />
+              <PropertyRef Name="TemplateId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -841,18 +665,6 @@
               <PropertyRef Name="StatusId" />
             </Principal>
             <Dependent Role="TemplateType">
-              <PropertyRef Name="StatusId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Testimonial_Status">
-          <End Role="Status" Type="Self.Status" Multiplicity="1" />
-          <End Role="Testimonial" Type="Self.Testimonial" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Status">
-              <PropertyRef Name="StatusId" />
-            </Principal>
-            <Dependent Role="Testimonial">
               <PropertyRef Name="StatusId" />
             </Dependent>
           </ReferentialConstraint>
@@ -910,21 +722,20 @@
           <EntitySet Name="DeliverySchedule" EntityType="Self.DeliverySchedule" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Draft" EntityType="Self.Draft" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="DraftPage" EntityType="Self.DraftPage" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Invoice" EntityType="Self.Invoice" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InvoiceItem" EntityType="Self.InvoiceItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Order" EntityType="Self.Order" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="OrderAppliedPromo" EntityType="Self.OrderAppliedPromo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderItem" EntityType="Self.OrderItem" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrderItemPage" EntityType="Self.OrderItemPage" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PaymentInfo" EntityType="Self.PaymentInfo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PaymentType" EntityType="Self.PaymentType" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="PromoCode" EntityType="Self.PromoCode" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ShoppingCart" EntityType="Self.ShoppingCart" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Template" EntityType="Self.Template" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TemplateCategoty" EntityType="Self.TemplateCategoty" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TemplatePage" EntityType="Self.TemplatePage" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TemplatePrice" EntityType="Self.TemplatePrice" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TemplateType" EntityType="Self.TemplateType" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Testimonial" EntityType="Self.Testimonial" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserAccount" EntityType="Self.UserAccount" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserAddress" EntityType="Self.UserAddress" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_AddressType_Status" Association="Self.FK_AddressType_Status">
@@ -947,6 +758,10 @@
             <End Role="UserAccount" EntitySet="UserAccount" />
             <End Role="Draft" EntitySet="Draft" />
           </AssociationSet>
+          <AssociationSet Name="FK_Draft_UserAccount1" Association="Self.FK_Draft_UserAccount1">
+            <End Role="UserAccount" EntitySet="UserAccount" />
+            <End Role="Draft" EntitySet="Draft" />
+          </AssociationSet>
           <AssociationSet Name="FK_DraftPage_Draft" Association="Self.FK_DraftPage_Draft">
             <End Role="Draft" EntitySet="Draft" />
             <End Role="DraftPage" EntitySet="DraftPage" />
@@ -963,6 +778,30 @@
             <End Role="TemplatePage" EntitySet="TemplatePage" />
             <End Role="DraftPage" EntitySet="DraftPage" />
           </AssociationSet>
+          <AssociationSet Name="FK_Invoice_Status" Association="Self.FK_Invoice_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Invoice" EntitySet="Invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoice_UserAccount" Association="Self.FK_Invoice_UserAccount">
+            <End Role="UserAccount" EntitySet="UserAccount" />
+            <End Role="Invoice" EntitySet="Invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceItem_Invoice" Association="Self.FK_InvoiceItem_Invoice">
+            <End Role="Invoice" EntitySet="Invoice" />
+            <End Role="InvoiceItem" EntitySet="InvoiceItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceItem_Status" Association="Self.FK_InvoiceItem_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="InvoiceItem" EntitySet="InvoiceItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceItem_Template" Association="Self.FK_InvoiceItem_Template">
+            <End Role="Template" EntitySet="Template" />
+            <End Role="InvoiceItem" EntitySet="InvoiceItem" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Order_DeliverySchedule" Association="Self.FK_Order_DeliverySchedule">
+            <End Role="DeliverySchedule" EntitySet="DeliverySchedule" />
+            <End Role="Order" EntitySet="Order" />
+          </AssociationSet>
           <AssociationSet Name="FK_Order_Status" Association="Self.FK_Order_Status">
             <End Role="Status" EntitySet="Status" />
             <End Role="Order" EntitySet="Order" />
@@ -970,30 +809,6 @@
           <AssociationSet Name="FK_Order_UserAccount" Association="Self.FK_Order_UserAccount">
             <End Role="UserAccount" EntitySet="UserAccount" />
             <End Role="Order" EntitySet="Order" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderAppliedPromo_Order" Association="Self.FK_OrderAppliedPromo_Order">
-            <End Role="Order" EntitySet="Order" />
-            <End Role="OrderAppliedPromo" EntitySet="OrderAppliedPromo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderAppliedPromo_PromoCode" Association="Self.FK_OrderAppliedPromo_PromoCode">
-            <End Role="PromoCode" EntitySet="PromoCode" />
-            <End Role="OrderAppliedPromo" EntitySet="OrderAppliedPromo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderAppliedPromo_Status" Association="Self.FK_OrderAppliedPromo_Status">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="OrderAppliedPromo" EntitySet="OrderAppliedPromo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderAppliedPromo_UserAccount" Association="Self.FK_OrderAppliedPromo_UserAccount">
-            <End Role="UserAccount" EntitySet="UserAccount" />
-            <End Role="OrderAppliedPromo" EntitySet="OrderAppliedPromo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderItem_DeliverySchedule" Association="Self.FK_OrderItem_DeliverySchedule">
-            <End Role="DeliverySchedule" EntitySet="DeliverySchedule" />
-            <End Role="OrderItem" EntitySet="OrderItem" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderItem_Draft" Association="Self.FK_OrderItem_Draft">
-            <End Role="Draft" EntitySet="Draft" />
-            <End Role="OrderItem" EntitySet="OrderItem" />
           </AssociationSet>
           <AssociationSet Name="FK_OrderItem_Order" Association="Self.FK_OrderItem_Order">
             <End Role="Order" EntitySet="Order" />
@@ -1014,50 +829,6 @@
           <AssociationSet Name="FK_OrderItemPage_Status" Association="Self.FK_OrderItemPage_Status">
             <End Role="Status" EntitySet="Status" />
             <End Role="OrderItemPage" EntitySet="OrderItemPage" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PaymentInfo_Order" Association="Self.FK_PaymentInfo_Order">
-            <End Role="Order" EntitySet="Order" />
-            <End Role="PaymentInfo" EntitySet="PaymentInfo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PaymentInfo_Status" Association="Self.FK_PaymentInfo_Status">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="PaymentInfo" EntitySet="PaymentInfo" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PromoCode_Status" Association="Self.FK_PromoCode_Status">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="PromoCode" EntitySet="PromoCode" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ShoppingCart_Order" Association="Self.FK_ShoppingCart_Order">
-            <End Role="Order" EntitySet="Order" />
-            <End Role="ShoppingCart" EntitySet="ShoppingCart" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ShoppingCart_PaymentInfo" Association="Self.FK_ShoppingCart_PaymentInfo">
-            <End Role="PaymentInfo" EntitySet="PaymentInfo" />
-            <End Role="ShoppingCart" EntitySet="ShoppingCart" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ShoppingCart_PaymentType" Association="Self.FK_ShoppingCart_PaymentType">
-            <End Role="PaymentType" EntitySet="PaymentType" />
-            <End Role="ShoppingCart" EntitySet="ShoppingCart" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ShoppingCart_PromoCode" Association="Self.FK_ShoppingCart_PromoCode">
-            <End Role="PromoCode" EntitySet="PromoCode" />
-            <End Role="ShoppingCart" EntitySet="ShoppingCart" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ShoppingCart_Status" Association="Self.FK_ShoppingCart_Status">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="ShoppingCart" EntitySet="ShoppingCart" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ShoppingCart_UserAccount" Association="Self.FK_ShoppingCart_UserAccount">
-            <End Role="UserAccount" EntitySet="UserAccount" />
-            <End Role="ShoppingCart" EntitySet="ShoppingCart" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ShoppingCart_UserBillingAddress" Association="Self.FK_ShoppingCart_UserBillingAddress">
-            <End Role="UserAddress" EntitySet="UserAddress" />
-            <End Role="ShoppingCart" EntitySet="ShoppingCart" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ShoppingCart_UserShippingAddress" Association="Self.FK_ShoppingCart_UserShippingAddress">
-            <End Role="UserAddress" EntitySet="UserAddress" />
-            <End Role="ShoppingCart" EntitySet="ShoppingCart" />
           </AssociationSet>
           <AssociationSet Name="FK_Template_Status" Association="Self.FK_Template_Status">
             <End Role="Status" EntitySet="Status" />
@@ -1087,17 +858,13 @@
             <End Role="Status" EntitySet="Status" />
             <End Role="TemplatePrice" EntitySet="TemplatePrice" />
           </AssociationSet>
-          <AssociationSet Name="FK_TemplatePrice_TemplateType" Association="Self.FK_TemplatePrice_TemplateType">
-            <End Role="TemplateType" EntitySet="TemplateType" />
+          <AssociationSet Name="FK_TemplatePrice_Template" Association="Self.FK_TemplatePrice_Template">
+            <End Role="Template" EntitySet="Template" />
             <End Role="TemplatePrice" EntitySet="TemplatePrice" />
           </AssociationSet>
           <AssociationSet Name="FK_TemplateType_Status" Association="Self.FK_TemplateType_Status">
             <End Role="Status" EntitySet="Status" />
             <End Role="TemplateType" EntitySet="TemplateType" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Testimonial_Status" Association="Self.FK_Testimonial_Status">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="Testimonial" EntitySet="Testimonial" />
           </AssociationSet>
           <AssociationSet Name="FK_UserAccount_Status" Association="Self.FK_UserAccount_Status">
             <End Role="Status" EntitySet="Status" />
@@ -1125,21 +892,20 @@
           <EntitySet Name="DeliverySchedules" EntityType="KeystoneDBModel.DeliverySchedule" />
           <EntitySet Name="Drafts" EntityType="KeystoneDBModel.Draft" />
           <EntitySet Name="DraftPages" EntityType="KeystoneDBModel.DraftPage" />
+          <EntitySet Name="Invoices" EntityType="KeystoneDBModel.Invoice" />
+          <EntitySet Name="InvoiceItems" EntityType="KeystoneDBModel.InvoiceItem" />
           <EntitySet Name="Orders" EntityType="KeystoneDBModel.Order" />
-          <EntitySet Name="OrderAppliedPromoes" EntityType="KeystoneDBModel.OrderAppliedPromo" />
           <EntitySet Name="OrderItems" EntityType="KeystoneDBModel.OrderItem" />
           <EntitySet Name="OrderItemPages" EntityType="KeystoneDBModel.OrderItemPage" />
-          <EntitySet Name="PaymentInfoes" EntityType="KeystoneDBModel.PaymentInfo" />
           <EntitySet Name="PaymentTypes" EntityType="KeystoneDBModel.PaymentType" />
-          <EntitySet Name="PromoCodes" EntityType="KeystoneDBModel.PromoCode" />
           <EntitySet Name="ShoppingCarts" EntityType="KeystoneDBModel.ShoppingCart" />
           <EntitySet Name="Status" EntityType="KeystoneDBModel.Status" />
+          <EntitySet Name="sysdiagrams" EntityType="KeystoneDBModel.sysdiagram" />
           <EntitySet Name="Templates" EntityType="KeystoneDBModel.Template" />
           <EntitySet Name="TemplateCategoties" EntityType="KeystoneDBModel.TemplateCategoty" />
           <EntitySet Name="TemplatePages" EntityType="KeystoneDBModel.TemplatePage" />
           <EntitySet Name="TemplatePrices" EntityType="KeystoneDBModel.TemplatePrice" />
           <EntitySet Name="TemplateTypes" EntityType="KeystoneDBModel.TemplateType" />
-          <EntitySet Name="Testimonials" EntityType="KeystoneDBModel.Testimonial" />
           <EntitySet Name="UserAccounts" EntityType="KeystoneDBModel.UserAccount" />
           <EntitySet Name="UserAddresses" EntityType="KeystoneDBModel.UserAddress" />
           <AssociationSet Name="FK_AddressType_Status" Association="KeystoneDBModel.FK_AddressType_Status">
@@ -1154,9 +920,9 @@
             <End Role="Status" EntitySet="Status" />
             <End Role="DeliverySchedule" EntitySet="DeliverySchedules" />
           </AssociationSet>
-          <AssociationSet Name="FK_OrderItem_DeliverySchedule" Association="KeystoneDBModel.FK_OrderItem_DeliverySchedule">
+          <AssociationSet Name="FK_Order_DeliverySchedule" Association="KeystoneDBModel.FK_Order_DeliverySchedule">
             <End Role="DeliverySchedule" EntitySet="DeliverySchedules" />
-            <End Role="OrderItem" EntitySet="OrderItems" />
+            <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
           <AssociationSet Name="FK_TemplatePrice_DeliverySchedule" Association="KeystoneDBModel.FK_TemplatePrice_DeliverySchedule">
             <End Role="DeliverySchedule" EntitySet="DeliverySchedules" />
@@ -1174,13 +940,13 @@
             <End Role="UserAccount" EntitySet="UserAccounts" />
             <End Role="Draft" EntitySet="Drafts" />
           </AssociationSet>
+          <AssociationSet Name="FK_Draft_UserAccount1" Association="KeystoneDBModel.FK_Draft_UserAccount1">
+            <End Role="UserAccount" EntitySet="UserAccounts" />
+            <End Role="Draft" EntitySet="Drafts" />
+          </AssociationSet>
           <AssociationSet Name="FK_DraftPage_Draft" Association="KeystoneDBModel.FK_DraftPage_Draft">
             <End Role="Draft" EntitySet="Drafts" />
             <End Role="DraftPage" EntitySet="DraftPages" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderItem_Draft" Association="KeystoneDBModel.FK_OrderItem_Draft">
-            <End Role="Draft" EntitySet="Drafts" />
-            <End Role="OrderItem" EntitySet="OrderItems" />
           </AssociationSet>
           <AssociationSet Name="FK_DraftPage_Status" Association="KeystoneDBModel.FK_DraftPage_Status">
             <End Role="Status" EntitySet="Status" />
@@ -1194,6 +960,26 @@
             <End Role="TemplatePage" EntitySet="TemplatePages" />
             <End Role="DraftPage" EntitySet="DraftPages" />
           </AssociationSet>
+          <AssociationSet Name="FK_Invoice_Status" Association="KeystoneDBModel.FK_Invoice_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="Invoice" EntitySet="Invoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Invoice_UserAccount" Association="KeystoneDBModel.FK_Invoice_UserAccount">
+            <End Role="UserAccount" EntitySet="UserAccounts" />
+            <End Role="Invoice" EntitySet="Invoices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceItem_Invoice" Association="KeystoneDBModel.FK_InvoiceItem_Invoice">
+            <End Role="Invoice" EntitySet="Invoices" />
+            <End Role="InvoiceItem" EntitySet="InvoiceItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceItem_Status" Association="KeystoneDBModel.FK_InvoiceItem_Status">
+            <End Role="Status" EntitySet="Status" />
+            <End Role="InvoiceItem" EntitySet="InvoiceItems" />
+          </AssociationSet>
+          <AssociationSet Name="FK_InvoiceItem_Template" Association="KeystoneDBModel.FK_InvoiceItem_Template">
+            <End Role="Template" EntitySet="Templates" />
+            <End Role="InvoiceItem" EntitySet="InvoiceItems" />
+          </AssociationSet>
           <AssociationSet Name="FK_Order_Status" Association="KeystoneDBModel.FK_Order_Status">
             <End Role="Status" EntitySet="Status" />
             <End Role="Order" EntitySet="Orders" />
@@ -1202,33 +988,9 @@
             <End Role="UserAccount" EntitySet="UserAccounts" />
             <End Role="Order" EntitySet="Orders" />
           </AssociationSet>
-          <AssociationSet Name="FK_OrderAppliedPromo_Order" Association="KeystoneDBModel.FK_OrderAppliedPromo_Order">
-            <End Role="Order" EntitySet="Orders" />
-            <End Role="OrderAppliedPromo" EntitySet="OrderAppliedPromoes" />
-          </AssociationSet>
           <AssociationSet Name="FK_OrderItem_Order" Association="KeystoneDBModel.FK_OrderItem_Order">
             <End Role="Order" EntitySet="Orders" />
             <End Role="OrderItem" EntitySet="OrderItems" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PaymentInfo_Order" Association="KeystoneDBModel.FK_PaymentInfo_Order">
-            <End Role="Order" EntitySet="Orders" />
-            <End Role="PaymentInfo" EntitySet="PaymentInfoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ShoppingCart_Order" Association="KeystoneDBModel.FK_ShoppingCart_Order">
-            <End Role="Order" EntitySet="Orders" />
-            <End Role="ShoppingCart" EntitySet="ShoppingCarts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderAppliedPromo_PromoCode" Association="KeystoneDBModel.FK_OrderAppliedPromo_PromoCode">
-            <End Role="PromoCode" EntitySet="PromoCodes" />
-            <End Role="OrderAppliedPromo" EntitySet="OrderAppliedPromoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderAppliedPromo_Status" Association="KeystoneDBModel.FK_OrderAppliedPromo_Status">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="OrderAppliedPromo" EntitySet="OrderAppliedPromoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_OrderAppliedPromo_UserAccount" Association="KeystoneDBModel.FK_OrderAppliedPromo_UserAccount">
-            <End Role="UserAccount" EntitySet="UserAccounts" />
-            <End Role="OrderAppliedPromo" EntitySet="OrderAppliedPromoes" />
           </AssociationSet>
           <AssociationSet Name="FK_OrderItem_Status" Association="KeystoneDBModel.FK_OrderItem_Status">
             <End Role="Status" EntitySet="Status" />
@@ -1246,42 +1008,6 @@
             <End Role="Status" EntitySet="Status" />
             <End Role="OrderItemPage" EntitySet="OrderItemPages" />
           </AssociationSet>
-          <AssociationSet Name="FK_PaymentInfo_Status" Association="KeystoneDBModel.FK_PaymentInfo_Status">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="PaymentInfo" EntitySet="PaymentInfoes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ShoppingCart_PaymentInfo" Association="KeystoneDBModel.FK_ShoppingCart_PaymentInfo">
-            <End Role="PaymentInfo" EntitySet="PaymentInfoes" />
-            <End Role="ShoppingCart" EntitySet="ShoppingCarts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ShoppingCart_PaymentType" Association="KeystoneDBModel.FK_ShoppingCart_PaymentType">
-            <End Role="PaymentType" EntitySet="PaymentTypes" />
-            <End Role="ShoppingCart" EntitySet="ShoppingCarts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_PromoCode_Status" Association="KeystoneDBModel.FK_PromoCode_Status">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="PromoCode" EntitySet="PromoCodes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ShoppingCart_PromoCode" Association="KeystoneDBModel.FK_ShoppingCart_PromoCode">
-            <End Role="PromoCode" EntitySet="PromoCodes" />
-            <End Role="ShoppingCart" EntitySet="ShoppingCarts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ShoppingCart_Status" Association="KeystoneDBModel.FK_ShoppingCart_Status">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="ShoppingCart" EntitySet="ShoppingCarts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ShoppingCart_UserAccount" Association="KeystoneDBModel.FK_ShoppingCart_UserAccount">
-            <End Role="UserAccount" EntitySet="UserAccounts" />
-            <End Role="ShoppingCart" EntitySet="ShoppingCarts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ShoppingCart_UserBillingAddress" Association="KeystoneDBModel.FK_ShoppingCart_UserBillingAddress">
-            <End Role="UserAddress" EntitySet="UserAddresses" />
-            <End Role="ShoppingCart" EntitySet="ShoppingCarts" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ShoppingCart_UserShippingAddress" Association="KeystoneDBModel.FK_ShoppingCart_UserShippingAddress">
-            <End Role="UserAddress" EntitySet="UserAddresses" />
-            <End Role="ShoppingCart" EntitySet="ShoppingCarts" />
-          </AssociationSet>
           <AssociationSet Name="FK_Template_Status" Association="KeystoneDBModel.FK_Template_Status">
             <End Role="Status" EntitySet="Status" />
             <End Role="Template" EntitySet="Templates" />
@@ -1297,10 +1023,6 @@
           <AssociationSet Name="FK_TemplateType_Status" Association="KeystoneDBModel.FK_TemplateType_Status">
             <End Role="Status" EntitySet="Status" />
             <End Role="TemplateType" EntitySet="TemplateTypes" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Testimonial_Status" Association="KeystoneDBModel.FK_Testimonial_Status">
-            <End Role="Status" EntitySet="Status" />
-            <End Role="Testimonial" EntitySet="Testimonials" />
           </AssociationSet>
           <AssociationSet Name="FK_UserAccount_Status" Association="KeystoneDBModel.FK_UserAccount_Status">
             <End Role="Status" EntitySet="Status" />
@@ -1322,8 +1044,8 @@
             <End Role="Template" EntitySet="Templates" />
             <End Role="TemplatePage" EntitySet="TemplatePages" />
           </AssociationSet>
-          <AssociationSet Name="FK_TemplatePrice_TemplateType" Association="KeystoneDBModel.FK_TemplatePrice_TemplateType">
-            <End Role="TemplateType" EntitySet="TemplateTypes" />
+          <AssociationSet Name="FK_TemplatePrice_Template" Association="KeystoneDBModel.FK_TemplatePrice_Template">
+            <End Role="Template" EntitySet="Templates" />
             <End Role="TemplatePrice" EntitySet="TemplatePrices" />
           </AssociationSet>
           <AssociationSet Name="FK_UserAddress_UserAccount" Association="KeystoneDBModel.FK_UserAddress_UserAccount">
@@ -1336,7 +1058,7 @@
             <PropertyRef Name="AddressTypeId" />
           </Key>
           <Property Name="AddressTypeId" Type="Int32" Nullable="false" />
-          <Property Name="AddressTypeCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="AddressType1" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="StatusId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Status" Relationship="KeystoneDBModel.FK_AddressType_Status" FromRole="AddressType" ToRole="Status" />
           <NavigationProperty Name="UserAddresses" Relationship="KeystoneDBModel.FK_UserAddress_AddressType" FromRole="AddressType" ToRole="UserAddress" />
@@ -1346,7 +1068,6 @@
             <PropertyRef Name="DeliveryScheduleId" />
           </Key>
           <Property Name="DeliveryScheduleId" Type="Int32" Nullable="false" />
-          <Property Name="DeliveryCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="DeliveryFrom" Type="Int32" Nullable="false" />
           <Property Name="DeliveryTo" Type="Int32" Nullable="false" />
           <Property Name="StatusId" Type="Int32" Nullable="false" />
@@ -1356,7 +1077,7 @@
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
           <Property Name="Version" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
           <NavigationProperty Name="Status" Relationship="KeystoneDBModel.FK_DeliverySchedule_Status" FromRole="DeliverySchedule" ToRole="Status" />
-          <NavigationProperty Name="OrderItems" Relationship="KeystoneDBModel.FK_OrderItem_DeliverySchedule" FromRole="DeliverySchedule" ToRole="OrderItem" />
+          <NavigationProperty Name="Orders" Relationship="KeystoneDBModel.FK_Order_DeliverySchedule" FromRole="DeliverySchedule" ToRole="Order" />
           <NavigationProperty Name="TemplatePrices" Relationship="KeystoneDBModel.FK_TemplatePrice_DeliverySchedule" FromRole="DeliverySchedule" ToRole="TemplatePrice" />
         </EntityType>
         <EntityType Name="Draft">
@@ -1366,10 +1087,6 @@
           <Property Name="DraftId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserAccountId" Type="Int32" Nullable="false" />
           <Property Name="TemplateId" Type="Int32" Nullable="false" />
-          <Property Name="DraftName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DeliveryScheduleId" Type="Int32" Nullable="false" />
-          <Property Name="Quantity" Type="Int32" Nullable="false" />
-          <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
           <Property Name="StatusId" Type="Int32" Nullable="false" />
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
@@ -1379,8 +1096,9 @@
           <NavigationProperty Name="Status" Relationship="KeystoneDBModel.FK_Draft_Status" FromRole="Draft" ToRole="Status" />
           <NavigationProperty Name="Template" Relationship="KeystoneDBModel.FK_Draft_Template" FromRole="Draft" ToRole="Template" />
           <NavigationProperty Name="UserAccount" Relationship="KeystoneDBModel.FK_Draft_UserAccount" FromRole="Draft" ToRole="UserAccount" />
+          <NavigationProperty Name="UserAccount1" Relationship="KeystoneDBModel.FK_Draft_UserAccount1" FromRole="Draft" ToRole="UserAccount" />
           <NavigationProperty Name="DraftPages" Relationship="KeystoneDBModel.FK_DraftPage_Draft" FromRole="Draft" ToRole="DraftPage" />
-          <NavigationProperty Name="OrderItems" Relationship="KeystoneDBModel.FK_OrderItem_Draft" FromRole="Draft" ToRole="OrderItem" />
+          <Property Name="DraftName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="DraftPage">
           <Key>
@@ -1390,9 +1108,8 @@
           <Property Name="DraftId" Type="Int32" Nullable="false" />
           <Property Name="TemplateId" Type="Int32" Nullable="false" />
           <Property Name="TemplatePageId" Type="Int32" Nullable="false" />
-          <Property Name="DraftPreviewUrl" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="FinalImageUrl" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="DraftJsonString" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="DraftPreviewUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DraftJsonString" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="StatusId" Type="Int32" Nullable="false" />
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
@@ -1404,16 +1121,50 @@
           <NavigationProperty Name="Template" Relationship="KeystoneDBModel.FK_DraftPage_Template" FromRole="DraftPage" ToRole="Template" />
           <NavigationProperty Name="TemplatePage" Relationship="KeystoneDBModel.FK_DraftPage_TemplatePage" FromRole="DraftPage" ToRole="TemplatePage" />
         </EntityType>
+        <EntityType Name="Invoice">
+          <Key>
+            <PropertyRef Name="InvoiceId" />
+          </Key>
+          <Property Name="InvoiceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserAccountId" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
+          <Property Name="InvoiceDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="StatusId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="Version" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="Status" Relationship="KeystoneDBModel.FK_Invoice_Status" FromRole="Invoice" ToRole="Status" />
+          <NavigationProperty Name="UserAccount" Relationship="KeystoneDBModel.FK_Invoice_UserAccount" FromRole="Invoice" ToRole="UserAccount" />
+          <NavigationProperty Name="InvoiceItems" Relationship="KeystoneDBModel.FK_InvoiceItem_Invoice" FromRole="Invoice" ToRole="InvoiceItem" />
+        </EntityType>
+        <EntityType Name="InvoiceItem">
+          <Key>
+            <PropertyRef Name="InvoiceItemId" />
+          </Key>
+          <Property Name="InvoiceItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InvoiceId" Type="Int32" Nullable="false" />
+          <Property Name="TemplateId" Type="Int32" Nullable="false" />
+          <Property Name="StatusId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdatedBy" Type="Int32" />
+          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
+          <Property Name="Version" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="Invoice" Relationship="KeystoneDBModel.FK_InvoiceItem_Invoice" FromRole="InvoiceItem" ToRole="Invoice" />
+          <NavigationProperty Name="Status" Relationship="KeystoneDBModel.FK_InvoiceItem_Status" FromRole="InvoiceItem" ToRole="Status" />
+          <NavigationProperty Name="Template" Relationship="KeystoneDBModel.FK_InvoiceItem_Template" FromRole="InvoiceItem" ToRole="Template" />
+        </EntityType>
         <EntityType Name="Order">
           <Key>
             <PropertyRef Name="OrderId" />
           </Key>
           <Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserAccountId" Type="Int32" Nullable="false" />
+          <Property Name="DeliveryScheduleId" Type="Int32" Nullable="false" />
           <Property Name="OrderReferance" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="OrderDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="SubTotal" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
-          <Property Name="DiscountAmount" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
           <Property Name="TotalAmount" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
           <Property Name="StatusId" Type="Int32" Nullable="false" />
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
@@ -1421,32 +1172,10 @@
           <Property Name="UpdatedBy" Type="Int32" />
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
           <Property Name="Version" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="DeliverySchedule" Relationship="KeystoneDBModel.FK_Order_DeliverySchedule" FromRole="Order" ToRole="DeliverySchedule" />
           <NavigationProperty Name="Status" Relationship="KeystoneDBModel.FK_Order_Status" FromRole="Order" ToRole="Status" />
           <NavigationProperty Name="UserAccount" Relationship="KeystoneDBModel.FK_Order_UserAccount" FromRole="Order" ToRole="UserAccount" />
-          <NavigationProperty Name="OrderAppliedPromoes" Relationship="KeystoneDBModel.FK_OrderAppliedPromo_Order" FromRole="Order" ToRole="OrderAppliedPromo" />
           <NavigationProperty Name="OrderItems" Relationship="KeystoneDBModel.FK_OrderItem_Order" FromRole="Order" ToRole="OrderItem" />
-          <NavigationProperty Name="PaymentInfoes" Relationship="KeystoneDBModel.FK_PaymentInfo_Order" FromRole="Order" ToRole="PaymentInfo" />
-          <NavigationProperty Name="ShoppingCarts" Relationship="KeystoneDBModel.FK_ShoppingCart_Order" FromRole="Order" ToRole="ShoppingCart" />
-        </EntityType>
-        <EntityType Name="OrderAppliedPromo">
-          <Key>
-            <PropertyRef Name="OrderAppliedPromoId" />
-          </Key>
-          <Property Name="OrderAppliedPromoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OrderId" Type="Int32" Nullable="false" />
-          <Property Name="PromoCodeId" Type="Int32" Nullable="false" />
-          <Property Name="UserAccountId" Type="Int32" Nullable="false" />
-          <Property Name="AppliedAmount" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
-          <Property Name="StatusId" Type="Int32" Nullable="false" />
-          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
-          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="Int32" />
-          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-          <Property Name="Version" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <NavigationProperty Name="Order" Relationship="KeystoneDBModel.FK_OrderAppliedPromo_Order" FromRole="OrderAppliedPromo" ToRole="Order" />
-          <NavigationProperty Name="PromoCode" Relationship="KeystoneDBModel.FK_OrderAppliedPromo_PromoCode" FromRole="OrderAppliedPromo" ToRole="PromoCode" />
-          <NavigationProperty Name="Status" Relationship="KeystoneDBModel.FK_OrderAppliedPromo_Status" FromRole="OrderAppliedPromo" ToRole="Status" />
-          <NavigationProperty Name="UserAccount" Relationship="KeystoneDBModel.FK_OrderAppliedPromo_UserAccount" FromRole="OrderAppliedPromo" ToRole="UserAccount" />
         </EntityType>
         <EntityType Name="OrderItem">
           <Key>
@@ -1455,19 +1184,12 @@
           <Property Name="OrderItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="OrderId" Type="Int32" Nullable="false" />
           <Property Name="TemplateId" Type="Int32" Nullable="false" />
-          <Property Name="DeliveryScheduleId" Type="Int32" Nullable="false" />
-          <Property Name="DraftId" Type="Int32" Nullable="false" />
-          <Property Name="DisplayUrl" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="Quantity" Type="Int32" Nullable="false" />
-          <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
           <Property Name="StatusId" Type="Int32" Nullable="false" />
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdatedBy" Type="Int32" />
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
           <Property Name="Version" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <NavigationProperty Name="DeliverySchedule" Relationship="KeystoneDBModel.FK_OrderItem_DeliverySchedule" FromRole="OrderItem" ToRole="DeliverySchedule" />
-          <NavigationProperty Name="Draft" Relationship="KeystoneDBModel.FK_OrderItem_Draft" FromRole="OrderItem" ToRole="Draft" />
           <NavigationProperty Name="Order" Relationship="KeystoneDBModel.FK_OrderItem_Order" FromRole="OrderItem" ToRole="Order" />
           <NavigationProperty Name="Status" Relationship="KeystoneDBModel.FK_OrderItem_Status" FromRole="OrderItem" ToRole="Status" />
           <NavigationProperty Name="Template" Relationship="KeystoneDBModel.FK_OrderItem_Template" FromRole="OrderItem" ToRole="Template" />
@@ -1491,31 +1213,6 @@
           <NavigationProperty Name="OrderItem" Relationship="KeystoneDBModel.FK_OrderItemPage_OrderItem" FromRole="OrderItemPage" ToRole="OrderItem" />
           <NavigationProperty Name="Status" Relationship="KeystoneDBModel.FK_OrderItemPage_Status" FromRole="OrderItemPage" ToRole="Status" />
         </EntityType>
-        <EntityType Name="PaymentInfo">
-          <Key>
-            <PropertyRef Name="PaymentInfoId" />
-          </Key>
-          <Property Name="PaymentInfoId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="OrderId" Type="Int32" Nullable="false" />
-          <Property Name="RequistedIp" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Acknowledgement" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="TransactionTime" Type="DateTime" Precision="3" />
-          <Property Name="TransactionId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="TransactionType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="TransactionErrorCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="TransactionShortMessage" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="TransactionLongMessage" Type="String" MaxLength="2000" FixedLength="false" Unicode="false" />
-          <Property Name="TransactionAmount" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
-          <Property Name="StatusId" Type="Int32" Nullable="false" />
-          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
-          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="Int32" />
-          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-          <Property Name="Version" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <NavigationProperty Name="Order" Relationship="KeystoneDBModel.FK_PaymentInfo_Order" FromRole="PaymentInfo" ToRole="Order" />
-          <NavigationProperty Name="Status" Relationship="KeystoneDBModel.FK_PaymentInfo_Status" FromRole="PaymentInfo" ToRole="Status" />
-          <NavigationProperty Name="ShoppingCarts" Relationship="KeystoneDBModel.FK_ShoppingCart_PaymentInfo" FromRole="PaymentInfo" ToRole="ShoppingCart" />
-        </EntityType>
         <EntityType Name="PaymentType">
           <Key>
             <PropertyRef Name="PaymentTypeId" />
@@ -1523,20 +1220,6 @@
           <Property Name="PaymentTypeId" Type="Int32" Nullable="false" />
           <Property Name="PaymentCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="StatusId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ShoppingCarts" Relationship="KeystoneDBModel.FK_ShoppingCart_PaymentType" FromRole="PaymentType" ToRole="ShoppingCart" />
-        </EntityType>
-        <EntityType Name="PromoCode">
-          <Key>
-            <PropertyRef Name="PromoCodeId" />
-          </Key>
-          <Property Name="PromoCodeId" Type="Int32" Nullable="false" />
-          <Property Name="PromoCodeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="PromoAmount" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
-          <Property Name="StatusId" Type="Int32" Nullable="false" />
-          <Property Name="Version" Type="Binary" Nullable="false" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <NavigationProperty Name="OrderAppliedPromoes" Relationship="KeystoneDBModel.FK_OrderAppliedPromo_PromoCode" FromRole="PromoCode" ToRole="OrderAppliedPromo" />
-          <NavigationProperty Name="Status" Relationship="KeystoneDBModel.FK_PromoCode_Status" FromRole="PromoCode" ToRole="Status" />
-          <NavigationProperty Name="ShoppingCarts" Relationship="KeystoneDBModel.FK_ShoppingCart_PromoCode" FromRole="PromoCode" ToRole="ShoppingCart" />
         </EntityType>
         <EntityType Name="ShoppingCart">
           <Key>
@@ -1544,13 +1227,7 @@
           </Key>
           <Property Name="ShoppingCartId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserAccountId" Type="Int32" Nullable="false" />
-          <Property Name="PaymentTypeId" Type="Int32" Nullable="false" />
-          <Property Name="PaymentInfoId" Type="Int32" Nullable="false" />
           <Property Name="OrderId" Type="Int32" Nullable="false" />
-          <Property Name="PromoCodeId" Type="Int32" />
-          <Property Name="BillingAddressId" Type="Int32" Nullable="false" />
-          <Property Name="ShippingAddressId" Type="Int32" Nullable="false" />
-          <Property Name="TransactionId" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="CartReferance" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ExpireOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="StatusId" Type="Int32" Nullable="false" />
@@ -1559,14 +1236,6 @@
           <Property Name="UpdatedBy" Type="Int32" />
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
           <Property Name="Version" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <NavigationProperty Name="Order" Relationship="KeystoneDBModel.FK_ShoppingCart_Order" FromRole="ShoppingCart" ToRole="Order" />
-          <NavigationProperty Name="PaymentInfo" Relationship="KeystoneDBModel.FK_ShoppingCart_PaymentInfo" FromRole="ShoppingCart" ToRole="PaymentInfo" />
-          <NavigationProperty Name="PaymentType" Relationship="KeystoneDBModel.FK_ShoppingCart_PaymentType" FromRole="ShoppingCart" ToRole="PaymentType" />
-          <NavigationProperty Name="PromoCode" Relationship="KeystoneDBModel.FK_ShoppingCart_PromoCode" FromRole="ShoppingCart" ToRole="PromoCode" />
-          <NavigationProperty Name="Status" Relationship="KeystoneDBModel.FK_ShoppingCart_Status" FromRole="ShoppingCart" ToRole="Status" />
-          <NavigationProperty Name="UserAccount" Relationship="KeystoneDBModel.FK_ShoppingCart_UserAccount" FromRole="ShoppingCart" ToRole="UserAccount" />
-          <NavigationProperty Name="UserAddress" Relationship="KeystoneDBModel.FK_ShoppingCart_UserBillingAddress" FromRole="ShoppingCart" ToRole="UserAddress" />
-          <NavigationProperty Name="UserAddress1" Relationship="KeystoneDBModel.FK_ShoppingCart_UserShippingAddress" FromRole="ShoppingCart" ToRole="UserAddress" />
         </EntityType>
         <EntityType Name="Status">
           <Key>
@@ -1578,20 +1247,27 @@
           <NavigationProperty Name="DeliverySchedules" Relationship="KeystoneDBModel.FK_DeliverySchedule_Status" FromRole="Status" ToRole="DeliverySchedule" />
           <NavigationProperty Name="Drafts" Relationship="KeystoneDBModel.FK_Draft_Status" FromRole="Status" ToRole="Draft" />
           <NavigationProperty Name="DraftPages" Relationship="KeystoneDBModel.FK_DraftPage_Status" FromRole="Status" ToRole="DraftPage" />
+          <NavigationProperty Name="Invoices" Relationship="KeystoneDBModel.FK_Invoice_Status" FromRole="Status" ToRole="Invoice" />
+          <NavigationProperty Name="InvoiceItems" Relationship="KeystoneDBModel.FK_InvoiceItem_Status" FromRole="Status" ToRole="InvoiceItem" />
           <NavigationProperty Name="Orders" Relationship="KeystoneDBModel.FK_Order_Status" FromRole="Status" ToRole="Order" />
-          <NavigationProperty Name="OrderAppliedPromoes" Relationship="KeystoneDBModel.FK_OrderAppliedPromo_Status" FromRole="Status" ToRole="OrderAppliedPromo" />
           <NavigationProperty Name="OrderItems" Relationship="KeystoneDBModel.FK_OrderItem_Status" FromRole="Status" ToRole="OrderItem" />
           <NavigationProperty Name="OrderItemPages" Relationship="KeystoneDBModel.FK_OrderItemPage_Status" FromRole="Status" ToRole="OrderItemPage" />
-          <NavigationProperty Name="PaymentInfoes" Relationship="KeystoneDBModel.FK_PaymentInfo_Status" FromRole="Status" ToRole="PaymentInfo" />
-          <NavigationProperty Name="PromoCodes" Relationship="KeystoneDBModel.FK_PromoCode_Status" FromRole="Status" ToRole="PromoCode" />
-          <NavigationProperty Name="ShoppingCarts" Relationship="KeystoneDBModel.FK_ShoppingCart_Status" FromRole="Status" ToRole="ShoppingCart" />
           <NavigationProperty Name="Templates" Relationship="KeystoneDBModel.FK_Template_Status" FromRole="Status" ToRole="Template" />
           <NavigationProperty Name="TemplatePages" Relationship="KeystoneDBModel.FK_TemplatePage_Status" FromRole="Status" ToRole="TemplatePage" />
           <NavigationProperty Name="TemplatePrices" Relationship="KeystoneDBModel.FK_TemplatePrice_Status" FromRole="Status" ToRole="TemplatePrice" />
           <NavigationProperty Name="TemplateTypes" Relationship="KeystoneDBModel.FK_TemplateType_Status" FromRole="Status" ToRole="TemplateType" />
-          <NavigationProperty Name="Testimonials" Relationship="KeystoneDBModel.FK_Testimonial_Status" FromRole="Status" ToRole="Testimonial" />
           <NavigationProperty Name="UserAccounts" Relationship="KeystoneDBModel.FK_UserAccount_Status" FromRole="Status" ToRole="UserAccount" />
           <NavigationProperty Name="UserAddresses" Relationship="KeystoneDBModel.FK_UserAddress_Status" FromRole="Status" ToRole="UserAddress" />
+        </EntityType>
+        <EntityType Name="sysdiagram">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <EntityType Name="Template">
           <Key>
@@ -1604,8 +1280,6 @@
           <Property Name="TemplateTitle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="TemplateDesc" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="TotalPages" Type="Int32" Nullable="false" />
-          <Property Name="TemplateHeight" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
-          <Property Name="TemplateWidth" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
           <Property Name="GalleryUrl" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="StatusId" Type="Int32" Nullable="false" />
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
@@ -1615,11 +1289,13 @@
           <Property Name="Version" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
           <NavigationProperty Name="Drafts" Relationship="KeystoneDBModel.FK_Draft_Template" FromRole="Template" ToRole="Draft" />
           <NavigationProperty Name="DraftPages" Relationship="KeystoneDBModel.FK_DraftPage_Template" FromRole="Template" ToRole="DraftPage" />
+          <NavigationProperty Name="InvoiceItems" Relationship="KeystoneDBModel.FK_InvoiceItem_Template" FromRole="Template" ToRole="InvoiceItem" />
           <NavigationProperty Name="OrderItems" Relationship="KeystoneDBModel.FK_OrderItem_Template" FromRole="Template" ToRole="OrderItem" />
           <NavigationProperty Name="Status" Relationship="KeystoneDBModel.FK_Template_Status" FromRole="Template" ToRole="Status" />
           <NavigationProperty Name="TemplateCategoty" Relationship="KeystoneDBModel.FK_Template_TemplateCategoty" FromRole="Template" ToRole="TemplateCategoty" />
           <NavigationProperty Name="TemplateType" Relationship="KeystoneDBModel.FK_Template_TemplateType" FromRole="Template" ToRole="TemplateType" />
           <NavigationProperty Name="TemplatePages" Relationship="KeystoneDBModel.FK_TemplatePage_Template" FromRole="Template" ToRole="TemplatePage" />
+          <NavigationProperty Name="TemplatePrices" Relationship="KeystoneDBModel.FK_TemplatePrice_Template" FromRole="Template" ToRole="TemplatePrice" />
         </EntityType>
         <EntityType Name="TemplateCategoty">
           <Key>
@@ -1636,11 +1312,7 @@
           </Key>
           <Property Name="TemplatePageId" Type="Int32" Nullable="false" />
           <Property Name="TemplateId" Type="Int32" Nullable="false" />
-          <Property Name="PageHeight" Type="Int32" Nullable="false" />
-          <Property Name="PageWidth" Type="Int32" Nullable="false" />
           <Property Name="TemplatePageUrl" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="TemplatePageJson" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <Property Name="OrderIndex" Type="Int32" Nullable="false" />
           <Property Name="StatusId" Type="Int32" Nullable="false" />
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
@@ -1650,17 +1322,20 @@
           <NavigationProperty Name="DraftPages" Relationship="KeystoneDBModel.FK_DraftPage_TemplatePage" FromRole="TemplatePage" ToRole="DraftPage" />
           <NavigationProperty Name="Status" Relationship="KeystoneDBModel.FK_TemplatePage_Status" FromRole="TemplatePage" ToRole="Status" />
           <NavigationProperty Name="Template" Relationship="KeystoneDBModel.FK_TemplatePage_Template" FromRole="TemplatePage" ToRole="Template" />
+          <Property Name="PageHeight" Type="Int32" Nullable="false" />
+          <Property Name="PageWidth" Type="Int32" Nullable="false" />
+          <Property Name="TemplatePageJson" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="TemplatePrice">
           <Key>
             <PropertyRef Name="TemplatePriceId" />
           </Key>
           <Property Name="TemplatePriceId" Type="Int32" Nullable="false" />
-          <Property Name="TemplateTypeId" Type="Int32" Nullable="false" />
+          <Property Name="TemplateId" Type="Int32" Nullable="false" />
           <Property Name="DeliveryScheduleId" Type="Int32" Nullable="false" />
-          <Property Name="TemplatePriceCode" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="TemplateHeight" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
-          <Property Name="TemplateWidth" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
+          <Property Name="TemplatePriceCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TemplateHeight" Type="Int32" Nullable="false" />
+          <Property Name="TemplateWidth" Type="Int32" Nullable="false" />
           <Property Name="PrintQuantity" Type="Int32" Nullable="false" />
           <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="3" />
           <Property Name="StatusId" Type="Int32" Nullable="false" />
@@ -1671,7 +1346,7 @@
           <Property Name="Version" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
           <NavigationProperty Name="DeliverySchedule" Relationship="KeystoneDBModel.FK_TemplatePrice_DeliverySchedule" FromRole="TemplatePrice" ToRole="DeliverySchedule" />
           <NavigationProperty Name="Status" Relationship="KeystoneDBModel.FK_TemplatePrice_Status" FromRole="TemplatePrice" ToRole="Status" />
-          <NavigationProperty Name="TemplateType" Relationship="KeystoneDBModel.FK_TemplatePrice_TemplateType" FromRole="TemplatePrice" ToRole="TemplateType" />
+          <NavigationProperty Name="Template" Relationship="KeystoneDBModel.FK_TemplatePrice_Template" FromRole="TemplatePrice" ToRole="Template" />
         </EntityType>
         <EntityType Name="TemplateType">
           <Key>
@@ -1682,24 +1357,6 @@
           <Property Name="StatusId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Status" Relationship="KeystoneDBModel.FK_TemplateType_Status" FromRole="TemplateType" ToRole="Status" />
           <NavigationProperty Name="Templates" Relationship="KeystoneDBModel.FK_Template_TemplateType" FromRole="TemplateType" ToRole="Template" />
-          <NavigationProperty Name="TemplatePrices" Relationship="KeystoneDBModel.FK_TemplatePrice_TemplateType" FromRole="TemplateType" ToRole="TemplatePrice" />
-        </EntityType>
-        <EntityType Name="Testimonial">
-          <Key>
-            <PropertyRef Name="TestimonialId" />
-          </Key>
-          <Property Name="TestimonialId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="WriterName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="DisplayOrder" Type="Int32" Nullable="false" />
-          <Property Name="PostedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="TestimonialContent" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
-          <Property Name="StatusId" Type="Int32" Nullable="false" />
-          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
-          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="UpdatedBy" Type="Int32" />
-          <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
-          <Property Name="Version" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <NavigationProperty Name="Status" Relationship="KeystoneDBModel.FK_Testimonial_Status" FromRole="Testimonial" ToRole="Status" />
         </EntityType>
         <EntityType Name="UserAccount">
           <Key>
@@ -1707,30 +1364,20 @@
           </Key>
           <Property Name="UserAccountId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="UserId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Password" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="EmailId" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="IsNewUser" Type="Boolean" Nullable="false" />
-          <Property Name="IsAdmin" Type="Boolean" Nullable="false" />
-          <Property Name="PrimaryContact" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Address1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="Address2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
-          <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Pin" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PrimaryContact" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="StatusId" Type="Int32" Nullable="false" />
-          <Property Name="CreatedBy" Type="Int32" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="UpdatedBy" Type="Int32" />
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
           <Property Name="Version" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
-          <Property Name="RowId" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Drafts" Relationship="KeystoneDBModel.FK_Draft_UserAccount" FromRole="UserAccount" ToRole="Draft" />
+          <NavigationProperty Name="Drafts1" Relationship="KeystoneDBModel.FK_Draft_UserAccount1" FromRole="UserAccount" ToRole="Draft" />
+          <NavigationProperty Name="Invoices" Relationship="KeystoneDBModel.FK_Invoice_UserAccount" FromRole="UserAccount" ToRole="Invoice" />
           <NavigationProperty Name="Orders" Relationship="KeystoneDBModel.FK_Order_UserAccount" FromRole="UserAccount" ToRole="Order" />
-          <NavigationProperty Name="OrderAppliedPromoes" Relationship="KeystoneDBModel.FK_OrderAppliedPromo_UserAccount" FromRole="UserAccount" ToRole="OrderAppliedPromo" />
-          <NavigationProperty Name="ShoppingCarts" Relationship="KeystoneDBModel.FK_ShoppingCart_UserAccount" FromRole="UserAccount" ToRole="ShoppingCart" />
           <NavigationProperty Name="Status" Relationship="KeystoneDBModel.FK_UserAccount_Status" FromRole="UserAccount" ToRole="Status" />
           <NavigationProperty Name="UserAddresses" Relationship="KeystoneDBModel.FK_UserAddress_UserAccount" FromRole="UserAccount" ToRole="UserAddress" />
         </EntityType>
@@ -1748,7 +1395,6 @@
           <Property Name="State" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="City" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Pin" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Country" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="StatusId" Type="Int32" Nullable="false" />
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
           <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
@@ -1756,8 +1402,6 @@
           <Property Name="UpdatedOn" Type="DateTime" Precision="3" />
           <Property Name="Version" Type="Binary" MaxLength="8" FixedLength="true" annotation:StoreGeneratedPattern="Computed" />
           <NavigationProperty Name="AddressType" Relationship="KeystoneDBModel.FK_UserAddress_AddressType" FromRole="UserAddress" ToRole="AddressType" />
-          <NavigationProperty Name="ShoppingCarts" Relationship="KeystoneDBModel.FK_ShoppingCart_UserBillingAddress" FromRole="UserAddress" ToRole="ShoppingCart" />
-          <NavigationProperty Name="ShoppingCarts1" Relationship="KeystoneDBModel.FK_ShoppingCart_UserShippingAddress" FromRole="UserAddress" ToRole="ShoppingCart" />
           <NavigationProperty Name="Status" Relationship="KeystoneDBModel.FK_UserAddress_Status" FromRole="UserAddress" ToRole="Status" />
           <NavigationProperty Name="UserAccount" Relationship="KeystoneDBModel.FK_UserAddress_UserAccount" FromRole="UserAddress" ToRole="UserAccount" />
         </EntityType>
@@ -1797,14 +1441,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OrderItem_DeliverySchedule">
+        <Association Name="FK_Order_DeliverySchedule">
           <End Type="KeystoneDBModel.DeliverySchedule" Role="DeliverySchedule" Multiplicity="1" />
-          <End Type="KeystoneDBModel.OrderItem" Role="OrderItem" Multiplicity="*" />
+          <End Type="KeystoneDBModel.Order" Role="Order" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="DeliverySchedule">
               <PropertyRef Name="DeliveryScheduleId" />
             </Principal>
-            <Dependent Role="OrderItem">
+            <Dependent Role="Order">
               <PropertyRef Name="DeliveryScheduleId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1857,6 +1501,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Draft_UserAccount1">
+          <End Type="KeystoneDBModel.UserAccount" Role="UserAccount" Multiplicity="1" />
+          <End Type="KeystoneDBModel.Draft" Role="Draft" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccount">
+              <PropertyRef Name="UserAccountId" />
+            </Principal>
+            <Dependent Role="Draft">
+              <PropertyRef Name="UserAccountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_DraftPage_Draft">
           <End Type="KeystoneDBModel.Draft" Role="Draft" Multiplicity="1" />
           <End Type="KeystoneDBModel.DraftPage" Role="DraftPage" Multiplicity="*" />
@@ -1865,18 +1521,6 @@
               <PropertyRef Name="DraftId" />
             </Principal>
             <Dependent Role="DraftPage">
-              <PropertyRef Name="DraftId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrderItem_Draft">
-          <End Type="KeystoneDBModel.Draft" Role="Draft" Multiplicity="1" />
-          <End Type="KeystoneDBModel.OrderItem" Role="OrderItem" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Draft">
-              <PropertyRef Name="DraftId" />
-            </Principal>
-            <Dependent Role="OrderItem">
               <PropertyRef Name="DraftId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1917,6 +1561,66 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Invoice_Status">
+          <End Type="KeystoneDBModel.Status" Role="Status" Multiplicity="1" />
+          <End Type="KeystoneDBModel.Invoice" Role="Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Invoice_UserAccount">
+          <End Type="KeystoneDBModel.UserAccount" Role="UserAccount" Multiplicity="1" />
+          <End Type="KeystoneDBModel.Invoice" Role="Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="UserAccount">
+              <PropertyRef Name="UserAccountId" />
+            </Principal>
+            <Dependent Role="Invoice">
+              <PropertyRef Name="UserAccountId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceItem_Invoice">
+          <End Type="KeystoneDBModel.Invoice" Role="Invoice" Multiplicity="1" />
+          <End Type="KeystoneDBModel.InvoiceItem" Role="InvoiceItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoice">
+              <PropertyRef Name="InvoiceId" />
+            </Principal>
+            <Dependent Role="InvoiceItem">
+              <PropertyRef Name="InvoiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceItem_Status">
+          <End Type="KeystoneDBModel.Status" Role="Status" Multiplicity="1" />
+          <End Type="KeystoneDBModel.InvoiceItem" Role="InvoiceItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Status">
+              <PropertyRef Name="StatusId" />
+            </Principal>
+            <Dependent Role="InvoiceItem">
+              <PropertyRef Name="StatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_InvoiceItem_Template">
+          <End Type="KeystoneDBModel.Template" Role="Template" Multiplicity="1" />
+          <End Type="KeystoneDBModel.InvoiceItem" Role="InvoiceItem" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Template">
+              <PropertyRef Name="TemplateId" />
+            </Principal>
+            <Dependent Role="InvoiceItem">
+              <PropertyRef Name="TemplateId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Order_Status">
           <End Type="KeystoneDBModel.Status" Role="Status" Multiplicity="1" />
           <End Type="KeystoneDBModel.Order" Role="Order" Multiplicity="*" />
@@ -1941,18 +1645,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_OrderAppliedPromo_Order">
-          <End Type="KeystoneDBModel.Order" Role="Order" Multiplicity="1" />
-          <End Type="KeystoneDBModel.OrderAppliedPromo" Role="OrderAppliedPromo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Order">
-              <PropertyRef Name="OrderId" />
-            </Principal>
-            <Dependent Role="OrderAppliedPromo">
-              <PropertyRef Name="OrderId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_OrderItem_Order">
           <End Type="KeystoneDBModel.Order" Role="Order" Multiplicity="1" />
           <End Type="KeystoneDBModel.OrderItem" Role="OrderItem" Multiplicity="*" />
@@ -1962,66 +1654,6 @@
             </Principal>
             <Dependent Role="OrderItem">
               <PropertyRef Name="OrderId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PaymentInfo_Order">
-          <End Type="KeystoneDBModel.Order" Role="Order" Multiplicity="1" />
-          <End Type="KeystoneDBModel.PaymentInfo" Role="PaymentInfo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Order">
-              <PropertyRef Name="OrderId" />
-            </Principal>
-            <Dependent Role="PaymentInfo">
-              <PropertyRef Name="OrderId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ShoppingCart_Order">
-          <End Type="KeystoneDBModel.Order" Role="Order" Multiplicity="1" />
-          <End Type="KeystoneDBModel.ShoppingCart" Role="ShoppingCart" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Order">
-              <PropertyRef Name="OrderId" />
-            </Principal>
-            <Dependent Role="ShoppingCart">
-              <PropertyRef Name="OrderId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrderAppliedPromo_PromoCode">
-          <End Type="KeystoneDBModel.PromoCode" Role="PromoCode" Multiplicity="1" />
-          <End Type="KeystoneDBModel.OrderAppliedPromo" Role="OrderAppliedPromo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PromoCode">
-              <PropertyRef Name="PromoCodeId" />
-            </Principal>
-            <Dependent Role="OrderAppliedPromo">
-              <PropertyRef Name="PromoCodeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrderAppliedPromo_Status">
-          <End Type="KeystoneDBModel.Status" Role="Status" Multiplicity="1" />
-          <End Type="KeystoneDBModel.OrderAppliedPromo" Role="OrderAppliedPromo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Status">
-              <PropertyRef Name="StatusId" />
-            </Principal>
-            <Dependent Role="OrderAppliedPromo">
-              <PropertyRef Name="StatusId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_OrderAppliedPromo_UserAccount">
-          <End Type="KeystoneDBModel.UserAccount" Role="UserAccount" Multiplicity="1" />
-          <End Type="KeystoneDBModel.OrderAppliedPromo" Role="OrderAppliedPromo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserAccount">
-              <PropertyRef Name="UserAccountId" />
-            </Principal>
-            <Dependent Role="OrderAppliedPromo">
-              <PropertyRef Name="UserAccountId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2073,114 +1705,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_PaymentInfo_Status">
-          <End Type="KeystoneDBModel.Status" Role="Status" Multiplicity="1" />
-          <End Type="KeystoneDBModel.PaymentInfo" Role="PaymentInfo" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Status">
-              <PropertyRef Name="StatusId" />
-            </Principal>
-            <Dependent Role="PaymentInfo">
-              <PropertyRef Name="StatusId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ShoppingCart_PaymentInfo">
-          <End Type="KeystoneDBModel.PaymentInfo" Role="PaymentInfo" Multiplicity="1" />
-          <End Type="KeystoneDBModel.ShoppingCart" Role="ShoppingCart" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PaymentInfo">
-              <PropertyRef Name="PaymentInfoId" />
-            </Principal>
-            <Dependent Role="ShoppingCart">
-              <PropertyRef Name="PaymentInfoId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ShoppingCart_PaymentType">
-          <End Type="KeystoneDBModel.PaymentType" Role="PaymentType" Multiplicity="1" />
-          <End Type="KeystoneDBModel.ShoppingCart" Role="ShoppingCart" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PaymentType">
-              <PropertyRef Name="PaymentTypeId" />
-            </Principal>
-            <Dependent Role="ShoppingCart">
-              <PropertyRef Name="PaymentTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_PromoCode_Status">
-          <End Type="KeystoneDBModel.Status" Role="Status" Multiplicity="1" />
-          <End Type="KeystoneDBModel.PromoCode" Role="PromoCode" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Status">
-              <PropertyRef Name="StatusId" />
-            </Principal>
-            <Dependent Role="PromoCode">
-              <PropertyRef Name="StatusId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ShoppingCart_PromoCode">
-          <End Type="KeystoneDBModel.PromoCode" Role="PromoCode" Multiplicity="0..1" />
-          <End Type="KeystoneDBModel.ShoppingCart" Role="ShoppingCart" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="PromoCode">
-              <PropertyRef Name="PromoCodeId" />
-            </Principal>
-            <Dependent Role="ShoppingCart">
-              <PropertyRef Name="PromoCodeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ShoppingCart_Status">
-          <End Type="KeystoneDBModel.Status" Role="Status" Multiplicity="1" />
-          <End Type="KeystoneDBModel.ShoppingCart" Role="ShoppingCart" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Status">
-              <PropertyRef Name="StatusId" />
-            </Principal>
-            <Dependent Role="ShoppingCart">
-              <PropertyRef Name="StatusId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ShoppingCart_UserAccount">
-          <End Type="KeystoneDBModel.UserAccount" Role="UserAccount" Multiplicity="1" />
-          <End Type="KeystoneDBModel.ShoppingCart" Role="ShoppingCart" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserAccount">
-              <PropertyRef Name="UserAccountId" />
-            </Principal>
-            <Dependent Role="ShoppingCart">
-              <PropertyRef Name="UserAccountId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ShoppingCart_UserBillingAddress">
-          <End Type="KeystoneDBModel.UserAddress" Role="UserAddress" Multiplicity="1" />
-          <End Type="KeystoneDBModel.ShoppingCart" Role="ShoppingCart" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserAddress">
-              <PropertyRef Name="UserAddressId" />
-            </Principal>
-            <Dependent Role="ShoppingCart">
-              <PropertyRef Name="BillingAddressId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ShoppingCart_UserShippingAddress">
-          <End Type="KeystoneDBModel.UserAddress" Role="UserAddress" Multiplicity="1" />
-          <End Type="KeystoneDBModel.ShoppingCart" Role="ShoppingCart" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="UserAddress">
-              <PropertyRef Name="UserAddressId" />
-            </Principal>
-            <Dependent Role="ShoppingCart">
-              <PropertyRef Name="ShippingAddressId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Template_Status">
           <End Type="KeystoneDBModel.Status" Role="Status" Multiplicity="1" />
           <End Type="KeystoneDBModel.Template" Role="Template" Multiplicity="*" />
@@ -2225,18 +1749,6 @@
               <PropertyRef Name="StatusId" />
             </Principal>
             <Dependent Role="TemplateType">
-              <PropertyRef Name="StatusId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Testimonial_Status">
-          <End Type="KeystoneDBModel.Status" Role="Status" Multiplicity="1" />
-          <End Type="KeystoneDBModel.Testimonial" Role="Testimonial" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Status">
-              <PropertyRef Name="StatusId" />
-            </Principal>
-            <Dependent Role="Testimonial">
               <PropertyRef Name="StatusId" />
             </Dependent>
           </ReferentialConstraint>
@@ -2301,15 +1813,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_TemplatePrice_TemplateType">
-          <End Type="KeystoneDBModel.TemplateType" Role="TemplateType" Multiplicity="1" />
+        <Association Name="FK_TemplatePrice_Template">
+          <End Type="KeystoneDBModel.Template" Role="Template" Multiplicity="1" />
           <End Type="KeystoneDBModel.TemplatePrice" Role="TemplatePrice" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="TemplateType">
-              <PropertyRef Name="TemplateTypeId" />
+            <Principal Role="Template">
+              <PropertyRef Name="TemplateId" />
             </Principal>
             <Dependent Role="TemplatePrice">
-              <PropertyRef Name="TemplateTypeId" />
+              <PropertyRef Name="TemplateId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2325,7 +1837,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        </Schema>
+      </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -2335,7 +1847,7 @@
             <EntityTypeMapping TypeName="KeystoneDBModel.AddressType">
               <MappingFragment StoreEntitySet="AddressType">
                 <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="AddressTypeCode" ColumnName="AddressTypeCode" />
+                <ScalarProperty Name="AddressType1" ColumnName="AddressType" />
                 <ScalarProperty Name="AddressTypeId" ColumnName="AddressTypeId" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -2351,7 +1863,6 @@
                 <ScalarProperty Name="StatusId" ColumnName="StatusId" />
                 <ScalarProperty Name="DeliveryTo" ColumnName="DeliveryTo" />
                 <ScalarProperty Name="DeliveryFrom" ColumnName="DeliveryFrom" />
-                <ScalarProperty Name="DeliveryCode" ColumnName="DeliveryCode" />
                 <ScalarProperty Name="DeliveryScheduleId" ColumnName="DeliveryScheduleId" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -2359,16 +1870,13 @@
           <EntitySetMapping Name="Drafts">
             <EntityTypeMapping TypeName="KeystoneDBModel.Draft">
               <MappingFragment StoreEntitySet="Draft">
+                <ScalarProperty Name="DraftName" ColumnName="DraftName" />
                 <ScalarProperty Name="Version" ColumnName="Version" />
                 <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="DeliveryScheduleId" ColumnName="DeliveryScheduleId" />
-                <ScalarProperty Name="DraftName" ColumnName="DraftName" />
                 <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
                 <ScalarProperty Name="UserAccountId" ColumnName="UserAccountId" />
                 <ScalarProperty Name="DraftId" ColumnName="DraftId" />
@@ -2385,12 +1893,42 @@
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="StatusId" ColumnName="StatusId" />
                 <ScalarProperty Name="DraftJsonString" ColumnName="DraftJsonString" />
-                <ScalarProperty Name="FinalImageUrl" ColumnName="FinalImageUrl" />
                 <ScalarProperty Name="DraftPreviewUrl" ColumnName="DraftPreviewUrl" />
                 <ScalarProperty Name="TemplatePageId" ColumnName="TemplatePageId" />
                 <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
                 <ScalarProperty Name="DraftId" ColumnName="DraftId" />
                 <ScalarProperty Name="DraftPageId" ColumnName="DraftPageId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Invoices">
+            <EntityTypeMapping TypeName="KeystoneDBModel.Invoice">
+              <MappingFragment StoreEntitySet="Invoice">
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="UserAccountId" ColumnName="UserAccountId" />
+                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InvoiceItems">
+            <EntityTypeMapping TypeName="KeystoneDBModel.InvoiceItem">
+              <MappingFragment StoreEntitySet="InvoiceItem">
+                <ScalarProperty Name="Version" ColumnName="Version" />
+                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
+                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
+                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
+                <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
+                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+                <ScalarProperty Name="InvoiceItemId" ColumnName="InvoiceItemId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2404,29 +1942,11 @@
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="StatusId" ColumnName="StatusId" />
                 <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
-                <ScalarProperty Name="DiscountAmount" ColumnName="DiscountAmount" />
-                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
                 <ScalarProperty Name="OrderDate" ColumnName="OrderDate" />
                 <ScalarProperty Name="OrderReferance" ColumnName="OrderReferance" />
+                <ScalarProperty Name="DeliveryScheduleId" ColumnName="DeliveryScheduleId" />
                 <ScalarProperty Name="UserAccountId" ColumnName="UserAccountId" />
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="OrderAppliedPromoes">
-            <EntityTypeMapping TypeName="KeystoneDBModel.OrderAppliedPromo">
-              <MappingFragment StoreEntitySet="OrderAppliedPromo">
-                <ScalarProperty Name="Version" ColumnName="Version" />
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="AppliedAmount" ColumnName="AppliedAmount" />
-                <ScalarProperty Name="UserAccountId" ColumnName="UserAccountId" />
-                <ScalarProperty Name="PromoCodeId" ColumnName="PromoCodeId" />
-                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
-                <ScalarProperty Name="OrderAppliedPromoId" ColumnName="OrderAppliedPromoId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2439,11 +1959,6 @@
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-                <ScalarProperty Name="DisplayUrl" ColumnName="DisplayUrl" />
-                <ScalarProperty Name="DraftId" ColumnName="DraftId" />
-                <ScalarProperty Name="DeliveryScheduleId" ColumnName="DeliveryScheduleId" />
                 <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
                 <ScalarProperty Name="OrderItemId" ColumnName="OrderItemId" />
@@ -2467,46 +1982,12 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="PaymentInfoes">
-            <EntityTypeMapping TypeName="KeystoneDBModel.PaymentInfo">
-              <MappingFragment StoreEntitySet="PaymentInfo">
-                <ScalarProperty Name="Version" ColumnName="Version" />
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="TransactionAmount" ColumnName="TransactionAmount" />
-                <ScalarProperty Name="TransactionLongMessage" ColumnName="TransactionLongMessage" />
-                <ScalarProperty Name="TransactionShortMessage" ColumnName="TransactionShortMessage" />
-                <ScalarProperty Name="TransactionErrorCode" ColumnName="TransactionErrorCode" />
-                <ScalarProperty Name="TransactionType" ColumnName="TransactionType" />
-                <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
-                <ScalarProperty Name="TransactionTime" ColumnName="TransactionTime" />
-                <ScalarProperty Name="Acknowledgement" ColumnName="Acknowledgement" />
-                <ScalarProperty Name="RequistedIp" ColumnName="RequistedIp" />
-                <ScalarProperty Name="OrderId" ColumnName="OrderId" />
-                <ScalarProperty Name="PaymentInfoId" ColumnName="PaymentInfoId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="PaymentTypes">
             <EntityTypeMapping TypeName="KeystoneDBModel.PaymentType">
               <MappingFragment StoreEntitySet="PaymentType">
                 <ScalarProperty Name="StatusId" ColumnName="StatusId" />
                 <ScalarProperty Name="PaymentCode" ColumnName="PaymentCode" />
                 <ScalarProperty Name="PaymentTypeId" ColumnName="PaymentTypeId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="PromoCodes">
-            <EntityTypeMapping TypeName="KeystoneDBModel.PromoCode">
-              <MappingFragment StoreEntitySet="PromoCode">
-                <ScalarProperty Name="Version" ColumnName="Version" />
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="PromoAmount" ColumnName="PromoAmount" />
-                <ScalarProperty Name="PromoCodeName" ColumnName="PromoCodeName" />
-                <ScalarProperty Name="PromoCodeId" ColumnName="PromoCodeId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2521,13 +2002,7 @@
                 <ScalarProperty Name="StatusId" ColumnName="StatusId" />
                 <ScalarProperty Name="ExpireOn" ColumnName="ExpireOn" />
                 <ScalarProperty Name="CartReferance" ColumnName="CartReferance" />
-                <ScalarProperty Name="TransactionId" ColumnName="TransactionId" />
-                <ScalarProperty Name="ShippingAddressId" ColumnName="ShippingAddressId" />
-                <ScalarProperty Name="BillingAddressId" ColumnName="BillingAddressId" />
-                <ScalarProperty Name="PromoCodeId" ColumnName="PromoCodeId" />
                 <ScalarProperty Name="OrderId" ColumnName="OrderId" />
-                <ScalarProperty Name="PaymentInfoId" ColumnName="PaymentInfoId" />
-                <ScalarProperty Name="PaymentTypeId" ColumnName="PaymentTypeId" />
                 <ScalarProperty Name="UserAccountId" ColumnName="UserAccountId" />
                 <ScalarProperty Name="ShoppingCartId" ColumnName="ShoppingCartId" />
               </MappingFragment>
@@ -2541,6 +2016,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="KeystoneDBModel.sysdiagram">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="definition" ColumnName="definition" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="name" ColumnName="name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Templates">
             <EntityTypeMapping TypeName="KeystoneDBModel.Template">
               <MappingFragment StoreEntitySet="Template">
@@ -2551,8 +2037,6 @@
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="StatusId" ColumnName="StatusId" />
                 <ScalarProperty Name="GalleryUrl" ColumnName="GalleryUrl" />
-                <ScalarProperty Name="TemplateWidth" ColumnName="TemplateWidth" />
-                <ScalarProperty Name="TemplateHeight" ColumnName="TemplateHeight" />
                 <ScalarProperty Name="TotalPages" ColumnName="TotalPages" />
                 <ScalarProperty Name="TemplateDesc" ColumnName="TemplateDesc" />
                 <ScalarProperty Name="TemplateTitle" ColumnName="TemplateTitle" />
@@ -2575,17 +2059,16 @@
           <EntitySetMapping Name="TemplatePages">
             <EntityTypeMapping TypeName="KeystoneDBModel.TemplatePage">
               <MappingFragment StoreEntitySet="TemplatePage">
+                <ScalarProperty Name="TemplatePageJson" ColumnName="TemplatePageJson" />
+                <ScalarProperty Name="PageWidth" ColumnName="PageWidth" />
+                <ScalarProperty Name="PageHeight" ColumnName="PageHeight" />
                 <ScalarProperty Name="Version" ColumnName="Version" />
                 <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="OrderIndex" ColumnName="OrderIndex" />
-                <ScalarProperty Name="TemplatePageJson" ColumnName="TemplatePageJson" />
                 <ScalarProperty Name="TemplatePageUrl" ColumnName="TemplatePageUrl" />
-                <ScalarProperty Name="PageWidth" ColumnName="PageWidth" />
-                <ScalarProperty Name="PageHeight" ColumnName="PageHeight" />
                 <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
                 <ScalarProperty Name="TemplatePageId" ColumnName="TemplatePageId" />
               </MappingFragment>
@@ -2606,7 +2089,7 @@
                 <ScalarProperty Name="TemplateHeight" ColumnName="TemplateHeight" />
                 <ScalarProperty Name="TemplatePriceCode" ColumnName="TemplatePriceCode" />
                 <ScalarProperty Name="DeliveryScheduleId" ColumnName="DeliveryScheduleId" />
-                <ScalarProperty Name="TemplateTypeId" ColumnName="TemplateTypeId" />
+                <ScalarProperty Name="TemplateId" ColumnName="TemplateId" />
                 <ScalarProperty Name="TemplatePriceId" ColumnName="TemplatePriceId" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -2620,46 +2103,19 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Testimonials">
-            <EntityTypeMapping TypeName="KeystoneDBModel.Testimonial">
-              <MappingFragment StoreEntitySet="Testimonial">
-                <ScalarProperty Name="Version" ColumnName="Version" />
-                <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
-                <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
-                <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="TestimonialContent" ColumnName="TestimonialContent" />
-                <ScalarProperty Name="PostedOn" ColumnName="PostedOn" />
-                <ScalarProperty Name="DisplayOrder" ColumnName="DisplayOrder" />
-                <ScalarProperty Name="WriterName" ColumnName="WriterName" />
-                <ScalarProperty Name="TestimonialId" ColumnName="TestimonialId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="UserAccounts">
             <EntityTypeMapping TypeName="KeystoneDBModel.UserAccount">
               <MappingFragment StoreEntitySet="UserAccount">
-                <ScalarProperty Name="RowId" ColumnName="RowId" />
                 <ScalarProperty Name="Version" ColumnName="Version" />
                 <ScalarProperty Name="UpdatedOn" ColumnName="UpdatedOn" />
                 <ScalarProperty Name="UpdatedBy" ColumnName="UpdatedBy" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="Country" ColumnName="Country" />
-                <ScalarProperty Name="Pin" ColumnName="Pin" />
-                <ScalarProperty Name="City" ColumnName="City" />
-                <ScalarProperty Name="State" ColumnName="State" />
-                <ScalarProperty Name="Address2" ColumnName="Address2" />
-                <ScalarProperty Name="Address1" ColumnName="Address1" />
                 <ScalarProperty Name="PrimaryContact" ColumnName="PrimaryContact" />
-                <ScalarProperty Name="IsAdmin" ColumnName="IsAdmin" />
                 <ScalarProperty Name="IsNewUser" ColumnName="IsNewUser" />
                 <ScalarProperty Name="EmailId" ColumnName="EmailId" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="LastName" ColumnName="LastName" />
-                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="UserAccountId" ColumnName="UserAccountId" />
               </MappingFragment>
@@ -2674,7 +2130,6 @@
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="StatusId" ColumnName="StatusId" />
-                <ScalarProperty Name="Country" ColumnName="Country" />
                 <ScalarProperty Name="Pin" ColumnName="Pin" />
                 <ScalarProperty Name="City" ColumnName="City" />
                 <ScalarProperty Name="State" ColumnName="State" />

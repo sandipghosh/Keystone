@@ -213,3 +213,20 @@ pip-log.txt
 
 #Mr Developer
 .mr.developer.cfg
+/Keystone.Web/Data/Context/KeystoneDBEntities.Context.cs
+/Keystone.Web/Data/Context/KeystoneDBEntities.Context.tt
+/Keystone.Web/Data/Context/KeystoneDBEntities.Designer.cs
+/Keystone.Web/Data/Context/KeystoneDBEntities.edmx
+/Keystone.Web/Data/Context/KeystoneDBEntities.tt
+/Keystone.Web/ErrorLogs/LogFile-10102014-11429.txt
+/Keystone.Web/ErrorLogs/LogFile-10102014-11431.txt
+/Keystone.Web/ErrorLogs/LogFile-10102014-11432.txt
+/Keystone.Web/ErrorLogs/LogFile-10102014-11433.txt
+/Keystone.Web/ErrorLogs/LogFile-10102014-11515.txt
+/Keystone.Web/ErrorLogs/LogFile-10102014-11517.txt
+/Keystone.Web/ErrorLogs/LogFile-10102014-11518.txt
+/Keystone.Web/ErrorLogs/LogFile-10102014-11627.txt
+/Keystone.Web/ErrorLogs/LogFile-10102014-1346.txt
+/Keystone.Web/ErrorLogs/LogFile-10102014-1430.txt
+/Keystone.Web/ErrorLogs/LogFile-10102014-1432.txt
+/Keystone.Web/ErrorLogs/LogFile-10102014-1652.txt

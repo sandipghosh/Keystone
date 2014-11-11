@@ -25,13 +25,13 @@ namespace Keystone.Web.Data.Context
         public int PageWidth { get; set; }
         public string TemplatePageUrl { get; set; }
         public string TemplatePageJson { get; set; }
+        public int OrderIndex { get; set; }
         public int StatusId { get; set; }
         public int CreatedBy { get; set; }
         public System.DateTime CreatedOn { get; set; }
         public Nullable<int> UpdatedBy { get; set; }
         public Nullable<System.DateTime> UpdatedOn { get; set; }
         public byte[] Version { get; set; }
-        public int OrderIndex { get; set; }
     
         public virtual ICollection<DraftPage> DraftPages { get; set; }
         public virtual Status Status { get; set; }

@@ -5,27 +5,27 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="fece31230c2c4550921aea99ebdc27dc" Name="Diagram1" ShowGrid="false" ZoomLevel="10" SnapToGrid="false">
-        <EntityTypeShape EntityType="KeystoneDBModel.AddressType" Width="1.5" PointX="3" PointY="23.537087239583315" />
-        <EntityTypeShape EntityType="KeystoneDBModel.DeliverySchedule" Width="1.5" PointX="3" PointY="49.688112630208309" />
-        <EntityTypeShape EntityType="KeystoneDBModel.Draft" Width="1.5" PointX="5.2500005" PointY="34.15153466796874" />
-        <EntityTypeShape EntityType="KeystoneDBModel.DraftPage" Width="1.5" PointX="7.5000009999999993" PointY="36.737480712890616" />
-        <EntityTypeShape EntityType="KeystoneDBModel.Order" Width="1.5" PointX="8.2500004999999987" PointY="30.766931803385404" />
-        <EntityTypeShape EntityType="KeystoneDBModel.OrderAppliedPromo" Width="1.5" PointX="13.500001" PointY="43.746588378906232" />
-        <EntityTypeShape EntityType="KeystoneDBModel.OrderItem" Width="1.5" PointX="10.500001" PointY="38.612239420572905" />
-        <EntityTypeShape EntityType="KeystoneDBModel.OrderItemPage" Width="1.5" PointX="15.7500015" PointY="34.42041284179686" />
-        <EntityTypeShape EntityType="KeystoneDBModel.PaymentInfo" Width="1.5" PointX="10.500001" PointY="29.728553304036453" />
-        <EntityTypeShape EntityType="KeystoneDBModel.PaymentType" Width="1.5" PointX="11.250001" PointY="44.265900716145808" />
-        <EntityTypeShape EntityType="KeystoneDBModel.PromoCode" Width="1.5" PointX="3" PointY="53.956810546875012" />
-        <EntityTypeShape EntityType="KeystoneDBModel.ShoppingCart" Width="1.5" PointX="13.500001" PointY="36.246735677083308" />
-        <EntityTypeShape EntityType="KeystoneDBModel.Status" Width="1.5" PointX="0.75" PointY="28.882476236979173" />
-        <EntityTypeShape EntityType="KeystoneDBModel.Template" Width="1.5" PointX="5.2500005" PointY="41.438676595052073" />
-        <EntityTypeShape EntityType="KeystoneDBModel.TemplateCategoty" Width="1.5" PointX="3.0000004999999996" PointY="43.2655402018229" />
-        <EntityTypeShape EntityType="KeystoneDBModel.TemplatePage" Width="1.5" PointX="13.500001" PointY="30.929782145182273" />
-        <EntityTypeShape EntityType="KeystoneDBModel.TemplatePrice" Width="1.5" PointX="8.2500004999999987" PointY="44.015580891927073" />
-        <EntityTypeShape EntityType="KeystoneDBModel.TemplateType" Width="1.5" PointX="3" PointY="57.264001302083344" />
-        <EntityTypeShape EntityType="KeystoneDBModel.Testimonial" Width="1.5" PointX="3" PointY="19.460690755208311" />
-        <EntityTypeShape EntityType="KeystoneDBModel.UserAccount" Width="1.5" PointX="3" PointY="30.920674479166671" />
-        <EntityTypeShape EntityType="KeystoneDBModel.UserAddress" Width="1.5" PointX="5.2500005" PointY="27.805785156249982" />
+        <EntityTypeShape EntityType="KeystoneDBModel.AddressType" Width="1.5" PointX="3" PointY="43.602166178385417" />
+        <EntityTypeShape EntityType="KeystoneDBModel.DeliverySchedule" Width="1.5" PointX="3" PointY="19.566456542968758" />
+        <EntityTypeShape EntityType="KeystoneDBModel.Draft" Width="1.5" PointX="7.5000009999999993" PointY="38.621854492187495" />
+        <EntityTypeShape EntityType="KeystoneDBModel.DraftPage" Width="1.5" PointX="12.7500015" PointY="33.901198974609372" />
+        <EntityTypeShape EntityType="KeystoneDBModel.Order" Width="1.5" PointX="5.2500005" PointY="38.525703776041667" />
+        <EntityTypeShape EntityType="KeystoneDBModel.OrderAppliedPromo" Width="1.5" PointX="7.5000009999999993" PointY="44.563902018229165" />
+        <EntityTypeShape EntityType="KeystoneDBModel.OrderItem" Width="1.5" PointX="5.2500005" PointY="24.277349283854164" />
+        <EntityTypeShape EntityType="KeystoneDBModel.OrderItemPage" Width="1.5" PointX="7.5000009999999993" PointY="30.305850667317706" />
+        <EntityTypeShape EntityType="KeystoneDBModel.PaymentInfo" Width="1.5" PointX="12.500001" PointY="39.660822184244793" />
+        <EntityTypeShape EntityType="KeystoneDBModel.PaymentType" Width="1.5" PointX="12.5000015" PointY="45.621559895833329" />
+        <EntityTypeShape EntityType="KeystoneDBModel.PromoCode" Width="1.5" PointX="3" PointY="53.485672037760423" />
+        <EntityTypeShape EntityType="KeystoneDBModel.ShoppingCart" Width="1.5" PointX="14.7500015" PointY="39.602394856770829" />
+        <EntityTypeShape EntityType="KeystoneDBModel.Status" Width="1.5" PointX="0.75" PointY="28.9882420247396" />
+        <EntityTypeShape EntityType="KeystoneDBModel.Template" Width="1.5" PointX="5.2500005" PointY="30.123246093750005" />
+        <EntityTypeShape EntityType="KeystoneDBModel.TemplateCategoty" Width="1.5" PointX="3.0000004999999996" PointY="31.950109700520834" />
+        <EntityTypeShape EntityType="KeystoneDBModel.TemplatePage" Width="1.5" PointX="10.500001" PointY="30.228799072265616" />
+        <EntityTypeShape EntityType="KeystoneDBModel.TemplatePrice" Width="1.5" PointX="8.2500004999999987" PointY="24.565801432291664" />
+        <EntityTypeShape EntityType="KeystoneDBModel.TemplateType" Width="1.5" PointX="3" PointY="23.835154459635426" />
+        <EntityTypeShape EntityType="KeystoneDBModel.Testimonial" Width="1.5" PointX="3" PointY="56.792862792968748" />
+        <EntityTypeShape EntityType="KeystoneDBModel.UserAccount" Width="1.5" PointX="3" PointY="46.332452636718756" />
+        <EntityTypeShape EntityType="KeystoneDBModel.UserAddress" Width="1.5" PointX="10.250000499999999" PointY="38.237251627604167" />
         <AssociationConnector Association="KeystoneDBModel.FK_AddressType_Status" />
         <AssociationConnector Association="KeystoneDBModel.FK_UserAddress_AddressType" />
         <AssociationConnector Association="KeystoneDBModel.FK_DeliverySchedule_Status" />
@@ -73,7 +73,6 @@
         <AssociationConnector Association="KeystoneDBModel.FK_TemplatePage_Template" />
         <AssociationConnector Association="KeystoneDBModel.FK_TemplatePrice_TemplateType" />
         <AssociationConnector Association="KeystoneDBModel.FK_UserAddress_UserAccount" />
-        <EntityTypeShape EntityType="KeystoneDBModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
