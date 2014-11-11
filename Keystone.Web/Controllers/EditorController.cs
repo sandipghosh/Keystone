@@ -547,7 +547,7 @@ namespace Keystone.Web.Controllers
                         {
                             orderItems.Remove(orderItems.FirstOrDefault(x => x.DraftId.Equals(draft.DraftId)));
                         }
-                        catch (Exception ex) { }
+                        catch (Exception) { }
                     }
 
                     orderItems.Add(new OrderItemModel
@@ -735,24 +735,32 @@ namespace Keystone.Web.Controllers
                     CommonUtility.GetAppSetting<string>("TempFolder"),
                     Session.SessionID, CommonUtility.GenarateRandomString(10, 10)));
 
-                ImageDimention dimention = GetFileDimentionFromSVG(svgFileName);
-
-                string inkscapeArgs = string.Format(@"-f ""{0}"" -e ""{1}"" -d {2} -w {3} -h {4}",
-                    svgFileName, tempSVGFile, CommonUtility.GetAppSetting<string>("SVGtoImageConversionDPI"),
-                    dimention.Width, dimention.Height);
-                string inkscapeExecutionPath = CommonUtility.GetAppSetting<string>("InkscapeExecutionPath");
-                Process inkscape = Process.Start(new ProcessStartInfo(inkscapeExecutionPath, inkscapeArgs));
-
-                //inkscape.WaitForExit(3000);
-                inkscape.WaitForExit();
-
-                while (!inkscape.HasExited)
+                if (CommonUtility.GetAppSetting<bool>("UseSVGLibrary"))
                 {
-                    Console.WriteLine("Waiting...");
-                    Thread.Sleep(1000);
+                    Svg.SvgDocument svgDoc = Svg.SvgDocument.Open(svgFileName);
+                    svgDoc.Draw().Save(tempSVGFile, System.Drawing.Imaging.ImageFormat.Jpeg);
                 }
+                else
+                {
+                    ImageDimention dimention = GetFileDimentionFromSVG(svgFileName);
+                    string inkscapeArgs = string.Format(@"-f ""{0}"" -e ""{1}"" -d {2} -w {3} -h {4}",
+                        svgFileName, tempSVGFile, CommonUtility.GetAppSetting<string>("SVGtoImageConversionDPI"),
+                        dimention.Width, dimention.Height);
 
-                inkscape.Dispose();
+                    string inkscapeExecutionPath = CommonUtility.GetAppSetting<string>("InkscapeExecutionPath");
+                    Process inkscape = Process.Start(new ProcessStartInfo(inkscapeExecutionPath, inkscapeArgs));
+
+                    //inkscape.WaitForExit(3000);
+                    inkscape.WaitForExit();
+
+                    while (!inkscape.HasExited)
+                    {
+                        Console.WriteLine("Waiting...");
+                        Thread.Sleep(1000);
+                    }
+
+                    inkscape.Dispose(); 
+                }
                 return tempSVGFile;
             }
             catch (Exception ex)

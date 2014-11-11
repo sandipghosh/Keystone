@@ -48,6 +48,8 @@
                 $self.find('#lnkPrint')
                     .attr('href', printUrl)
                     .popupWindow({ height: h, width: w, scrollbars: 1 });
+
+                $('.other_nav, .final_link').show();
             });
 
             EmailShareValidationSetup();

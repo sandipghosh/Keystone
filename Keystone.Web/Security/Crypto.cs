@@ -5,6 +5,7 @@ namespace Keystone.Web.Security
     using System.IO;
     using System.Text;
     using System.Security.Cryptography;
+    using Keystone.Web.Utilities;
     public class Crypto
     {
         private const string PASS_PHRASE = "Pas5pr@se"; //can be any string
@@ -48,7 +49,7 @@ namespace Keystone.Web.Security
             }
             catch (Exception ex)
             {
-                //CrossCutting.Utility.LogToFile(ex.Message);
+                ex.ExceptionValueTracker(plainText, salt);
             }
             return string.Empty;
         }
@@ -85,7 +86,7 @@ namespace Keystone.Web.Security
             }
             catch (Exception ex)
             {
-                //CrossCutting.Utility.LogToFile(ex.Message);
+                ex.ExceptionValueTracker(cipherText, salt);
             }
             return string.Empty;
         }

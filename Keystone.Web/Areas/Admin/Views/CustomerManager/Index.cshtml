@@ -5,17 +5,8 @@
 }
 
 @section AdimnPageScript{
-    @if (OptimizationExtensions.IsJsMinify)
-    {
-        <script type="text/javascript" src='@BundleTable.Bundles.ResolveBundleUrl("~/Scripts/CustomarManager")'></script>
-    }
-    else
-    { @Scripts.Render("~/Scripts/CustomarManager")}
-    @*<script type="text/javascript" src='@Url.Content("~/Areas/Admin/Scripts/customer-manager.js")'></script>*@
+    @Html.RenderScripts("~/Scripts/CustomarManager")
 }
-@*@section AdimnPageStyle{
-    <link rel="stylesheet" type="text/css" media="screen" href="themes/jqModal.css" />
-}*@
 
 @Html.Hidden("SchemaData", (object)ViewBag.SchemaData)
 @Html.Partial("_GridGlobalMaster")

@@ -1025,7 +1025,7 @@ namespace Keystone.Web.Utilities
                 {
                     string currentUri = string.Empty;
                     try { currentUri = new Uri(path.ToBase64Decode()).AbsolutePath; }
-                    catch (Exception ex) { currentUri = path.ToBase64Decode(); }
+                    catch (Exception) { currentUri = path.ToBase64Decode(); }
 
                     string actualImageFilePath = HttpContext.Current.Server.MapPath(currentUri);
                     var image = iTextSharp.text.Image.GetInstance(actualImageFilePath);
@@ -1081,7 +1081,7 @@ namespace Keystone.Web.Utilities
                             {
                                 currentUri = new Uri(path.ToBase64Decode()).AbsolutePath;
                             }
-                            catch (Exception ex)
+                            catch (Exception)
                             {
                                 currentUri = path.ToBase64Decode();
                             }
@@ -1509,7 +1509,7 @@ namespace Keystone.Web.Utilities
             {
                 currentUri = new Uri(currentUri.ToBase64Decode()).AbsolutePath;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 currentUri = currentUri.ToBase64Decode();
             }
@@ -1553,7 +1553,7 @@ namespace Keystone.Web.Utilities
             {
                 currentUri = new Uri(currentUri.ToBase64Decode()).AbsolutePath;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 currentUri = currentUri.ToBase64Decode();
             }

@@ -5,17 +5,8 @@
 }
 
 @section AdimnPageScript{
-    @if (OptimizationExtensions.IsJsMinify)
-    {
-        <script type="text/javascript" src='@BundleTable.Bundles.ResolveBundleUrl("~/Scripts/OrderManager")'></script>
-    }
-    else
-    { @Scripts.Render("~/Scripts/OrderManager")}
-    @*<script type="text/javascript" src='@Url.Content("~/Areas/Admin/Scripts/order-manager.js")'></script>*@
+    @Html.RenderScripts("~/Scripts/OrderManager")
 }
-@*@section AdimnPageStyle{
-    <link rel="stylesheet" type="text/css" media="screen" href="themes/jqModal.css" />
-}*@
 
 @Html.Hidden("SchemaData", (object)ViewBag.SchemaData)
 @Html.Hidden("SchemaSubData", (object)ViewBag.SchemaSubData)

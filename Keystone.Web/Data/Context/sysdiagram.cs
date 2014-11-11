@@ -12,17 +12,12 @@ namespace Keystone.Web.Data.Context
     using System;
     using System.Collections.Generic;
     
-    public partial class TemplateCategoty
+    public partial class sysdiagram
     {
-        public TemplateCategoty()
-        {
-            this.Templates = new HashSet<Template>();
-        }
-    
-        public int TemplateCategotyId { get; set; }
-        public string TemplateCategotyCode { get; set; }
-        public int StatusId { get; set; }
-    
-        public virtual ICollection<Template> Templates { get; set; }
+        public string name { get; set; }
+        public int principal_id { get; set; }
+        public int diagram_id { get; set; }
+        public Nullable<int> version { get; set; }
+        public byte[] definition { get; set; }
     }
 }

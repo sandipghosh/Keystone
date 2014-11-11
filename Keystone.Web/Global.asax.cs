@@ -2,14 +2,15 @@
 
 namespace Keystone.Web
 {
-    using Keystone.Web.Utilities;
     using System;
     using System.Collections.Generic;
-    using System.Configuration;
     using System.Web;
+    using System.Web.Http;
     using System.Web.Mvc;
     using System.Web.Optimization;
-    using System.Web.Routing; 
+    using System.Web.Routing;
+    using Keystone.Web.Utilities;
+    using System.Configuration;
 
     public class MvcApplication : System.Web.HttpApplication
     {
@@ -20,6 +21,7 @@ namespace Keystone.Web
         {
             AreaRegistration.RegisterAllAreas();
             InjectorInitializer.Initialize();
+            WebApiConfig.Register(GlobalConfiguration.Configuration);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);

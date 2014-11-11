@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="fece31230c2c4550921aea99ebdc27dc" Name="Diagram1" ShowGrid="false" ZoomLevel="10" SnapToGrid="false">
+        <EntityTypeShape EntityType="KeystoneDBModel.AddressType" Width="1.5" PointX="3" PointY="23.537087239583315" />
+        <EntityTypeShape EntityType="KeystoneDBModel.DeliverySchedule" Width="1.5" PointX="3" PointY="49.688112630208309" />
+        <EntityTypeShape EntityType="KeystoneDBModel.Draft" Width="1.5" PointX="5.2500005" PointY="34.15153466796874" />
+        <EntityTypeShape EntityType="KeystoneDBModel.DraftPage" Width="1.5" PointX="7.5000009999999993" PointY="36.737480712890616" />
+        <EntityTypeShape EntityType="KeystoneDBModel.Order" Width="1.5" PointX="8.2500004999999987" PointY="30.766931803385404" />
+        <EntityTypeShape EntityType="KeystoneDBModel.OrderAppliedPromo" Width="1.5" PointX="13.500001" PointY="43.746588378906232" />
+        <EntityTypeShape EntityType="KeystoneDBModel.OrderItem" Width="1.5" PointX="10.500001" PointY="38.612239420572905" />
+        <EntityTypeShape EntityType="KeystoneDBModel.OrderItemPage" Width="1.5" PointX="15.7500015" PointY="34.42041284179686" />
+        <EntityTypeShape EntityType="KeystoneDBModel.PaymentInfo" Width="1.5" PointX="10.500001" PointY="29.728553304036453" />
+        <EntityTypeShape EntityType="KeystoneDBModel.PaymentType" Width="1.5" PointX="11.250001" PointY="44.265900716145808" />
+        <EntityTypeShape EntityType="KeystoneDBModel.PromoCode" Width="1.5" PointX="3" PointY="53.956810546875012" />
+        <EntityTypeShape EntityType="KeystoneDBModel.ShoppingCart" Width="1.5" PointX="13.500001" PointY="36.246735677083308" />
+        <EntityTypeShape EntityType="KeystoneDBModel.Status" Width="1.5" PointX="0.75" PointY="28.882476236979173" />
+        <EntityTypeShape EntityType="KeystoneDBModel.Template" Width="1.5" PointX="5.2500005" PointY="41.438676595052073" />
+        <EntityTypeShape EntityType="KeystoneDBModel.TemplateCategoty" Width="1.5" PointX="3.0000004999999996" PointY="43.2655402018229" />
+        <EntityTypeShape EntityType="KeystoneDBModel.TemplatePage" Width="1.5" PointX="13.500001" PointY="30.929782145182273" />
+        <EntityTypeShape EntityType="KeystoneDBModel.TemplatePrice" Width="1.5" PointX="8.2500004999999987" PointY="44.015580891927073" />
+        <EntityTypeShape EntityType="KeystoneDBModel.TemplateType" Width="1.5" PointX="3" PointY="57.264001302083344" />
+        <EntityTypeShape EntityType="KeystoneDBModel.Testimonial" Width="1.5" PointX="3" PointY="19.460690755208311" />
+        <EntityTypeShape EntityType="KeystoneDBModel.UserAccount" Width="1.5" PointX="3" PointY="30.920674479166671" />
+        <EntityTypeShape EntityType="KeystoneDBModel.UserAddress" Width="1.5" PointX="5.2500005" PointY="27.805785156249982" />
+        <AssociationConnector Association="KeystoneDBModel.FK_AddressType_Status" />
+        <AssociationConnector Association="KeystoneDBModel.FK_UserAddress_AddressType" />
+        <AssociationConnector Association="KeystoneDBModel.FK_DeliverySchedule_Status" />
+        <AssociationConnector Association="KeystoneDBModel.FK_OrderItem_DeliverySchedule" />
+        <AssociationConnector Association="KeystoneDBModel.FK_TemplatePrice_DeliverySchedule" />
+        <AssociationConnector Association="KeystoneDBModel.FK_Draft_Status" />
+        <AssociationConnector Association="KeystoneDBModel.FK_Draft_Template" />
+        <AssociationConnector Association="KeystoneDBModel.FK_Draft_UserAccount" />
+        <AssociationConnector Association="KeystoneDBModel.FK_DraftPage_Draft" />
+        <AssociationConnector Association="KeystoneDBModel.FK_OrderItem_Draft" />
+        <AssociationConnector Association="KeystoneDBModel.FK_DraftPage_Status" />
+        <AssociationConnector Association="KeystoneDBModel.FK_DraftPage_Template" />
+        <AssociationConnector Association="KeystoneDBModel.FK_DraftPage_TemplatePage" />
+        <AssociationConnector Association="KeystoneDBModel.FK_Order_Status" />
+        <AssociationConnector Association="KeystoneDBModel.FK_Order_UserAccount" />
+        <AssociationConnector Association="KeystoneDBModel.FK_OrderAppliedPromo_Order" />
+        <AssociationConnector Association="KeystoneDBModel.FK_OrderItem_Order" />
+        <AssociationConnector Association="KeystoneDBModel.FK_PaymentInfo_Order" />
+        <AssociationConnector Association="KeystoneDBModel.FK_ShoppingCart_Order" />
+        <AssociationConnector Association="KeystoneDBModel.FK_OrderAppliedPromo_PromoCode" />
+        <AssociationConnector Association="KeystoneDBModel.FK_OrderAppliedPromo_Status" />
+        <AssociationConnector Association="KeystoneDBModel.FK_OrderAppliedPromo_UserAccount" />
+        <AssociationConnector Association="KeystoneDBModel.FK_OrderItem_Status" />
+        <AssociationConnector Association="KeystoneDBModel.FK_OrderItem_Template" />
+        <AssociationConnector Association="KeystoneDBModel.FK_OrderItemPage_OrderItem" />
+        <AssociationConnector Association="KeystoneDBModel.FK_OrderItemPage_Status" />
+        <AssociationConnector Association="KeystoneDBModel.FK_PaymentInfo_Status" />
+        <AssociationConnector Association="KeystoneDBModel.FK_ShoppingCart_PaymentInfo" />
+        <AssociationConnector Association="KeystoneDBModel.FK_ShoppingCart_PaymentType" />
+        <AssociationConnector Association="KeystoneDBModel.FK_PromoCode_Status" />
+        <AssociationConnector Association="KeystoneDBModel.FK_ShoppingCart_PromoCode" />
+        <AssociationConnector Association="KeystoneDBModel.FK_ShoppingCart_Status" />
+        <AssociationConnector Association="KeystoneDBModel.FK_ShoppingCart_UserAccount" />
+        <AssociationConnector Association="KeystoneDBModel.FK_ShoppingCart_UserBillingAddress" />
+        <AssociationConnector Association="KeystoneDBModel.FK_ShoppingCart_UserShippingAddress" />
+        <AssociationConnector Association="KeystoneDBModel.FK_Template_Status" />
+        <AssociationConnector Association="KeystoneDBModel.FK_TemplatePage_Status" />
+        <AssociationConnector Association="KeystoneDBModel.FK_TemplatePrice_Status" />
+        <AssociationConnector Association="KeystoneDBModel.FK_TemplateType_Status" />
+        <AssociationConnector Association="KeystoneDBModel.FK_Testimonial_Status" />
+        <AssociationConnector Association="KeystoneDBModel.FK_UserAccount_Status" />
+        <AssociationConnector Association="KeystoneDBModel.FK_UserAddress_Status" />
+        <AssociationConnector Association="KeystoneDBModel.FK_Template_TemplateCategoty" />
+        <AssociationConnector Association="KeystoneDBModel.FK_Template_TemplateType" />
+        <AssociationConnector Association="KeystoneDBModel.FK_TemplatePage_Template" />
+        <AssociationConnector Association="KeystoneDBModel.FK_TemplatePrice_TemplateType" />
+        <AssociationConnector Association="KeystoneDBModel.FK_UserAddress_UserAccount" />
+        <EntityTypeShape EntityType="KeystoneDBModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

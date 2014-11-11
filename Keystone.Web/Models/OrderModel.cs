@@ -90,7 +90,7 @@ namespace Keystone.Web.Models
                         .SelectMany(x => x.DraftPages).FirstOrDefault();
                     returnValue = draftPage.DraftPreviewUrl;
                 }
-                catch (Exception ex) { }
+                catch (Exception) { }
                 return returnValue;
             }
         }

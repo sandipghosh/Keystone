@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -8,7 +8,7 @@
     </ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{A9730714-7A52-48C0-84AE-D1FBA9A128AA}</ProjectGuid>
-    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <ProjectTypeGuids>{E3E379DF-F4C6-4180-9B81-6769533ABE47};{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Keystone.Web</RootNamespace>
@@ -20,7 +20,11 @@
     <IISExpressAnonymousAuthentication />
     <IISExpressWindowsAuthentication />
     <IISExpressUseClassicPipelineMode />
-    <TargetFrameworkProfile />
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,6 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -60,28 +65,22 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.1\lib\net40\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="EPPlus, Version=3.1.3.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="EPPlus">
       <HintPath>..\packages\EPPlus.3.1.3.3\lib\net35\EPPlus.dll</HintPath>
     </Reference>
-    <Reference Include="ICSharpCode.SharpZipLib, Version=0.86.0.518, Culture=neutral, PublicKeyToken=1b03e6acf1164f73, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="ICSharpCode.SharpZipLib">
       <HintPath>..\packages\SharpZipLib.0.86.0\lib\20\ICSharpCode.SharpZipLib.dll</HintPath>
     </Reference>
     <Reference Include="itextsharp, Version=5.5.2.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\iTextSharp.5.5.2\lib\itextsharp.dll</HintPath>
     </Reference>
-    <Reference Include="Magick.NET-AnyCPU">
+    <Reference Include="Magick.NET-AnyCPU, Version=6.0.0.0, Culture=neutral, PublicKeyToken=2004825badfa91ec, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Magick.NET-Q16-AnyCPU.6.8.9.601\lib\net40-client\Magick.NET-AnyCPU.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.Web.Mvc.FixedDisplayModes, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="Microsoft.Web.Mvc.FixedDisplayModes">
       <HintPath>..\packages\Microsoft.AspNet.Mvc.FixedDisplayModes.1.0.0\lib\net40\Microsoft.Web.Mvc.FixedDisplayModes.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -108,9 +107,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\SimpleInjector.Packaging.2.5.2\lib\net40-client\SimpleInjector.Packaging.dll</HintPath>
     </Reference>
+    <Reference Include="Svg">
+      <HintPath>..\packages\Svg.1.7.0\lib\Svg.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO">
       <HintPath>..\packages\Microsoft.Bcl.1.1.9\lib\net40\System.IO.dll</HintPath>
@@ -121,6 +123,9 @@
     </Reference>
     <Reference Include="System.Net.Http.Extensions">
       <HintPath>..\packages\Microsoft.Net.Http.2.2.22\lib\net40\System.Net.Http.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Net.Http.Formatting, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Client.4.0.30506.0\lib\net40\System.Net.Http.Formatting.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http.Primitives">
       <HintPath>..\packages\Microsoft.Net.Http.2.2.22\lib\net40\System.Net.Http.Primitives.dll</HintPath>
@@ -142,10 +147,17 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Helpers, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.Core.4.0.30506.0\lib\net40\System.Web.Http.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Web.Http.WebHost, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.WebApi.WebHost.4.0.30506.0\lib\net40\System.Web.Http.WebHost.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.Mvc, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -155,9 +167,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
     </Reference>
-    <Reference Include="System.Web" />
-    <Reference Include="System.Web.Abstractions" />
-    <Reference Include="System.Web.Routing" />
+    <Reference Include="System.Web.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.AspNet.Razor.2.0.30506.0\lib\net40\System.Web.Razor.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.WebPages, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.dll</HintPath>
@@ -170,11 +183,19 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
-    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <Private>True</Private>
+      <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
+    </Reference>
     <Reference Include="WebGrease, Version=1.6.5135.21930, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
@@ -183,10 +204,9 @@
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\CustomGlobalFilters.cs" />
-    <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\InjectorInitializer.cs" />
     <Compile Include="App_Start\MapperInitializer.cs" />
-    <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\CustomerManagerController.cs" />
     <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
@@ -209,102 +229,86 @@
     <Compile Include="Controllers\UserAccountController.cs" />
     <Compile Include="Controllers\UserAddressController.cs" />
     <Compile Include="Data\Context\AddressType.cs">
-      <DependentUpon>KeystoneDBContext.tt</DependentUpon>
-      <SubType>Code</SubType>
+      <DependentUpon>KeystoneDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Context\BaseData.cs" />
     <Compile Include="Data\Context\DeliverySchedule.cs">
-      <DependentUpon>KeystoneDBContext.tt</DependentUpon>
-      <SubType>Code</SubType>
+      <DependentUpon>KeystoneDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Context\Draft.cs">
-      <DependentUpon>KeystoneDBContext.tt</DependentUpon>
-      <SubType>Code</SubType>
+      <DependentUpon>KeystoneDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Context\DraftPage.cs">
-      <DependentUpon>KeystoneDBContext.tt</DependentUpon>
-      <SubType>Code</SubType>
+      <DependentUpon>KeystoneDBEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Context\KeystoneDBContext.Context.cs">
-      <DependentUpon>KeystoneDBContext.Context.tt</DependentUpon>
-      <SubType>Code</SubType>
-      <DesignTime>True</DesignTime>
+    <Compile Include="Data\Context\KeystoneDBEntities.Context.cs">
       <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KeystoneDBEntities.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Context\KeystoneDBContext.cs">
-      <DependentUpon>KeystoneDBContext.tt</DependentUpon>
-      <SubType>Code</SubType>
-      <DesignTime>True</DesignTime>
+    <Compile Include="Data\Context\KeystoneDBEntities.cs">
       <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KeystoneDBEntities.tt</DependentUpon>
     </Compile>
-    <Compile Include="Data\Context\KeystoneDBContext.Designer.cs">
-      <DependentUpon>KeystoneDBContext.edmx</DependentUpon>
-      <DesignTime>True</DesignTime>
+    <Compile Include="Data\Context\KeystoneDBEntities.Designer.cs">
       <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KeystoneDBEntities.edmx</DependentUpon>
     </Compile>
     <Compile Include="Data\Context\Order.cs">
-      <DependentUpon>KeystoneDBContext.tt</DependentUpon>
-      <SubType>Code</SubType>
+      <DependentUpon>KeystoneDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Context\OrderAppliedPromo.cs">
-      <DependentUpon>KeystoneDBContext.tt</DependentUpon>
+      <DependentUpon>KeystoneDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Context\OrderItem.cs">
-      <DependentUpon>KeystoneDBContext.tt</DependentUpon>
-      <SubType>Code</SubType>
+      <DependentUpon>KeystoneDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Context\OrderItemPage.cs">
-      <DependentUpon>KeystoneDBContext.tt</DependentUpon>
-      <SubType>Code</SubType>
+      <DependentUpon>KeystoneDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Context\PaymentInfo.cs">
-      <DependentUpon>KeystoneDBContext.tt</DependentUpon>
+      <DependentUpon>KeystoneDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Context\PaymentType.cs">
-      <DependentUpon>KeystoneDBContext.tt</DependentUpon>
-      <SubType>Code</SubType>
+      <DependentUpon>KeystoneDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Context\PromoCode.cs">
-      <DependentUpon>KeystoneDBContext.tt</DependentUpon>
+      <DependentUpon>KeystoneDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Context\ShoppingCart.cs">
-      <DependentUpon>KeystoneDBContext.tt</DependentUpon>
-      <SubType>Code</SubType>
+      <DependentUpon>KeystoneDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Context\Status.cs">
-      <DependentUpon>KeystoneDBContext.tt</DependentUpon>
-      <SubType>Code</SubType>
+      <DependentUpon>KeystoneDBEntities.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Data\Context\sysdiagram.cs">
+      <DependentUpon>KeystoneDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Context\Template.cs">
-      <DependentUpon>KeystoneDBContext.tt</DependentUpon>
-      <SubType>Code</SubType>
+      <DependentUpon>KeystoneDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Context\TemplateCategoty.cs">
-      <DependentUpon>KeystoneDBContext.tt</DependentUpon>
-      <SubType>Code</SubType>
+      <DependentUpon>KeystoneDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Context\TemplatePage.cs">
-      <DependentUpon>KeystoneDBContext.tt</DependentUpon>
-      <SubType>Code</SubType>
+      <DependentUpon>KeystoneDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Context\TemplatePrice.cs">
-      <DependentUpon>KeystoneDBContext.tt</DependentUpon>
-      <SubType>Code</SubType>
+      <DependentUpon>KeystoneDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Context\TemplateType.cs">
-      <DependentUpon>KeystoneDBContext.tt</DependentUpon>
-      <SubType>Code</SubType>
+      <DependentUpon>KeystoneDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Context\Testimonial.cs">
-      <DependentUpon>KeystoneDBContext.tt</DependentUpon>
+      <DependentUpon>KeystoneDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Context\UserAccount.cs">
-      <DependentUpon>KeystoneDBContext.tt</DependentUpon>
-      <SubType>Code</SubType>
+      <DependentUpon>KeystoneDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Context\UserAddress.cs">
-      <DependentUpon>KeystoneDBContext.tt</DependentUpon>
-      <SubType>Code</SubType>
+      <DependentUpon>KeystoneDBEntities.tt</DependentUpon>
     </Compile>
     <Compile Include="Data\Implementation\Base\DataRepository.cs" />
     <Compile Include="Data\Implementation\Base\QueryDataRepository.cs" />
@@ -312,12 +316,12 @@
     <Compile Include="Data\Implementation\DeliveryScheduleDataRepository.cs" />
     <Compile Include="Data\Implementation\DraftDataRepository.cs" />
     <Compile Include="Data\Implementation\DraftPagesDataRepository.cs" />
-    <Compile Include="Data\Implementation\OrderAppliedPromoDataRepository.cs" />
     <Compile Include="Data\Implementation\OrderDataRepository.cs" />
     <Compile Include="Data\Implementation\OrderItemDataRepository.cs" />
     <Compile Include="Data\Implementation\PaymentInfoDataRepository.cs" />
     <Compile Include="Data\Implementation\PaymentTypeDataRepository.cs" />
     <Compile Include="Data\Implementation\PromoCodeDataRepository.cs" />
+    <Compile Include="Data\Implementation\OrderAppliedPromoDataRepository.cs" />
     <Compile Include="Data\Implementation\ShoppingCartDataRepository.cs" />
     <Compile Include="Data\Implementation\TemplateCategotyDataRepository.cs" />
     <Compile Include="Data\Implementation\TemplateDataRepository.cs" />
@@ -334,12 +338,12 @@
     <Compile Include="Data\Interface\IDeliveryScheduleDataRepository.cs" />
     <Compile Include="Data\Interface\IDraftDataRepository.cs" />
     <Compile Include="Data\Interface\IDraftPagesDataRepository.cs" />
-    <Compile Include="Data\Interface\IOrderAppliedPromoDataRepository.cs" />
     <Compile Include="Data\Interface\IOrderDataRepository.cs" />
     <Compile Include="Data\Interface\IOrderItemDataRepository.cs" />
     <Compile Include="Data\Interface\IPaymentInfoDataRepository.cs" />
     <Compile Include="Data\Interface\IPaymentTypeDataRepository.cs" />
     <Compile Include="Data\Interface\IPromoCodeDataRepository.cs" />
+    <Compile Include="Data\Interface\IOrderAppliedPromoDataRepository.cs" />
     <Compile Include="Data\Interface\IShoppingCartDataRepository.cs" />
     <Compile Include="Data\Interface\ITemplateCategotyDataRepository.cs" />
     <Compile Include="Data\Interface\ITemplateDataRepository.cs" />
@@ -356,14 +360,12 @@
     <Compile Include="Models\AddressTypeModel.cs" />
     <Compile Include="Models\Base\BaseModel.cs" />
     <Compile Include="Models\Base\GridModelSchema.cs" />
-    <Compile Include="Models\Base\SafeDisposableBaseClass.cs" />
     <Compile Include="Models\CreditCardInfoModel.cs" />
     <Compile Include="Models\DeliveryScheduleModel.cs" />
     <Compile Include="Models\DraftModel.cs" />
     <Compile Include="Models\DraftPagesModel.cs" />
     <Compile Include="Models\DraftUrlModel.cs" />
     <Compile Include="Models\Message.cs" />
-    <Compile Include="Models\OrderAppliedPromoModel.cs" />
     <Compile Include="Models\OrderedImageModel.cs" />
     <Compile Include="Models\OrderItemModel.cs" />
     <Compile Include="Models\OrderModel.cs" />
@@ -372,6 +374,7 @@
     <Compile Include="Models\PrintableOrderViewModel.cs" />
     <Compile Include="Models\PrintPreview.cs" />
     <Compile Include="Models\PromoCodeModel.cs" />
+    <Compile Include="Models\OrderAppliedPromoModel.cs" />
     <Compile Include="Models\ShoppingCartModel.cs" />
     <Compile Include="Models\StaticModel.cs" />
     <Compile Include="Models\TemplateCategotyModel.cs" />
@@ -391,20 +394,39 @@
     <Compile Include="Utilities\CommonFuntionality.cs" />
     <Compile Include="Utilities\CommonUtility.cs" />
     <Compile Include="Utilities\EmailSender.cs" />
-    <Compile Include="Utilities\Expression\ExpressionBuilder.cs" />
-    <Compile Include="Utilities\Expression\ExpressionKeywords.cs" />
-    <Compile Include="Utilities\Expression\ExpressionParser.cs" />
-    <Compile Include="Utilities\Expression\ExpressionSerializationTypeResolver.cs" />
-    <Compile Include="Utilities\Expression\ExpressionSerializer.cs" />
-    <Compile Include="Utilities\Expression\ListSegment.cs" />
-    <Compile Include="Utilities\Expression\RequestEngineExceptions.cs" />
-    <Compile Include="Utilities\Expression\Tokens.cs" />
-    <Compile Include="Utilities\Expression\TypeUtils.cs" />
+    <Compile Include="Utilities\Expression\ExpressionBuilder.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Expression\ExpressionKeywords.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Expression\ExpressionParser.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Expression\ExpressionSerializationTypeResolver.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Expression\ExpressionSerializer.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Expression\ListSegment.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Expression\RequestEngineExceptions.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Expression\Tokens.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Utilities\Expression\TypeUtils.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Utilities\Extension.cs" />
     <Compile Include="Utilities\FileLogger.cs" />
     <Compile Include="Utilities\JsFunctionConverter.cs" />
     <Compile Include="Utilities\JSONActionResult.cs" />
     <Compile Include="Utilities\MapperExtension.cs" />
+    <Compile Include="Models\Base\SafeDisposableBaseClass.cs" />
     <Compile Include="Utilities\OptimizationExtensions.cs" />
     <Compile Include="Utilities\PaymentGetway\NVPCodec.cs" />
     <Compile Include="Utilities\PaymentGetway\PaypalApiCaller.cs" />
@@ -413,17 +435,14 @@
     <Compile Include="Utilities\SessionVariable.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\FilterConfig.cs" />
+    <Compile Include="App_Start\RouteConfig.cs" />
     <Content Include="Areas\Admin\Scripts\customer-manager.js" />
-    <Content Include="Areas\Admin\Scripts\grid-intregration.js" />
     <Content Include="Areas\Admin\Scripts\grid.locale-en.js" />
-    <Content Include="Areas\Admin\Scripts\jquery.jqGrid.min.js" />
-    <Content Include="Areas\Admin\Scripts\jquery.linq-2.2.0.2.min.js" />
-    <None Include="Areas\Admin\Scripts\jquery.linq-vsdoc.js" />
     <Content Include="Areas\Admin\Scripts\order-manager.js" />
     <Content Include="Areas\Admin\Scripts\payment-manager.js" />
     <Content Include="Areas\Admin\Scripts\testimonial-manager.js" />
     <Content Include="Areas\Admin\Styles\AdminStyle.css" />
-    <Content Include="Areas\Admin\Styles\Images\1399169240_hire-me.png" />
     <Content Include="Areas\Admin\Styles\Images\CustomerManager.png" />
     <Content Include="Areas\Admin\Styles\Images\Dashboard.png" />
     <Content Include="Areas\Admin\Styles\Images\doc-excel.png" />
@@ -435,24 +454,52 @@
     <Content Include="Areas\Admin\Styles\Images\white_zip.png" />
     <Content Include="Areas\Admin\Styles\ui.jqgrid.css" />
     <Content Include="ColorProfile\SelectedColorProfile.txt" />
-    <Content Include="Data\Context\KeystoneDBContext.Context.tt">
-      <DependentUpon>KeystoneDBContext.edmx</DependentUpon>
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>KeystoneDBContext.Context.cs</LastGenOutput>
-    </Content>
-    <Content Include="Data\Context\KeystoneDBContext.edmx.diagram">
-      <DependentUpon>KeystoneDBContext.edmx</DependentUpon>
-    </Content>
-    <Content Include="Data\Context\KeystoneDBContext.tt">
-      <DependentUpon>KeystoneDBContext.edmx</DependentUpon>
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>KeystoneDBContext.cs</LastGenOutput>
-    </Content>
-    <Content Include="Drafts\1\TextFile.txt" />
     <Content Include="Drafts\Draft.txt" />
     <Content Include="ErrorLogs\ErrorLogs.txt" />
     <Content Include="ExportStorage\TextFile.txt" />
     <Content Include="Global.asax" />
+    <EntityDeploy Include="Data\Context\KeystoneDBEntities.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>KeystoneDBEntities.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Data\Context\KeystoneDBEntities.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>KeystoneDBEntities.edmx</DependentUpon>
+      <LastGenOutput>KeystoneDBEntities.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Data\Context\KeystoneDBEntities.edmx.diagram">
+      <DependentUpon>KeystoneDBEntities.edmx</DependentUpon>
+    </Content>
+    <Content Include="Data\Context\KeystoneDBEntities.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>KeystoneDBEntities.edmx</DependentUpon>
+      <LastGenOutput>KeystoneDBEntities.cs</LastGenOutput>
+    </Content>
+    <Content Include="Areas\Admin\Views\Web.config" />
+    <Content Include="Areas\Admin\Views\Shared\_AdminLayoutPage.cshtml" />
+    <Content Include="Areas\Admin\Views\Dashboard\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\TestimonialManager\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\OrderManager\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\PaymentManager\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\UserAccountManager\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Shared\_GridGlobalMaster.cshtml" />
+    <Content Include="Areas\Admin\Views\CustomerManager\Index.cshtml" />
+    <Content Include="ColorProfile\USWebCoatedSWOP.icc" />
+    <Content Include="ColorProfile\CoatedFOGRA27.icc" />
+    <Content Include="ColorProfile\CoatedFOGRA39.icc" />
+    <Content Include="ColorProfile\CoatedGRACoL2006.icc" />
+    <Content Include="ColorProfile\JapanColor2001Coated.icc" />
+    <Content Include="ColorProfile\JapanColor2001Uncoated.icc" />
+    <Content Include="ColorProfile\JapanColor2002Newspaper.icc" />
+    <Content Include="ColorProfile\JapanColor2003WebCoated.icc" />
+    <Content Include="ColorProfile\JapanWebCoated.icc" />
+    <Content Include="ColorProfile\UncoatedFOGRA29.icc" />
+    <Content Include="ColorProfile\USWebUncoated.icc" />
+    <Content Include="ColorProfile\WebCoatedFOGRA28.icc" />
+    <Content Include="ColorProfile\WebCoatedSWOP2006Grade3.icc" />
+    <Content Include="ColorProfile\WebCoatedSWOP2006Grade5.icc" />
+    <None Include="Properties\PublishProfiles\Keystone.pubxml" />
+    <None Include="Scripts\jquery-2.1.0-vsdoc.js" />
     <Content Include="OrderAttachments\TextFile.txt" />
     <Content Include="OrderedImages\OrderedImages.txt" />
     <Content Include="PaypalInfo\Credentials.txt" />
@@ -465,12 +512,13 @@
     <Content Include="Scripts\fabric.min.js" />
     <Content Include="Scripts\HomeScript.js" />
     <Content Include="Scripts\image-editor.js" />
-    <None Include="Scripts\jquery-2.1.0-vsdoc.js" />
+    <Content Include="Areas\Admin\Scripts\grid-intregration.js" />
     <Content Include="Scripts\jquery-2.1.0.min.js" />
     <Content Include="Scripts\jquery-migrate-1.2.1.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.4.custom.min.js" />
     <Content Include="Scripts\jquery-ui-1.10.4.min.js" />
     <None Include="Scripts\jquery-ui-vsdoc.js" />
+    <None Include="Scripts\linq-vsdoc.js" />
     <Content Include="Scripts\jquery.blockUI.js" />
     <Content Include="Scripts\jquery.cookie.js" />
     <Content Include="Scripts\jquery.creditCardValidator.js" />
@@ -480,6 +528,9 @@
     <Content Include="Scripts\jquery.idletimeout.js" />
     <Content Include="Scripts\jquery.idletimer.js" />
     <Content Include="Scripts\jquery.jcarousel.min.js" />
+    <Content Include="Areas\Admin\Scripts\jquery.jqGrid.min.js" />
+    <Content Include="Areas\Admin\Scripts\jquery.linq-2.2.0.2.min.js" />
+    <None Include="Areas\Admin\Scripts\jquery.linq-vsdoc.js" />
     <Content Include="Scripts\jquery.printElement.min.js" />
     <Content Include="Scripts\jquery.ruler.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
@@ -487,7 +538,6 @@
     <Content Include="Scripts\json3.js" />
     <Content Include="Scripts\knockout-3.0.0.js" />
     <Content Include="Scripts\knockout.mapping-2.4.1.js" />
-    <None Include="Scripts\linq-vsdoc.js" />
     <Content Include="Scripts\linq.min.js" />
     <Content Include="Scripts\modernizr.js" />
     <Content Include="Scripts\oridomi.min.js" />
@@ -662,44 +712,53 @@
     <Content Include="Styles\jquery-ui-1.10.4.custom.min.css" />
     <Content Include="Styles\jquery.fs.boxer.css" />
     <Content Include="Styles\MainStyle.css" />
+    <Content Include="Styles\Fonts\opensans-bold_0-webfont.eot" />
+    <Content Include="Styles\Fonts\opensans-bold_0-webfont.ttf" />
+    <Content Include="Styles\Fonts\opensans-bold_0-webfont.woff" />
+    <Content Include="Styles\Fonts\opensans-regular_0-webfont.eot" />
+    <Content Include="Styles\Fonts\opensans-regular_0-webfont.ttf" />
+    <Content Include="Styles\Fonts\opensans-regular_0-webfont.woff" />
+    <Content Include="Styles\Fonts\oswald-bold-webfont.eot" />
+    <Content Include="Styles\Fonts\oswald-bold-webfont.ttf" />
+    <Content Include="Styles\Fonts\oswald-bold-webfont.woff" />
     <Content Include="Styles\ruler.css" />
     <Content Include="Styles\TestimonialStyle.css" />
     <Content Include="Styles\ToolbarStyle.css" />
-    <Content Include="Templates\10\BG1-CMYK.jpg" />
+    <Content Include="Templates\10\BG2.jpg" />
     <Content Include="Templates\10\BG1.jpg" />
     <Content Include="Templates\10\BG2-CMYK.jpg" />
-    <Content Include="Templates\10\BG2.jpg" />
+    <Content Include="Templates\10\BG1-CMYK.jpg" />
     <Content Include="Templates\10\Thumbnail.png" />
-    <Content Include="Templates\11\BG1-CMYK.jpg" />
     <Content Include="Templates\11\BG1.jpg" />
-    <Content Include="Templates\11\BG2-CMYK.jpg" />
     <Content Include="Templates\11\BG2.jpg" />
     <Content Include="Templates\11\Thumbnail.png" />
-    <Content Include="Templates\12\BG1-CMYK.jpg" />
+    <Content Include="Templates\11\BG1-CMYK.jpg" />
+    <Content Include="Templates\11\BG2-CMYK.jpg" />
     <Content Include="Templates\12\BG1.jpg" />
-    <Content Include="Templates\12\BG2-CMYK.jpg" />
     <Content Include="Templates\12\BG2.jpg" />
-    <Content Include="Templates\12\BG3-CMYK.jpg" />
     <Content Include="Templates\12\BG3.jpg" />
-    <Content Include="Templates\12\BG4-CMYK.jpg" />
     <Content Include="Templates\12\BG4.jpg" />
-    <Content Include="Templates\12\BG5-CMYK.jpg" />
     <Content Include="Templates\12\BG5.jpg" />
-    <Content Include="Templates\12\BG6-CMYK.jpg" />
     <Content Include="Templates\12\BG6.jpg" />
-    <Content Include="Templates\12\BG7-CMYK.jpg" />
     <Content Include="Templates\12\BG7.jpg" />
-    <Content Include="Templates\12\BG8-CMYK.jpg" />
     <Content Include="Templates\12\BG8.jpg" />
+    <Content Include="Templates\12\BG1-CMYK.jpg" />
+    <Content Include="Templates\12\BG2-CMYK.jpg" />
+    <Content Include="Templates\12\BG3-CMYK.jpg" />
+    <Content Include="Templates\12\BG4-CMYK.jpg" />
+    <Content Include="Templates\12\BG5-CMYK.jpg" />
+    <Content Include="Templates\12\BG6-CMYK.jpg" />
+    <Content Include="Templates\12\BG7-CMYK.jpg" />
+    <Content Include="Templates\12\BG8-CMYK.jpg" />
     <Content Include="Templates\12\Thumbnail.png" />
-    <Content Include="Templates\1\BG1-CMYK.jpg" />
     <Content Include="Templates\1\BG1.jpg" />
+    <Content Include="Templates\1\BG1-CMYK.jpg" />
     <Content Include="Templates\1\Thumbnail.png" />
     <Content Include="Templates\2\BG1-CMYK.jpg" />
-    <Content Include="Templates\2\BG1.jpg" />
     <Content Include="Templates\2\Thumbnail.png" />
-    <Content Include="Templates\3\BG1-CMYK.jpg" />
+    <Content Include="Templates\2\BG1.jpg" />
     <Content Include="Templates\3\BG1.jpg" />
+    <Content Include="Templates\3\BG1-CMYK.jpg" />
     <Content Include="Templates\3\Thumbnail.png" />
     <Content Include="Templates\4\BG1-CMYK.jpg" />
     <Content Include="Templates\4\BG1.jpg" />
@@ -711,69 +770,16 @@
     <Content Include="Templates\6\BG1.jpg" />
     <Content Include="Templates\6\Thumbnail.png" />
     <Content Include="Templates\7\BG1-CMYK.jpg" />
-    <Content Include="Templates\7\BG1.jpg" />
     <Content Include="Templates\7\Thumbnail.png" />
-    <Content Include="Templates\8\BG1-CMYK.jpg" />
+    <Content Include="Templates\7\BG1.jpg" />
     <Content Include="Templates\8\BG1.jpg" />
+    <Content Include="Templates\8\BG1-CMYK.jpg" />
     <Content Include="Templates\8\Thumbnail.png" />
-    <Content Include="Templates\9\BG1-CMYK.jpg" />
     <Content Include="Templates\9\BG1.jpg" />
+    <Content Include="Templates\9\BG1-CMYK.jpg" />
     <Content Include="Templates\9\Thumbnail.png" />
     <Content Include="Temp\TextFile.txt" />
     <Content Include="Uploads\Uploads.txt" />
-    <Content Include="Views\Editor\Index.cshtml" />
-    <Content Include="Views\Editor\NullifySessionStorage.cshtml" />
-    <Content Include="Views\Editor\PrintPreview.cshtml" />
-    <Content Include="Views\Editor\_EditImagePopup.cshtml" />
-    <Content Include="Views\Editor\_EditShapePopup.cshtml" />
-    <Content Include="Views\Editor\_EditTextPopup.cshtml" />
-    <Content Include="Views\Editor\_ImageUploadWindow.cshtml" />
-    <Content Include="Views\Editor\_OrderPrint.cshtml" />
-    <Content Include="Views\Editor\_ProceedToCart.cshtml" />
-    <Content Include="Views\Editor\_SaveDesign.cshtml" />
-    <Content Include="Views\Error\Index.cshtml" />
-    <Content Include="Views\Home\Index.cshtml">
-      <SubType>Code</SubType>
-    </Content>
-    <Content Include="Views\Payment\Index.cshtml" />
-    <Content Include="Views\PriceSummary\Index.cshtml" />
-    <Content Include="Views\PriceSummary\SelectedIndex.cshtml" />
-    <Content Include="Views\Receipt\Index.cshtml" />
-    <Content Include="Views\Shared\_Address.cshtml" />
-    <Content Include="Views\Shared\_ChangePassword.cshtml" />
-    <Content Include="Views\Shared\_ChangeProfile.cshtml" />
-    <Content Include="Views\Shared\_DeliverySchedule.cshtml" />
-    <Content Include="Views\Shared\_DisplayAddress.cshtml" />
-    <Content Include="Views\Shared\_DraftList.cshtml" />
-    <Content Include="Views\Shared\_EditUserProfile.cshtml" />
-    <Content Include="Views\Shared\_ForgetPassword.cshtml" />
-    <Content Include="Views\Shared\_ForgetPasswordMailConfirmation.cshtml" />
-    <Content Include="Views\Shared\_ForgotPassword.cshtml" />
-    <Content Include="Views\Shared\_LayoutPage.cshtml" />
-    <Content Include="Views\Shared\_MailContent.cshtml" />
-    <Content Include="Views\Shared\_MailShareTemplate.cshtml" />
-    <Content Include="Views\Shared\_NavBar.cshtml" />
-    <Content Include="Views\Shared\_NavigateToDraft.cshtml" />
-    <Content Include="Views\Shared\_OrderConfirmationMailContentForUser.cshtml" />
-    <Content Include="Views\Shared\_OrderList.cshtml" />
-    <Content Include="Views\Shared\_PaymentInfo.cshtml" />
-    <Content Include="Views\Shared\_ResponseAlert.cshtml" />
-    <Content Include="Views\Shared\_RibbonToolbar.cshtml" />
-    <Content Include="Views\Shared\_SignIn.cshtml" />
-    <Content Include="Views\Shared\_SignInPartial.cshtml" />
-    <Content Include="Views\Shared\_StatusNavigation.cshtml" />
-    <Content Include="Views\Shared\_TemplatePageNavigator.cshtml" />
-    <Content Include="Views\Shared\_TemplatePageNavigatorOnClient.cshtml" />
-    <Content Include="Views\Shared\_Templates.cshtml" />
-    <Content Include="Views\Shared\_TestimonialList.cshtml" />
-    <Content Include="Views\Shared\_UserRegistrationMailConfirmation.cshtml" />
-    <Content Include="Views\Shipping\Index.cshtml" />
-    <Content Include="Views\ShoppingCart\Index.cshtml" />
-    <Content Include="Views\ShoppingCart\_OrderItems.cshtml" />
-    <Content Include="Views\ShoppingCart\_PreviewOrderItems.cshtml" />
-    <Content Include="Views\UserAccount\Index.cshtml" />
-    <Content Include="Views\Web.config" />
-    <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -783,72 +789,76 @@
     <Content Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>
+    <Content Include="Views\Web.config" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Shared\_RibbonToolbar.cshtml" />
+    <Content Include="Views\Shared\_Templates.cshtml" />
+    <Content Include="Views\PriceSummary\Index.cshtml" />
+    <Content Include="Views\Editor\_SaveDesign.cshtml" />
+    <Content Include="Views\Editor\_OrderPrint.cshtml" />
+    <Content Include="Views\Editor\_ProceedToCart.cshtml" />
+    <Content Include="Views\Shipping\Index.cshtml" />
+    <Content Include="Views\ShoppingCart\Index.cshtml" />
+    <Content Include="Views\Payment\Index.cshtml" />
+    <Content Include="Views\Editor\_EditTextPopup.cshtml" />
+    <Content Include="Views\Editor\_EditShapePopup.cshtml" />
+    <Content Include="Views\Editor\_EditImagePopup.cshtml" />
+    <Content Include="Views\Editor\_ImageUploadWindow.cshtml" />
+    <Content Include="Views\Editor\PrintPreview.cshtml" />
+    <Content Include="Views\Shared\_Address.cshtml" />
+    <Content Include="Views\Shared\_PaymentInfo.cshtml" />
+    <Content Include="Views\Shared\_MailContent.cshtml" />
+    <Content Include="Views\PriceSummary\SelectedIndex.cshtml" />
+    <Content Include="Views\Shared\_TemplatePageNavigator.cshtml" />
+    <Content Include="Views\Shared\_TemplatePageNavigatorOnClient.cshtml" />
+    <Content Include="Views\Shared\_UserRegistrationMailConfirmation.cshtml" />
+    <Content Include="Views\Shared\_DeliverySchedule.cshtml" />
+    <Content Include="Views\ShoppingCart\_OrderItems.cshtml" />
+    <Content Include="Views\Shared\_MailShareTemplate.cshtml" />
+    <Content Include="Views\Shared\_OrderConfirmationMailContentForUser.cshtml" />
+    <Content Include="Views\Shared\_NavBar.cshtml" />
+    <Content Include="Views\Shared\_DraftList.cshtml" />
+    <Content Include="Views\Shared\_SignIn.cshtml" />
+    <Content Include="Views\Shared\_ResponseAlert.cshtml" />
+    <Content Include="Views\Shared\_DisplayAddress.cshtml" />
+    <Content Include="Views\Shared\_StatusNavigation.cshtml" />
+    <Content Include="Views\Shared\_ChangePassword.cshtml" />
+    <Content Include="Views\UserAccount\Index.cshtml" />
+    <Content Include="Views\Error\Index.cshtml" />
+    <Content Include="Views\Editor\NullifySessionStorage.cshtml" />
+    <Content Include="Views\Shared\_OrderList.cshtml" />
+    <Content Include="Views\Shared\_EditUserProfile.cshtml" />
+    <Content Include="Views\Shared\_ForgetPassword.cshtml" />
+    <Content Include="Views\ShoppingCart\_PreviewOrderItems.cshtml" />
+    <Content Include="Views\Shared\_TestimonialList.cshtml" />
+    <Content Include="Views\Receipt\Index.cshtml" />
+    <Content Include="Views\Shared\_SignInPartial.cshtml" />
+    <Content Include="Views\Shared\_ChangeProfile.cshtml" />
+    <Content Include="Views\Shared\_NavigateToDraft.cshtml" />
+    <Content Include="Views\Shared\_ForgotPassword.cshtml" />
+    <Content Include="Views\Shared\_ForgetPasswordMailConfirmation.cshtml" />
     <Content Include="Views\Shared\_SavedOrderList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
-    <Folder Include="Drafts\anonymous\" />
-    <Folder Include="OrderAttachments\2\" />
-    <Folder Include="OrderAttachments\anonymous\" />
-    <Folder Include="OrderedImages\1\" />
-    <Folder Include="OrderedImages\2\" />
-    <Folder Include="OrderedImages\anonymous\" />
-    <Folder Include="Uploads\11\" />
-    <Folder Include="Uploads\12\" />
+    <Folder Include="Drafts\1\" />
     <Folder Include="Uploads\1\" />
-    <Folder Include="Uploads\2\" />
-    <Folder Include="Uploads\anonymous\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ColorProfile\CoatedFOGRA27.icc" />
-    <Content Include="ColorProfile\CoatedFOGRA39.icc" />
-    <Content Include="ColorProfile\CoatedGRACoL2006.icc" />
-    <Content Include="ColorProfile\JapanColor2001Coated.icc" />
-    <Content Include="ColorProfile\JapanColor2001Uncoated.icc" />
-    <Content Include="ColorProfile\JapanColor2002Newspaper.icc" />
-    <Content Include="ColorProfile\JapanColor2003WebCoated.icc" />
-    <Content Include="ColorProfile\JapanWebCoated.icc" />
-    <Content Include="ColorProfile\UncoatedFOGRA29.icc" />
-    <Content Include="ColorProfile\USWebCoatedSWOP.icc" />
-    <Content Include="ColorProfile\USWebUncoated.icc" />
-    <Content Include="ColorProfile\WebCoatedFOGRA28.icc" />
-    <Content Include="ColorProfile\WebCoatedSWOP2006Grade3.icc" />
-    <Content Include="ColorProfile\WebCoatedSWOP2006Grade5.icc" />
+    <Content Include="Views\Shared\_LayoutPage.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\_ViewStart.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Editor\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Areas\Admin\Views\CustomerManager\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Dashboard\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\OrderManager\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\PaymentManager\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\_AdminLayoutPage.cshtml" />
-    <Content Include="Areas\Admin\Views\Shared\_GridGlobalMaster.cshtml" />
-    <Content Include="Areas\Admin\Views\TestimonialManager\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\UserAccountManager\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Web.config" />
-    <Content Include="Styles\Fonts\opensans-bold_0-webfont.eot" />
-    <Content Include="Styles\Fonts\opensans-bold_0-webfont.ttf" />
-    <Content Include="Styles\Fonts\opensans-bold_0-webfont.woff" />
-    <Content Include="Styles\Fonts\opensans-regular_0-webfont.eot" />
-    <Content Include="Styles\Fonts\opensans-regular_0-webfont.ttf" />
-    <Content Include="Styles\Fonts\opensans-regular_0-webfont.woff" />
-    <Content Include="Styles\Fonts\oswald-bold-webfont.eot" />
-    <Content Include="Styles\Fonts\oswald-bold-webfont.ttf" />
-    <Content Include="Styles\Fonts\oswald-bold-webfont.woff" />
-    <Content Include="Styles\Images\Keystone_Sign up.pdf" />
-    <Content Include="Uploads\WriteTest.csv" />
-  </ItemGroup>
-  <ItemGroup>
-    <EntityDeploy Include="Data\Context\KeystoneDBContext.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>KeystoneDBContext.Designer.cs</LastGenOutput>
-    </EntityDeploy>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -864,27 +874,12 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
-          <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>0</DevelopmentServerPort>
-          <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:1617/</IISUrl>
-          <NTLMAuthentication>False</NTLMAuthentication>
-          <UseCustomServer>False</UseCustomServer>
-          <CustomServerUrl>
-          </CustomServerUrl>
-          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+          <SaveServerSettingsInUserFile>True</SaveServerSettingsInUserFile>
         </WebProjectProperties>
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
-  <Import Project="..\packages\AutoMapper.3.2.1\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.2.1\tools\AutoMapper.targets')" />
-  <Import Project="..\packages\AutoMapper.3.2.1\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.2.1\tools\AutoMapper.targets')" />
-  <Import Project="..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets" Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" />
-  <Target Name="EnsureBclBuildImported" BeforeTargets="BeforeBuild" Condition="'$(BclBuildImported)' == ''">
-    <Error Condition="!Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=317567." HelpKeyword="BCLBUILD2001" />
-    <Error Condition="Exists('..\packages\Microsoft.Bcl.Build.1.0.14\tools\Microsoft.Bcl.Build.targets')" Text="The build restored NuGet packages. Build the project again to include these packages in the build. For more information, see http://go.microsoft.com/fwlink/?LinkID=317568." HelpKeyword="BCLBUILD2002" />
-  </Target>
+  <Import Project="..\packages\AutoMapper.3.2.0-ci1017\tools\AutoMapper.targets" Condition="Exists('..\packages\AutoMapper.3.2.0-ci1017\tools\AutoMapper.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

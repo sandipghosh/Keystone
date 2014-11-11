@@ -5,18 +5,8 @@
 }
 
 @section AdimnPageScript{
-    @if (OptimizationExtensions.IsJsMinify)
-    {
-        <script type="text/javascript" src='@BundleTable.Bundles.ResolveBundleUrl("~/Scripts/PaymentManager")'></script>
-    }
-    else
-    { @Scripts.Render("~/Scripts/PaymentManager")}
-
-    @*<script type="text/javascript" src='@Url.Content("~/Areas/Admin/Scripts/payment-manager.js")'></script>*@
+    @Html.RenderScripts("~/Scripts/PaymentManager")
 }
-@*@section AdimnPageStyle{
-    <link rel="stylesheet" type="text/css" media="screen" href="themes/jqModal.css" />
-}*@
 
 @Html.Hidden("SchemaData", (object)ViewBag.SchemaData)
 @Html.Partial("_GridGlobalMaster")

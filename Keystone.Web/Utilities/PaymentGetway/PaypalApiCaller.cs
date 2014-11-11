@@ -226,9 +226,7 @@ namespace Keystone.Web.Utilities.PaymentGetway
                     myWriter.Write(strPost);
                 }
             }
-            catch (Exception ex)
-            {
-            }
+            catch (Exception) { }
 
             //Retrieve the Response returned from the NVP API call to PayPal.
             HttpWebResponse objResponse = (HttpWebResponse)objRequest.GetResponse();

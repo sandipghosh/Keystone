@@ -52,7 +52,7 @@ namespace Keystone.Web.Security
             }
             catch (Exception ex)
             {
-                //CrossCutting.Utility.LogToFile(ex.Message);
+                ex.ExceptionValueTracker(sender, e);
             }
         }
 

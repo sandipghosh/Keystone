@@ -17,25 +17,11 @@
         </text>))
     </script>
 
-    @if (OptimizationExtensions.IsJsMinify)
-    {
-        <script type="text/javascript" src='@BundleTable.Bundles.ResolveBundleUrl("~/Scripts/Grid")'></script>
-    }
-    else
-    {
-        @Scripts.Render("~/Scripts/Grid")
-    }
+    @Html.RenderScripts("~/Scripts/Grid")
     @RenderSection("AdimnPageScript", false)
 }
 @section PageStyle{
-    @if (OptimizationExtensions.IsCssMinify)
-    {
-        <link type="text/css" rel="stylesheet" href='@BundleTable.Bundles.ResolveBundleUrl("~/Styles/Admin")' />
-    }
-    else
-    {
-        @Styles.Render("~/Styles/Admin")
-    }
+    @Html.RenderStyles("~/Styles/Admin")
     @RenderSection("AdimnPageStyle", false)
 }
 <div class="admin-container">
